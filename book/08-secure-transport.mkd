@@ -1,398 +1,233 @@
-Secure Transport Layer
-======================
+Sichere Transportschicht
+========================
 
-\index{Transport Layer}
+\index{Transportschicht}
 \index{Layer!Transport}
-In the early days of the Internet, networks were small and all of the
-routers were in secure locations. As long as each computer connected
-to the Internet protected itself from unwanted incoming connections,
-it was felt that there was no need to protect data from prying eyes
-while it was crossing the network.
+In den frühen Tagen des Internets waren die Netzwerke klein und alle Router befanden sich an sicheren Orten. Solange jeder Computer, der mit dem Internet verbunden war, sich selbst vor unerwünschten eingehenden Verbindungen schützte, hielt man es nicht für notwendig, Daten vor neugierigen Blicken zu schützen, während sie das Netzwerk durchquerten.
 
-So the Link, Internetwork, and Transport layers were focused on the
-efficient movement of data and solving the problems of a large-scale
-shared distributed network without worrying about the privacy of that data.
+Daher konzentrierten sich die Schichten Link, Internetwork und Transport auf die effiziente Bewegung von Daten und die Lösung der Probleme eines großen, gemeinsam genutzten, verteilten Netzwerks, ohne sich um die Privatsphäre dieser Daten zu kümmern.
 
-But as the use of the Internet grew rapidly in the late 1980s and literally
-exploded when the Web became mainstream in 1994, security and privacy of
-network traffic became very important problems to solve. When we began
-using the Internet to conduct commerce and credit cards and bank account
-numbers were being routinely sent across the network, securing data
-became essential. And when we started using wireless technologies like WiFi,
-security became necessary for even the simplest uses of the Internet.
+Aber als die Nutzung des Internets in den späten 1980er Jahren schnell zunahm und buchstäblich explodierte, als das Web 1994 zum Mainstream wurde, wurden Sicherheit und Datenschutz des Netzwerkverkehrs zu sehr wichtigen Problemen, die es zu lösen galt. Als wir begannen, das Internet zur Abwicklung von Geschäften zu nutzen und Kreditkarten und Bankkontonummern routinemäßig über das Netzwerk gesendet wurden, wurde die Sicherung von Daten unerlässlich. Und als wir begannen, drahtlose Technologien wie WiFi zu verwenden, wurde Sicherheit selbst für die einfachsten Anwendungen des Internets notwendig.
 
-\index{physical security}
-There are two general approaches to securing network activity. The first
-makes sure that all of the network hardware (routers and links) is in
-physically secure locations so it is not possible for someone to sneak in
-and monitor traffic while it is crossing the Internet. This approach is not
-practical for hundreds of thousands of network routers owned and operated by
-many different organizations. While you might be able to ensure that some of
-the router operators adhered to strict security procedures and policies,
-sooner or later a mistake will be made. And once WiFi was added to the mix
-and your packets went over radio waves, a network attacker could just sit
-in a coffee shop and intercept packets as they passed through the air.
+\index{Physikalische Sicherheit}
+Es gibt zwei allgemeine Ansätze zur Sicherung von Netzwerkaktivitäten. Der erste stellt sicher, dass sich die gesamte Netzwerkhardware (Router und Links) an physisch sicheren Orten befindet, sodass es für jemanden nicht möglich ist, sich einzuschleichen und den Datenverkehr zu überwachen, während er das Internet durchquert. Dieser Ansatz ist nicht praktikabel für Hunderttausende von Netzwerk-Routern, die sich im Besitz vieler verschiedener Organisationen befinden und von diesen betrieben werden. Sie könnten zwar sicherstellen, dass einige der Router-Betreiber strenge Sicherheitsverfahren und -richtlinien einhalten, aber früher oder später wird ein Fehler gemacht. Und sobald WiFi zu dem Mix hinzugefügt wurde und Ihre Pakete über Funkwellen liefen, könnte ein Netzwerkangreifer einfach in einem Café sitzen und Pakete abfangen, während sie durch die Luft gehen.
 
-Under these conditions, the only reasonable solution is to encrypt data in
-your computer before it is sent across its first physical link, and then decrypt
-the data in the destination computer after it arrives. Using this approach, we
-assume that an attacker can see all of the packets that you send, but they
-cannot decrypt the data that they have captured. The encryption also guarantees
-that there is no way to alter your data while it is crossing the Internet.
+Unter diesen Bedingungen besteht die einzige vernünftige Lösung darin, die Daten in Ihrem Computer zu verschlüsseln, bevor sie über die erste physikalische Verbindung gesendet werden, und sie dann im Zielcomputer zu entschlüsseln, nachdem sie dort angekommen sind. Bei diesem Ansatz gehen wir davon aus, dass ein Angreifer alle von Ihnen gesendeten Pakete sehen kann, aber er kann die erbeuteten Daten nicht entschlüsseln. Die Verschlüsselung garantiert außerdem, dass es keine Möglichkeit gibt, Ihre Daten zu verändern, während sie das Internet durchqueren.
 
-Encrypting and Decrypting Data
+Verschlüsseln und Entschlüsseln von Daten
 ------------------------------
 
 \index{Caesar Cipher}
-\index{plain text}
+\index{Klartext}
 \index{cipher text}
-The concept of protecting information so it cannot be read while it is being
-transported over an insecure medium is thousands of years old. The leaders
-in Roman armies sent coded messages to each other using a code called the
-"Caesar Cipher". The simplest version of this approach is to take each of the
-characters of the actual message (we call this "plain text") and shift
-each character a fixed distance down the alphabet to produce the
-scrambled message or "ciphertext".
+Das Konzept, Informationen so zu schützen, dass sie nicht gelesen werden können, während sie über ein unsicheres Medium transportiert werden, ist tausende von Jahren alt. Die Anführer der römischen Armeen schickten sich gegenseitig verschlüsselte Nachrichten mit Hilfe eines Codes, der
+"Caesar-Chiffre". Die einfachste Version dieses Ansatzes besteht darin, jedes einzelne Zeichen der eigentlichen Nachricht (wir nennen dies "Klartext") zu nehmen und jedes Zeichen um einen festen Abstand im Alphabet zu verschieben, um die verschlüsselte Nachricht oder den "Chiffretext" zu erzeugen.
 
-Then we send the ciphertext via the courier or other insecure transport to
-the other person. The courier cannot read the message because it appears
-to be random characters unless you know the technique used to encode the
-message.
+Dann schicken wir den Chiffretext über den Kurier oder einen anderen unsicheren Transport an die andere Person. Der Kurier kann die Nachricht nicht lesen, da sie aus zufälligen Zeichen zu bestehen scheint, es sei denn, man kennt die Technik, mit der die Nachricht verschlüsselt wurde.
 
-As long as the person receiving the message knew the number used to
-shift the message, they could unshift the characters in the encoded message
-to reproduce the original message.
+Solange die Person, die die Nachricht empfängt, die Zahl kennt, die zum Verschieben der Nachricht verwendet wurde, kann sie die Zeichen in der verschlüsselten Nachricht zurücksetzen, um die ursprüngliche Nachricht zu reproduzieren.
 
-Here is a simple example of plain text and ciphertext using a shift of one:
+Hier ist ein einfaches Beispiel für Klartext und Chiffretext mit einer Verschiebung von eins:
 
-    Plain text:  Go to the river
-    Cipher text: Hp up uif sjwfs
+    Klartext:  Geh zum Fluss
+    Chiffrierter Text: Hp up uif sjwfs
 
 \index{encrypt}
 \index{decrypt}
-We use the word "encrypt" to describe transforming the plain text to the
-ciphertext and "decrypt" to describe the reverse process.
+Wir verwenden das Wort "verschlüsseln", um die Umwandlung des Klartextes in den Chiffretext zu beschreiben und "entschlüsseln", um den umgekehrten Vorgang zu beschreiben.
 
-The Caesar Cipher is very simple to defeat, but it was used to protect
-important messages until about 150 years ago. Modern encryption techniques
-are far more sophisticated than a simple character shift, but all
-encryption systems depend on some kind of a secret key that both parties are
-aware of so they can decrypt received data.
+Die Caesar-Chiffre ist sehr einfach zu überwinden, aber sie wurde bis vor etwa 150 Jahren zum Schutz wichtiger Nachrichten verwendet. Moderne Verschlüsselungstechniken sind weitaus ausgefeilter als eine einfache Zeichenverschiebung, aber alle Verschlüsselungssysteme hängen von einer Art geheimem Schlüssel ab, der beiden Parteien bekannt ist, damit sie die empfangenen Daten entschlüsseln können.
 
-Two Kinds of Secrets
+Zwei Arten von Geheimnissen
 --------------------
 
 \index{shared secret}
-The traditional way to encrypt transmissions is using a 
-shared secret (a password, a sentence, a number) that only the sending and
-receiving parties know. With the secret, it is easy to decrypt the received
-data, but if you received the data without possessing the secret, it would be
-effectively impossible to decrypt the message.
+Die traditionelle Art, Übertragungen zu verschlüsseln, ist die Verwendung eines 
+gemeinsames Geheimnis (ein Kennwort, ein Satz, eine Zahl), das nur die sendende und die empfangende Partei kennen. Mit dem Geheimnis ist es einfach, die empfangenen Daten zu entschlüsseln, aber wenn Sie die Daten empfangen, ohne das Geheimnis zu besitzen, wäre es praktisch unmöglich, die Nachricht zu entschlüsseln.
 
-![Shared Versus Asymmetric Keys](../sketchnote/Shared_vs_Asymmetric)
+![Gemeinsame Schlüssel vs. asymmetrische Schlüssel](../sketchnote/Shared_vs_Asymmetric)
 
-In the early days of the Internet, two people could send encrypted email to each
-other by one person first calling the other person on the phone and giving them
-the decryption secret. This worked well when there were only a few users on the
-network, but could not scale to situations where a company might have millions
-of customers and could not afford to make a phone call to each customer to
-establish a shared secret before they could make a purchase.
+In den frühen Tagen des Internets konnten sich zwei Personen verschlüsselte E-Mails schicken, indem eine Person die andere zuerst anrief und ihr das Entschlüsselungsgeheimnis mitteilte. Dies funktionierte gut, wenn es nur ein paar Benutzer im Netzwerk gab, konnte aber nicht auf Situationen skaliert werden, in denen ein Unternehmen vielleicht Millionen von Kunden hat und es sich nicht leisten konnte, jeden Kunden anzurufen, um ein gemeinsames Geheimnis festzulegen, bevor er einen Kauf tätigen konnte.
 
-It might seem like a good idea to distribute the shared secrets over the
-Internet, but if we assume that the attackers are monitoring and capturing all
-network traffic, they could also capture the unencrypted message that contained
-the shared secret.  At that point it would be trivial for the attacker to
-use the shared secret to decrypt a message. And even worse, the attacker could
-intercept a message, delay it, then decrypt it, change and re-encrypt it, and
-send the modified message back on its way.  The receiving computer would
-decrypt the message and never know that it had been modified by an
-attacker while in transit.
+Es mag wie eine gute Idee erscheinen, die gemeinsamen Geheimnisse über das Internet zu verteilen, aber wenn wir davon ausgehen, dass die Angreifer den gesamten Netzwerkverkehr überwachen und aufzeichnen, könnten sie auch die unverschlüsselte Nachricht aufzeichnen, die das gemeinsame Geheimnis enthält.  An diesem Punkt wäre es für den Angreifer trivial, das gemeinsame Geheimnis zu verwenden, um eine Nachricht zu entschlüsseln. Und noch schlimmer: Der Angreifer könnte eine Nachricht abfangen, sie verzögern, sie dann entschlüsseln, verändern und neu verschlüsseln und die veränderte Nachricht wieder auf den Weg schicken.  Der empfangende Computer würde die Nachricht entschlüsseln und nie erfahren, dass sie von einem Angreifer während der Übertragung verändert wurde.
 
-So shared secrets clearly would not work to solve the problem of securing
-network traffic between trillions of pairs of networked computers.
+Gemeinsame Geheimnisse würden also eindeutig nicht funktionieren, um das Problem der Sicherung des Netzwerkverkehrs zwischen Billionen von vernetzten Computerpaaren zu lösen.
 
-\index{asymmetric key}
-\index{private key}
-\index{public key}
-The solution to this problem came in the 1970s when the concept of asymmetric
-key encryption was developed. The idea of asymmetric key encryption is that
-one key is used to encrypt the message and another key is used to decrypt it.
-The computer that will be receiving the encrypted data chooses both
-the encryption key and decryption key. Then the encryption key is sent to
-the computer that will be sending the data. The sending computer encrypts the
-data and sends it across the network. The receiving computer uses the
-decryption key to decrypt the data.
+\index{asymmetrischer Schlüssel}
+\index{privater Schlüssel}
+\index{öffentlicher Schlüssel}
+Die Lösung für dieses Problem kam in den 1970er Jahren, als das Konzept der asymmetrischen Schlüsselverschlüsselung entwickelt wurde. Die Idee der asymmetrischen Schlüsselverschlüsselung ist, dass ein Schlüssel zum Verschlüsseln der Nachricht verwendet wird und ein anderer Schlüssel zum Entschlüsseln. Der Computer, der die verschlüsselten Daten empfangen soll, wählt sowohl den Verschlüsselungsschlüssel als auch den Entschlüsselungsschlüssel. Dann wird der Verschlüsselungsschlüssel an den Computer gesendet, der die Daten senden soll. Der sendende Computer verschlüsselt die Daten und sendet sie über das Netzwerk. Der empfangende Computer verwendet den Entschlüsselungsschlüssel, um die Daten zu entschlüsseln.
 
-We call the encryption key the "public" key because it can be widely shared.
-We call the decryption key the "private" key because it never leaves the
-computer where it was created. Another name for asymmetric keys is
-public/private keys.
+Der Verschlüsselungsschlüssel wird als "öffentlicher" Schlüssel bezeichnet, da er weit verbreitet werden kann. Der Entschlüsselungsschlüssel wird als "privater" Schlüssel bezeichnet, da er den Computer, auf dem er erstellt wurde, nie verlässt. Ein anderer Name für asymmetrische Schlüssel ist öffentlicher/privater Schlüssel.
 
-The whole process is designed so that if an attacker has the public key (which
-was sent unencrypted) and the encrypted text, it is virtually impossible to
-decrypt the encrypted data. There is a lot of math with large prime numbers
-that makes it hard to guess the private key from the public key and encrypted
-data.
+Der gesamte Prozess ist so konzipiert, dass es für einen Angreifer, der den öffentlichen Schlüssel (der unverschlüsselt gesendet wurde) und den verschlüsselten Text besitzt, praktisch unmöglich ist, die verschlüsselten Daten zu entschlüsseln. Es gibt eine Menge Mathematik mit großen Primzahlen, die es schwer macht, den privaten Schlüssel aus dem öffentlichen Schlüssel und den verschlüsselten Daten zu erraten.
 
-So with the advent of public/private key technology, the only question left
-was how to apply it in our network model.
+Mit dem Aufkommen der Public/Private-Key-Technologie stellte sich also nur noch die Frage, wie man sie in unserem Netzwerkmodell anwenden kann.
 
-Secure Sockets Layer (SSL)
+Sichere Sockelschicht (SSL)
 --------------------------
 
 \index{Secure Sockets Layer}
 \index{SSL}
 \index{TLS}
 \index{Transport Layer Security}
-Since network engineers decided to add security nearly 20 years after the Internet
-protocols were developed, it was important not to break any existing Internet
-protocols or architecture. Their solution was to add an optional partial layer
-between the Transport layer and the Application layer. They called this
-partial layer the Secure Sockets Layer (SSL) or Transport Layer Security (TLS).
+Da die Netzwerkingenieure beschlossen, die Sicherheit fast 20 Jahre nach der Entwicklung der Internetprotokolle hinzuzufügen, war es wichtig, keine bestehenden Internetprotokolle oder Architekturen zu zerstören. Ihre Lösung bestand darin, eine optionale Teilschicht zwischen der Transportschicht und der Anwendungsschicht einzufügen. Sie nannten diese Teilschicht Secure Sockets Layer (SSL) oder Transport Layer Security (TLS).
 
-![Where Encryption and Decryption Happens](../sketchnote/Encr_Decr)
+Wo die Ver- und Entschlüsselung stattfindet (../sketchnote/Encr_Decr)
 
-When an application requested that the Transport layer make a connection to
-a remote host, it could request that the connection either be encrypted or
-unencrypted. If an encrypted connection was requested, the Transport layer
-encrypted the data before breaking the stream into packets. This meant that
-the Transport layer, Internetwork layer, and physical (link) layers could still
-perform exactly the same way whether the packets were encrypted or
-non-encrypted. The applications making the connections were also spared the
-details of how encryption and decryption worked.
+Wenn eine Anwendung die Transportschicht auffordert, eine Verbindung zu einem
+einem entfernten Host aufbaut, konnte sie verlangen, dass die Verbindung entweder verschlüsselt oder unverschlüsselt ist. Wenn eine verschlüsselte Verbindung angefordert wurde, verschlüsselte die Transportschicht die Daten, bevor sie den Datenstrom in Pakete zerlegte. Das bedeutete, dass die Transportschicht, die Internet-Netzwerkschicht und die physikalische (Verbindungs-)Schicht immer noch genau dasselbe tun konnten, egal ob die Pakete verschlüsselt oder unverschlüsselt waren. Die Anwendungen, die die Verbindungen herstellen, wurden auch von den Details der Ver- und Entschlüsselung verschont.
 
-Since encryption was a simple and transparent addition to the Transport layer,
-there was no need to change the routers that operate at the Internetwork and
-Link layers. There was no need to change any Link layer hardware to make
-encryption work. And applications did not need to be modified except to
-request that a connection be encrypted when appropriate.
+Da die Verschlüsselung eine einfache und transparente Ergänzung der Transportschicht war, mussten die Router, die auf der Internetwork- und Link-Schicht arbeiten, nicht geändert werden. Die Hardware der Verbindungsschicht musste nicht verändert werden, damit die Verschlüsselung funktioniert. Und die Anwendungen mussten nicht verändert werden, außer dass sie gegebenenfalls die Verschlüsselung einer Verbindung anforderten.
 
-Encrypting Web Browser Traffic
+Verschlüsselung des Webbrowser-Verkehrs
 ------------------------------
 
 \index{https}
-Since web browsers and web servers operate at the application layer, we barely
-notice whether we are using encrypted or unencrypted connections. Web browsers
-use the URL convention of replacing "http:" with "https:" to indicate that the
-browser is to communicate with the web server using the Secure Transport Layer
-instead of the unencrypted Transport layer.   Your browser will usually show a 
-"lock" icon in the address bar to let you know that you are communicating with
-a secure web site.
+Da Webbrowser und Webserver auf der Anwendungsebene arbeiten, merken wir kaum, ob wir verschlüsselte oder unverschlüsselte Verbindungen verwenden. Webbrowser verwenden die URL-Konvention, "http:" durch "https:" zu ersetzen, um anzuzeigen, dass der Browser mit dem Webserver über die sichere Transportschicht statt über die unverschlüsselte Transportschicht kommunizieren soll.   Ihr Browser zeigt normalerweise ein 
+"Schloss"-Symbol in der Adressleiste an, um Ihnen mitzuteilen, dass Sie mit einer sicheren Website kommunizieren.
+einer sicheren Website kommunizieren.
 
-There is a small overhead in setting up the https connections and a small cost
-to encrypt and decrypt the data that is being sent. Since https was slightly
-more costly, for a while it was used only for pages that contained passwords,
-bank account numbers, or other sensitive data.
+Es gibt einen kleinen Overhead beim Einrichten der https-Verbindungen und geringe Kosten für das Ver- und Entschlüsseln der gesendeten Daten. Da https etwas kostspieliger war, wurde es eine Zeit lang nur für Seiten verwendet, die Passwörter, Bankkontonummern oder andere sensible Daten enthielten.
 
-But over time as networks have become faster and the https implementations have
-gotten much more efficient, there is a trend toward encrypting all web server
-interactions whenever you are interacting with a web server where you have an
-account.  The current trend is towards using https for all web traffic.
+Aber im Laufe der Zeit, als die Netzwerke schneller wurden und die https-Implementierungen viel effizienter wurden, gibt es einen Trend zur Verschlüsselung aller Webserver-Interaktionen, wann immer Sie mit einem Webserver interagieren, bei dem Sie ein Konto haben.  Der aktuelle Trend geht dahin, https für den gesamten Webverkehr zu verwenden.
 
-Certificates and Certificate Authorities
+Zertifikate und Zertifizierungsstellen
 ----------------------------------------
 
 \index{CA}
-\index{Certificate Authority}
-While public/private key encryption works to allow the distribution
-of encryption keys across insecure networks and the use of those keys
-to encrypt transmissions, there is still a problem of knowing if the
-public key that you have received when you connected to a server is
-really from the organization it claims to be from.
+\index{Zertifizierungsstelle}
+Während die Verschlüsselung mit öffentlichen/privaten Schlüsseln funktioniert, um die Verteilung von Verschlüsselungsschlüsseln über unsichere Netzwerke und die Verwendung dieser Schlüssel zur Verschlüsselung von Übertragungen zu ermöglichen, gibt es immer noch das Problem, zu wissen, ob der öffentliche Schlüssel, den Sie erhalten haben, wenn Sie sich mit einem Server verbinden, wirklich von der Organisation stammt, von der er behauptet, zu sein.
 
-![Certificate Authorities and Public Keys](../sketchnote/Certificate_Authorities3)
+![Zertifizierungsstellen und öffentliche Schlüssel](../sketchnote/Certificate_Authorities3)
 
-Perhaps you think you are connecting to www.amazon.com but a rogue computer
-intercepts your traffic, claiming to be www.amazon.com and giving you a public
-key to use for encryption. If your web browser trusts the key,
-it will use the rogue computer's public key to encrypt your banking information
-and send it to the rogue computer. Since the rogue computer gave you the
-public key, it also has the corresponding private key and is able to decrypt
-and abscond with your banking information.
+Vielleicht denken Sie, dass Sie sich mit www.amazon.com verbinden, aber ein unseriöser Computer fängt Ihren Datenverkehr ab, behauptet, www.amazon.com zu sein und gibt Ihnen einen öffentlichen Schlüssel, den Sie zur Verschlüsselung verwenden können. Wenn Ihr Webbrowser dem Schlüssel vertraut, wird er den öffentlichen Schlüssel des unseriösen Computers verwenden, um Ihre Bankdaten zu verschlüsseln und an den unseriösen Computer zu senden. Da der betrügerische Computer Ihnen den öffentlichen Schlüssel gegeben hat, verfügt er auch über den entsprechenden privaten Schlüssel und ist in der Lage, Ihre Bankdaten zu entschlüsseln und sich aus dem Staub zu machen.
 
-\index{digital signatures}
+\index{digitale Signaturen}
 \index{signed key}
-So your computer needs to know who the key is actually coming from.   This is
-achieved by sending you a public key that is digitally signed by a Certificate
-Authority (CA). When your computer or browser is initially installed, it knows
-about a number of well-known certificate authorities. If your browser is given
-a public key that is signed by one of the well-known certificate authorities,
-it trusts the key and uses it to encrypt and send your data. If your computer
-receives a public key that is not signed by one of its trusted certificate
-authorities, it will warn you before sending your data using the key.
+Ihr Computer muss also wissen, von wem der Schlüssel tatsächlich stammt.   Dies wird erreicht, indem Ihnen ein öffentlicher Schlüssel geschickt wird, der von einer Zertifizierungsstelle (CA) digital signiert ist. Bei der Erstinstallation Ihres Computers oder Browsers sind ihm eine Reihe bekannter Zertifizierungsstellen bekannt. Wenn Ihr Browser
+einen öffentlichen Schlüssel erhält, der von einer der bekannten Zertifizierungsstellen signiert ist, vertraut er dem Schlüssel und verwendet ihn zum Verschlüsseln und Senden Ihrer Daten. Wenn Ihr Computer einen öffentlichen Schlüssel erhält, der nicht von einer seiner vertrauenswürdigen Zertifizierungsstellen signiert ist, warnt er Sie, bevor er Ihre Daten mit diesem Schlüssel sendet.
 
-If you see a warning message about an untrusted certificate, you should
-probably say "no" and figure out why your network traffic is not being routed
-to the server that you think it is going to before sending any sensitive data.
+Wenn Sie eine Warnmeldung über ein nicht vertrauenswürdiges Zertifikat sehen, sollten Sie wahrscheinlich "Nein" sagen und herausfinden, warum Ihr Netzwerkverkehr nicht zu dem Server geleitet wird, von dem Sie glauben, dass er dorthin geht, bevor Sie sensible Daten senden.
 
-Summary
+Zusammenfassung
 -------
 
-Since the Internet was nearly 20 years old before we needed broadly deployed
-security, we had to find a way to add security to the already existing
-four-layer model. The perfect place to add security was as an option in the
-Transport layer. This is why we call secure connections on the Internet
-"Secure Sockets Layer" (SSL) or "Transport Layer Security" (TLS).  There
-are subtle differences between SSL and TLS but they both encrypt data
-at the Transport layer.
+Da das Internet fast 20 Jahre alt war, bevor wir breit angelegte Sicherheit benötigten, mussten wir einen Weg finden, dem bereits bestehenden Vier-Schichten-Modell Sicherheit hinzuzufügen. Der perfekte Ort, um Sicherheit hinzuzufügen, war als Option in der Transportschicht. Aus diesem Grund nennen wir sichere Verbindungen im Internet
+"Secure Sockets Layer" (SSL) oder "Transport Layer Security" (TLS).  Es gibt subtile Unterschiede zwischen SSL und TLS, aber beide verschlüsseln Daten auf der Transportschicht.
 
-The invention of public/private key encryption was well timed in that it solved
-the key distribution problem of shared-secret encryption approaches. With
-public/private keys, the public encryption key can be routinely shared across
-insecure media. This means we can use an unencrypted connection to exchange
-data and upgrade the connection to a secure connection.
+Die Erfindung der Verschlüsselung mit öffentlichen/privaten Schlüsseln kam zur rechten Zeit, denn sie löste das Problem der Schlüsselverteilung bei Verschlüsselungsansätzen mit geteiltem Geheimnis. Mit öffentlichen/privaten Schlüsseln kann der öffentliche Chiffrierschlüssel routinemäßig über unsichere Medien verteilt werden. Das bedeutet, dass wir eine unverschlüsselte Verbindung zum Datenaustausch verwenden und die Verbindung zu einer sicheren Verbindung aufrüsten können.
 
-By inserting the secure layer at the top of the Transport layer, we were able to
-avoid changing the Application, Internetwork, and Link layers while still
-easily securing any Transport layer connection. This approach
-ensures that all data being sent across a connection is encrypted before it
-leaves your computer.  Given that many of us use wireless connections like WiFi,
-which are easily monitored by attackers, it is a good idea to encrypt data
-before it is sent across WiFi.
+Durch das Einfügen der sicheren Schicht an der Spitze der Transportschicht konnten wir eine Änderung der Anwendungs-, Internetnetzwerk- und Verbindungsschicht vermeiden und trotzdem jede Verbindung der Transportschicht problemlos sichern. Dieser Ansatz stellt sicher, dass alle Daten, die über eine Verbindung gesendet werden, verschlüsselt werden, bevor sie Ihren Computer verlassen.  Da viele von uns drahtlose Verbindungen wie WiFi verwenden, die leicht von Angreifern überwacht werden können, ist es eine gute Idee, Daten zu verschlüsseln, bevor sie über WiFi gesendet werden.
 
-Browsers support secure connections by changing the prefix on the URL
-from "http:" to "https:". By keeping an eye on the URL, end users can make
-sure they never send sensitive data across insecure connections. A series of
-trusted Certificate Authorities will sign public keys to give
-you an assurance that the key you received is indeed from the organization
-you expect it to be.
+Browser unterstützen sichere Verbindungen, indem sie das Präfix der URL von "http:" in "https:" ändern. Indem sie die URL im Auge behalten, können Endbenutzer sicherstellen, dass sie niemals sensible Daten über unsichere Verbindungen senden. Eine Reihe von vertrauenswürdigen Zertifizierungsstellen signiert öffentliche Schlüssel, um Ihnen die Gewissheit zu geben, dass der erhaltene Schlüssel tatsächlich von der Organisation stammt, von der Sie ihn erwarten.
 
-The design of the Secure Transport Layer provides a secure and yet easy-to-use
-mechanism for secure communications across the Internet at a scale of trillions
-of pairs of interacting computers.
+Das Design des Secure Transport Layer bietet einen sicheren und dennoch einfach zu bedienenden Mechanismus für die sichere Kommunikation über das Internet in einer Größenordnung von Billionen von Paaren von interagierenden Computern.
 
-Glossary
+Glossar
 --------
 
-**asymmetric key**: An approach to encryption where one (public) key is used
-to encrypt data prior to transmission and a different (private) key is used to
-decrypt data once it is received.
+**asymmetrischer Schlüssel**: Ein Ansatz zur Verschlüsselung, bei dem ein (öffentlicher) Schlüssel zum Verschlüsseln von Daten vor der Übertragung und ein anderer (privater) Schlüssel zum Entschlüsseln der Daten nach dem Empfang verwendet wird.
 
-**certificate authority**: An organization that digitally signs public keys
-after verifying that the name listed in the public key is actually the person
-or organization in possession of the public key.
+**Zertifizierungsstelle**: Eine Organisation, die öffentliche Schlüssel digital signiert, nachdem sie überprüft hat, dass der im öffentlichen Schlüssel aufgeführte Name tatsächlich die Person oder Organisation ist, die im Besitz des öffentlichen Schlüssels ist.
 
-**ciphertext**: A scrambled version of a message that cannot be read without
-knowing the decryption key and technique.
+**Chiffriertext**: Eine verschlüsselte Version einer Nachricht, die ohne Kenntnis des Entschlüsselungsschlüssels und -verfahrens nicht gelesen werden kann.
 
-**decrypt**: The act of transforming a ciphertext message to a plain text message
-using a secret or key.
+**Entschlüsseln**: Der Akt der Umwandlung einer Chiffretextnachricht in eine Klartextnachricht unter Verwendung eines Geheimnisses oder Schlüssels.
 
-**encrypt**: The act of transforming a plain text message to a ciphertext message
-using a secret or key.
+**Verschlüsseln**: Der Vorgang der Umwandlung einer Klartextnachricht in eine Chiffretextnachricht unter Verwendung eines Geheimnisses oder Schlüssels.
 
-**plain text**: A readable message that is about to be encrypted before being sent.
+**Klartext**: Eine lesbare Nachricht, die vor dem Versenden verschlüsselt werden soll.
 
-**private key**: The portion of a key pair that is used to decrypt transmissions.
+**privater Schlüssel**: Der Teil eines Schlüsselpaars, der zum Entschlüsseln von Übertragungen verwendet wird.
 
-**public key**: The portion of a key pair that is used to encrypt transmissions.
+**Öffentlicher Schlüssel**: Der Teil eines Schlüsselpaars, der zum Verschlüsseln von Übertragungen verwendet wird.
 
-**shared secret**: An approach to encryption that uses the same key for encryption
-and decryption.
+**Gemeinsames Geheimnis**: Ein Ansatz zur Verschlüsselung, bei dem derselbe Schlüssel für die Ver- und Entschlüsselung verwendet wird.
 
-**SSL**: Secure Sockets Layer.  An approach that allows an application to
-request that a Transport layer connection is to be encrypted as it
-crosses the network. Similar to Transport Layer Security (TLS).
+**SSL**: Secure Sockets Layer.  Ein Ansatz, der es einer Anwendung ermöglicht, anzufordern, dass eine Verbindung auf der Transportschicht verschlüsselt werden soll, während sie das Netzwerk durchquert. Ähnlich wie bei Transport Layer Security (TLS).
 
-**TLS**: Transport Layer Security. An approach that allows an application to
-request that a Transport layer connection is to be encrypted as it
-crosses the network.  Similar to Secure Sockets Layer (SSL).
+**TLS**: Transport Layer Security. Ein Ansatz, der es einer Anwendung ermöglicht, anzufordern, dass eine Verbindung der Transportschicht verschlüsselt wird, während sie das Netzwerk durchquert.  Ähnlich wie Secure Sockets Layer (SSL).
 
 
-Questions
+Fragen
 ---------
 
-You can take this quiz online at http://www.net-intro.com/quiz/
+Sie können dieses Quiz online unter http://www.net-intro.com/quiz/ bearbeiten.
 
-1. How do we indicate that we want a secure connection when using a
-web browser?
-a) Use https:// in the URL
-b) Use a secure web browser
-c) Open an incognito window
-d) Manually encode the address of the server using SHA1
+1. Wie geben wir an, dass wir eine sichere Verbindung wünschen, wenn wir einen Webbrowser verwenden?
+a) Verwenden Sie https:// in der URL
+b) Verwenden Sie einen sicheren Webbrowser
+c) Öffnen Sie ein Inkognito-Fenster
+d) Manuelle Verschlüsselung der Adresse des Servers mit SHA1
 
-2. Why is a shared-secret approach not suitable for use on the Internet?
-a) Because people would lose or misplace the secret
-b) It is difficult to distribute the secrets
-c) Encryption and decryption with shared secrets are too easily broken
-d) Encryption and decryption with shared secrets take too much compute power
+2. Warum ist ein Shared-Secret-Verfahren nicht für den Einsatz im Internet geeignet?
+a) Weil Personen das Geheimnis verlieren oder verlegen würden
+b) Es ist schwierig, die Geheimnisse zu verbreiten
+c) Ver- und Entschlüsselung mit geteilten Geheimnissen sind zu leicht zu knacken
+d) Die Ver- und Entschlüsselung mit gemeinsamen Geheimnissen erfordert zu viel Rechenleistung
 
-3. What is the underlying mathematical concept that makes public/private key
-encryption secure?
-a) Continuous functions
-b) Taylor series
-c) Karnaugh Maps
-d) Prime numbers
+3. Welches mathematische Konzept liegt der Verschlüsselung mit öffentlichem/privatem Schlüssel zugrunde, das sie sicher macht?
+a) Kontinuierliche Funktionen
+b) Taylor-Reihen
+c) Karnaugh-Karten
+d) Primzahlen
 
-4. Which of the keys can be sent across the Internet in plain text without
-compromising security?
-a) Encryption key
-b) Decryption Key
-c) Shared Secret
-d) Univerally Safe Key (USK)
+4. Welcher der Schlüssel kann im Klartext über das Internet gesendet werden, ohne die Sicherheit zu beeinträchtigen?
+a) Chiffrierschlüssel
+b) Entschlüsselungsschlüssel
+c) Gemeinsames Geheimnis
+d) Univeral sicherer Schlüssel (USK)
 
-5. Where does the Secure Sockets Layer (SSL) fit in the
-four-layer Internet architecture?
-a) Below the Link layer
-b) Between the Link and Internetworking layers
-c) Between the Internetworking and Transport layers
-d) Between the Transport and Application layers
+5. Wo ist der Secure Sockets Layer (SSL) in der Vier-Schichten-Architektur des Internets einzuordnen?
+a) Unterhalb der Verbindungsschicht
+b) Zwischen der Verbindungsschicht und der Internetworking-Schicht
+c) Zwischen der Internetworking- und der Transport-Schicht
+d) Zwischen der Transport- und der Anwendungsschicht
 
-6. If you were properly using https in a browser over WiFi in a cafe,
-which of the following is the greatest risk to your losing credit
-card information when making an online purchase?
-a) Someone captured the packets that were sent across the WiFi
-b) Someone captured the packets in the gateway router
-c) Someone captured the packets as they passed through a core Intenet router
-d) You have a virus on your computer that is capturing keystrokes
+6. Wenn Sie ordnungsgemäß https in einem Browser über WiFi in einem Café verwendet haben, welche der folgenden Möglichkeiten stellt das größte Risiko für den Verlust von Kreditkarteninformationen bei einem Online-Einkauf dar?
+a) Jemand hat die Pakete abgefangen, die über das WiFi gesendet wurden
+b) Jemand hat die Pakete im Gateway-Router abgefangen
+c) Jemand hat die Pakete abgefangen, als sie durch einen Core-Internet-Router liefen
+d) Sie haben einen Virus auf Ihrem Computer, der Tastatureingaben aufzeichnet
 
-7. With the Secure Sockets Layer, where are packets encrypted and decrypted?
-a) They are encrypted and decrypted as they pass through the router
-b) Each physical link has its own separate encryption
-c) They are encrypted in your computer and decrypted in the server
-d) They are encrypted in the WiFi gateway and decrypted in the
-last router before the destination computer
+7. Wo werden beim Secure Sockets Layer die Pakete ver- und entschlüsselt?
+a) Sie werden verschlüsselt und entschlüsselt, während sie den Router passieren
+b) Jede physikalische Verbindung hat ihre eigene, separate Verschlüsselung
+c) Sie werden in Ihrem Computer verschlüsselt und im Server entschlüsselt
+d) Sie werden im WiFi-Gateway verschlüsselt und im letzten Router vor dem Zielrechner entschlüsselt
 
-8. What changes to the IP layer were needed to make secure
-socket layer (SSL) work?
-a) No changes were needed
-b) We had to add support for Secure IP (IPSEC)
-c) We needed to support longer packets in IP
-d) The Time-To-Live (TTL) value needed to be encrypted
+8. Welche Änderungen an der IP-Schicht waren erforderlich, damit Secure Socket Layer (SSL) funktioniert?
+a) Es waren keine Änderungen erforderlich
+b) Wir mussten Unterstützung für Secure IP (IPSEC) hinzufügen
+c) Wir mussten längere Pakete in IP unterstützen
+d) Der Time-To-Live (TTL)-Wert musste verschlüsselt werden
 
-9. If a rogue element was able to monitor all packets going through an
-undersea cable and you were using public/private key encryption properly,
-which of the following would be the most difficult for them to obtain?
-a) What servers you were communicating with
-b) How often you used the servers
-c) How much data you retrieved from the servers
-d) Which documents you retrieved from the servers
+9. Wenn ein abtrünniges Element in der Lage wäre, alle Pakete zu überwachen, die durch ein Unterseekabel gehen, und Sie die Verschlüsselung mit öffentlichen/privaten Schlüsseln ordnungsgemäß verwenden würden, welche der folgenden Informationen wäre für sie am schwierigsten zu erhalten?
+a) Mit welchen Servern Sie kommuniziert haben
+b) Wie oft Sie die Server benutzt haben
+c) Wie viele Daten Sie von den Servern abgerufen haben
+d) Welche Dokumente Sie von den Servern abgerufen haben
 
-10. What is the purpose of a Certificate Authority in public/private
-key encryption?
-a) To make sure people do not forge badges for learning activities
-b) To make sure packets get routed to the correct destination computer
-c) To assure us that a public key comes from the organization it claims to be from
-d) To choose when a particular country must switch from IPv4 to IPv6
+10. Was ist der Zweck einer Zertifizierungsstelle bei der Verschlüsselung mit öffentlichen/privaten Schlüsseln?
+a) Um sicherzustellen, dass Personen keine Abzeichen für Lernaktivitäten fälschen
+b) Um sicherzustellen, dass Pakete an den richtigen Zielcomputer weitergeleitet werden
+c) Um sicherzustellen, dass ein öffentlicher Schlüssel von der Organisation stammt, von der er behauptet, zu sein
+d) Um zu entscheiden, wann ein bestimmtes Land von IPv4 zu IPv6 wechseln muss
 
-11. The ARPANET network was in operation starting in the 1960s. Secure
-Sockets Layer (SSL) was not invented util the 1980s. How did the ARPANET
-insure the security of the data on its network?
-a) By using public/private keys and encrypting all transmissions
-b) By using encryption at the Link layer
-c) By making sure no one could access the physical links
-d) By only using secure WiFi routers
+11. Das ARPANET-Netzwerk war ab den 1960er Jahren in Betrieb. Secure Sockets Layer (SSL) wurde erst in den 1980er Jahren erfunden. Wie hat das ARPANET die Sicherheit der Daten in seinem Netzwerk gewährleistet?
+a) Durch die Verwendung von öffentlichen/privaten Schlüsseln und die Verschlüsselung aller Übertragungen
+b) Durch die Verwendung von Verschlüsselung auf der Verbindungsschicht
+c) Indem sichergestellt wurde, dass niemand auf die physikalischen Verbindungen zugreifen konnte
+d) Durch die ausschließliche Verwendung sicherer WiFi-Router
 
-12. Which of these answers is "Security is fun" encrypted with a Caesar
-Cipher shift of 1.
-
+12. Welche dieser Antworten ist "Security is fun", verschlüsselt mit einer Caesar-Chiffre-Verschiebung von 1.
 a) Ptsjduao rt dii
 b) Wentudhs di dju
 c) Tfdvsjuz jt gvo
 d) Asdfghjk qw zxc
 
-13. What Caesar Cipher shift was used to encrypt "V yvxr frphevgl"?
-
+13. Welche Caesar-Chiffre-Schicht wurde zur Verschlüsselung von "V yvxr frphevgl" verwendet?
 a) 1
 b) 6
 c) 13

@@ -1,429 +1,181 @@
 Internetworking Layer (IP)
 ==========================
 
-\index{Internetworking(IP) Layer}
-\index{Layer!Internetworking(IP)}
-Now that we can move data across a single link, it's time to figure out how to
-move it across the country or around the world. To send data
-from your computer to any of a billion destinations, the data needs to move across
-multiple hops and across multiple networks.  When you travel from your home to a
-distant destination, you might walk from your home to a bus stop, take a train to
-the city, take another train to the airport, take a plane to a different airport,
-take a taxi into the city, then take a train to a smaller town, a bus to an even
-smaller town, and finally walk from the bus stop to your hotel. A packet also
-needs to take multiple forms of transportation to reach its destination. For a
-packet taking its "trip" to another country, the "walk", "bus", "train", and "plane"
-can be thought of as different link layers like WiFi, Ethernet, fiber optic,
-and satellite.
+\index{Internetworking(IP)-Schicht}
+\index{Schicht!Internetworking(IP)}
+Nun, da wir Daten über eine einzelne Verbindung übertragen können, ist es an der Zeit, herauszufinden, wie man sie über das ganze Land oder um die ganze Welt übertragen kann. Um Daten von Ihrem Computer an eines von einer Milliarde Zielen zu senden, müssen die Daten über mehrere Sprünge und über mehrere Netzwerke übertragen werden.  Wenn Sie von Ihrem Zuhause zu einem weit entfernten Ziel reisen, laufen Sie vielleicht von Ihrem Zuhause zu einer Bushaltestelle, nehmen einen Zug in die Stadt, nehmen einen anderen Zug zum Flughafen, nehmen ein Flugzeug zu einem anderen Flughafen, nehmen ein Taxi in die Stadt, nehmen dann einen Zug in eine kleinere Stadt, einen Bus in eine noch kleinere Stadt und laufen schließlich von der Bushaltestelle zu Ihrem Hotel. Ein Paket muss auch mehrere Transportmittel benutzen, um sein Ziel zu erreichen. Für ein Paket, das seine "Reise" in ein anderes Land antritt, können der "Fußweg", der "Bus", der "Zug" und das "Flugzeug"
+können als verschiedene Verbindungsebenen wie WiFi, Ethernet, Glasfaser und Satellit betrachtet werden.
 
-![Travelling Packets](../sketchnote/Traveling_Packets)
+![Reisepakete](../sketchnote/Traveling_Packets)
 
-At each point during the trip, you (or your packet) are being transported using a
-shared medium. There might be hundreds of other people on the same bus, train,
-or plane, but your trip is different from that of every other traveller because of
-the decisions that you make at the end of each of your "hops". For instance, when
-you arrive at a train station, you might get off one train, then walk through the
-station and select a particular outbound train to continue your journey. Travellers
-with different starting points and destinations make a different series of choices.
-All of the choices you make during your trip result in you following a series of links
-(or hops) along a route that takes you from your starting point to your destination.  
+An jedem Punkt der Reise werden Sie (oder Ihr Paket) über ein gemeinsames Medium transportiert. Es könnten Hunderte von anderen Personen im selben Bus, Zug oder Flugzeug sitzen, aber Ihre Reise unterscheidet sich von der jedes anderen Reisenden aufgrund der Entscheidungen, die Sie am Ende jedes Ihrer "Sprünge" treffen. Wenn Sie zum Beispiel an einem Bahnhof ankommen, steigen Sie vielleicht aus einem Zug aus, gehen dann durch den Bahnhof und wählen einen bestimmten abgehenden Zug, um Ihre Reise fortzusetzen. Reisende mit unterschiedlichen Start- und Zielpunkten treffen eine andere Reihe von Entscheidungen. Alle Entscheidungen, die Sie während Ihrer Reise treffen, führen dazu, dass Sie einer Reihe von Verbindungen
+(oder Hops) entlang einer Route, die Sie von Ihrem Startpunkt zu Ihrem Ziel führt.  
 
-As your packet travels from its starting point to its destination, it also passes
-through a number of "stations" where a decision is made as to which output
-link your packet will be forwarded on. For packets, we call these places "routers".
-Like train stations, routers have many incoming and outgoing links.
-Some links may be fiber optic, others might be satellite, and still others might be 
-wireless. The job of the router is to make sure packets move through the router and
-end up on the correct outbound link layer. A typical packet passes through from
-five to 20 routers as it moves from its source to its destination.
+Auf dem Weg von Ihrem Startpunkt zu Ihrem Ziel durchläuft Ihr Paket auch eine Reihe von "Stationen", an denen eine Entscheidung darüber getroffen wird, über welche Ausgangsverbindung Ihr Paket weitergeleitet werden soll. Bei Paketen nennen wir diese Orte "Router". Wie Bahnhöfe haben auch Router viele eingehende und ausgehende Verbindungen. Einige Verbindungen können über Glasfaserkabel, andere über Satelliten und wieder andere über 
+drahtlos. Die Aufgabe des Routers ist es, dafür zu sorgen, dass die Pakete den Router durchlaufen und auf der richtigen ausgehenden Verbindungsebene landen. Ein typisches Paket durchläuft auf seinem Weg von der Quelle zum Ziel fünf bis 20 Router.
 
-But unlike a train station where you need to look at displays to figure out the
-next train you need to take, the router looks at the destination address to decide
-which outbound link your packet needs to take. It is as if a train station employee
-met every single person getting off an inbound train, asked them where they were
-headed, and escorted them to their next train. If you were a packet, you would
-never have to look at another screen with a list of train departures and tracks!
+Aber im Gegensatz zu einem Bahnhof, wo Sie auf Anzeigen schauen müssen, um herauszufinden, welchen Zug Sie als nächstes nehmen müssen, schaut der Router auf die Zieladresse, um zu entscheiden, welche ausgehende Verbindung Ihr Paket nehmen muss. Es ist so, als ob ein Bahnhofsmitarbeiter jede einzelne Person, die aus einem ankommenden Zug aussteigt, begrüßt, sie fragt, wohin sie will, und sie zum nächsten Zug begleitet. Wenn Sie ein Paket wären, müssten Sie nie wieder auf einen Bildschirm mit einer Liste von Zugabfahrten und Gleisen schauen!
 
-\index{IP address}
-The router is able to quickly determine the outbound link for your packet
-because every single packet is marked with its ultimate destination address.
-This is called the Internet Protocol Address, or IP Address for short. We
-carefully construct IP addresses to make the router's job of forwarding packets
-as efficient as possible.
+\index{IP-Adresse}
+Der Router ist in der Lage, die ausgehende Verbindung für Ihr Paket schnell zu bestimmen, weil jedes einzelne Paket mit seiner endgültigen Zieladresse gekennzeichnet ist. Diese wird als Internet-Protokoll-Adresse, kurz IP-Adresse, bezeichnet. Wir bauen IP-Adressen sorgfältig auf, um die Arbeit des Routers, Pakete weiterzuleiten, so effizient wie möglich zu gestalten.
 
-Internet Protocol (IP) Addresses
+Internet-Protokoll (IP)-Adressen
 --------------------------------
 
-In the previous section where we talked about Link layer addresses, we said
-that link addresses were assigned when the hardware was manufactured and stayed
-the same throughout the life of a computer. We cannot use link layer addresses
-to route packets across multiple networks because there is no relationship
-between a link layer address and the location where that computer is connected
-to the network. With portable computers and cell phones moving constantly,
-the system would need to track each individual computer as it moved from one
-location to another. And with billions of computers on the network, using the
-link layer address to make routing decisions would be slow and inefficient.
+Im vorherigen Abschnitt, in dem wir über Adressen der Sicherungsschicht gesprochen haben, haben wir gesagt, dass Sicherungsadressen bei der Herstellung der Hardware zugewiesen werden und während der gesamten Lebensdauer eines Computers gleich bleiben. Wir können Link-Layer-Adressen nicht verwenden, um Pakete über mehrere Netzwerke zu routen, da es keine Beziehung zwischen einer Link-Layer-Adresse und dem Ort gibt, an dem dieser Computer mit dem Netzwerk verbunden ist. Bei tragbaren Computern und Mobiltelefonen, die sich ständig bewegen, müsste das System jeden einzelnen Computer verfolgen, wenn er sich von einem Ort zum anderen bewegt. Und bei Milliarden von Computern im Netzwerk wäre die Verwendung der Link-Layer-Adresse für Routing-Entscheidungen langsam und ineffizient.
 
-![The Internetwork Layer](../images/layers-internetwork)
+Die Internet-Netzwerk-Schicht (Internetwork Layer)
 
 \index{IPv4}
-To make this easier, we assign another address to every computer based on where
-the computer is connected to the network. There are two different versions of
-IP addresses. The old (classic) IPv4 addresses consist of four numbers
-separated by dots like this, and look like this:
+Um dies zu vereinfachen, weisen wir jedem Computer eine andere Adresse zu, je nachdem, wo der Computer mit dem Netzwerk verbunden ist. Es gibt zwei verschiedene Versionen von IP-Adressen. Die alten (klassischen) IPv4-Adressen bestehen aus vier Zahlen, die durch Punkte getrennt sind, und sehen wie folgt aus:
 
     212.78.1.25
 
 \index{IPv6}
-Each of the numbers can only be from 0 through 255. We have so many computers
-connected to the Internet now that we are running out of IPv4 addresses to assign
-to them.  IPv6 address are longer and look like:
+Jede der Zahlen kann nur von 0 bis 255 sein. Es sind inzwischen so viele Computer mit dem Internet verbunden, dass die IPv4-Adressen, die man ihnen zuweisen kann, knapp werden.  IPv6-Adressen sind länger und sehen aus wie:
 
     2001:0db8:85a3:0042:1000:8a2e:0370:7334
 
-For this section we will focus on the classic IPv4 addresses, but all of the
-ideas apply equally to IPv4 and IPv6 addresses.
+In diesem Abschnitt werden wir uns auf die klassischen IPv4-Adressen konzentrieren, aber alle Ideen gelten gleichermaßen für IPv4- und IPv6-Adressen.
 
-\index{network number}
+\index{Netzwerknummer}
 \index{host identifier}
-The most important thing about IP addresses is that they can be broken into two
-parts.^[There are many points where an IP address can be broken into "Network
-Number" and "Host Identifier" - for this example, we will just split the address
-in half.] The first part of the two-piece address is called the "Network Number".
-If we break out an IPv4 address into two parts, we might find the following:
+Das Wichtigste an IP-Adressen ist, dass sie in zwei Teile zerlegt werden können.^[Es gibt viele Stellen, an denen eine IP-Adresse in "Netzwerknummer" und "Host-Kennung" zerlegt werden kann - für dieses Beispiel werden wir die Adresse einfach in zwei Hälften teilen.] Der erste Teil der zweiteiligen Adresse wird als "Netzwerknummer" bezeichnet. Wenn wir eine IPv4-Adresse in zwei Teile zerlegen, könnten wir folgendes finden:
 
-    Network Number: 212.78
-    Host Identifier: 1.25
+    Netzwerknummer: 212.78
+    Host-Bezeichner: 1.25
 
-The idea is that many computers can be connected via a single connection to the
-Internet. An entire college campus, school, or business could connect using a
-single network number, or only a few network numbers. In the example above, 
-65,536 computers could be connected to the network using the network number
-of "212.78". Since all of the computers appear to the rest of the Internet
-on a single connection, all packets with an IP address of:
+Die Idee ist, dass viele Computer über eine einzige Verbindung mit dem Internet verbunden werden können. Ein ganzer Universitätscampus, eine Schule oder ein Unternehmen könnte sich über eine einzige Netzwerknummer oder nur wenige Netzwerknummern verbinden. Im obigen Beispiel, 
+könnten 65.536 Computer über die Netzwerknummer "212.78" mit dem Netzwerk verbunden sein. Da alle Computer dem Rest des Internets über eine einzige Verbindung erscheinen, werden alle Pakete mit einer IP-Adresse von:
 
     212.78.*.*
 
-can be routed to the same location.
+an die gleiche Stelle weitergeleitet werden können.
 
-By using this approach of a network number and a host identifier, routers no
-longer have to keep track of billions of individual computers. Instead, they
-need to keep track of perhaps a million or less different network numbers.
+Durch diesen Ansatz einer Netzwerknummer und einer Host-Kennung müssen Router nicht mehr den Überblick über Milliarden von einzelnen Computern behalten. Stattdessen müssen sie sich vielleicht eine Million oder weniger verschiedene Netzwerknummern merken.
 
-So when your packet arrives in a router and the router needs to decide which
-outbound link to send your packet to, the router does not have to look at the
-entire IP address. It only needs to look at the first part of the address
-to determine the best outbound link.
+Wenn also Ihr Paket in einem Router ankommt und der Router entscheiden muss, an welchen ausgehenden Link er Ihr Paket senden soll, muss der Router sich nicht die gesamte IP-Adresse ansehen. Er muss sich nur den ersten Teil der Adresse ansehen, um den besten ausgehenden Link zu bestimmen.
 
-How Routers Determine the Routes
+Wie Router die Routen bestimmen
 --------------------------------
 
-While the idea of the collapsing many IP addresses into a single network number
-greatly reduces the number of individual endpoints that a router must track to
-properly route packets, each router still needs a way to learn the path
-from itself to each of the network numbers it might encounter.
+Obwohl die Idee, viele IP-Adressen zu einer einzigen Netzwerknummer zusammenzufassen, die Anzahl der einzelnen Endpunkte, die ein Router verfolgen muss, um Pakete richtig zu routen, stark reduziert, benötigt jeder Router immer noch eine Möglichkeit, den Pfad von sich selbst zu jeder der Netzwerknummern, auf die er treffen könnte, zu erlernen.
 
-When a new core router is connected to the Internet, it does not know all
-the routes. It may know a few preconfigured routes, but to build a picture of
-how to route packets it must discover routes as it encounters packets. When a
-router encounters a packet that it does not already know how to route, it
-queries the routers that are its "neighbors". The neighboring routers that
-know how to route the network number send their data back to the requesting
-router.  Sometimes the neighboring routers need to ask their neighbors and so
-on until the route is actually found and sent back to the requesting router.
+Wenn ein neuer Core-Router mit dem Internet verbunden wird, kennt er nicht alle Routen. Er kennt vielleicht ein paar vorkonfigurierte Routen, aber um sich ein Bild davon zu machen, wie er Pakete weiterleiten soll, muss er Routen entdecken, wenn er auf Pakete trifft. Wenn ein Router auf ein Paket stößt, von dem er noch nicht weiß, wie es geroutet werden soll, fragt er die Router ab, die seine "Nachbarn" sind. Die benachbarten Router, die wissen, wie die Netzwerknummer zu routen ist, senden ihre Daten zurück an den anfragenden Router.  Manchmal müssen die benachbarten Router ihre Nachbarn fragen und so weiter, bis die Route tatsächlich gefunden und an den anfragenden Router zurückgeschickt wird.
 
-In the simplest case, a new core router can be connected to the Internet and slowly
-build a map of network numbers to outbound links so it can properly route
-packets based on the IP address for each incoming packet.  We call this mapping
-of network numbers to outbound links the "routing table" for a particular
-router.
+Im einfachsten Fall kann ein neuer Core-Router mit dem Internet verbunden werden und langsam eine Zuordnung von Netzwerknummern zu ausgehenden Links aufbauen, so dass er Pakete auf der Grundlage der IP-Adresse für jedes eingehende Paket richtig routen kann.  Wir nennen diese Zuordnung von Netzwerknummern zu ausgehenden Links die "Routing-Tabelle" für einen bestimmten Router.
 
-When the Internet is running normally, each router has a relatively complete
-routing table and rarely encounters a new network number. Once a router
-figures out the route to a new network number the first time it sees a packet
-destined for that network number, it does not need to rediscover the
-route for the network number unless something changes or goes wrong. This
-means that the router does a lookup on the first packet, but then it could
-route the next billion packets to that network number just by using the
-information it already has in its routing tables.
+Wenn das Internet normal läuft, hat jeder Router eine relativ vollständige Routing-Tabelle und trifft nur selten auf eine neue Netzwerknummer. Sobald ein Router die Route zu einer neuen Netzwerknummer herausgefunden hat, wenn er das erste Mal ein Paket sieht, das für diese Netzwerknummer bestimmt ist, muss er die Route für die Netzwerknummer nicht erneut herausfinden, es sei denn, es ändert sich etwas oder läuft schief. Das bedeutet, dass der Router beim ersten Paket eine Suche durchführt, aber dann könnte er die nächste Milliarde Pakete zu dieser Netzwerknummer routen, indem er einfach die Informationen verwendet, die er bereits in seinen Routing-Tabellen hat.
 
-When Things Get Worse and Better
+Wenn die Dinge schlimmer und besser werden
 --------------------------------
 
-Sometimes the network has problems and a router must find a way to route data
-around the problems. A common problem is that one of the outbound links fails.
-Perhaps someone tripped over a wire and unplugged a fiber optic cable. At
-this point, the router has a bunch of network numbers that it wants to route
-out on a link that has failed. The recovery when a router loses an outbound
-link is surprisingly simple. The router discards all of the entries in
-its routing table that were being routed on that link. Then as more packets
-arrive for those network numbers, the router goes through the route
-discovery process again, this time asking all the neighboring routers
-except the ones that can no longer be contacted due to the broken link.
+Manchmal hat das Netzwerk Probleme und ein Router muss einen Weg finden, die Daten um die Probleme herum zu leiten. Ein häufiges Problem ist, dass eine der ausgehenden Verbindungen ausfällt. Vielleicht ist jemand über ein Kabel gestolpert und hat ein Glasfaserkabel ausgesteckt. An diesem Punkt hat der Router eine Reihe von Netzwerknummern, die er über eine ausgefallene Verbindung nach außen leiten möchte. Die Wiederherstellung, wenn ein Router eine ausgehende Verbindung verliert, ist erstaunlich einfach. Der Router verwirft alle Einträge in seiner Routing-Tabelle, die auf dieser Verbindung geroutet wurden. Wenn dann weitere Pakete für diese Netzwerknummern ankommen, durchläuft der Router erneut den Prozess der Routenermittlung, wobei er dieses Mal alle benachbarten Router fragt, außer denen, die aufgrund der defekten Verbindung nicht mehr kontaktiert werden können.
 
-![Dynamic Routing](../sketchnote/Routing)
+![Dynamisches Routing](../sketchnote/Routing)
 
-Packets are routed more slowly for a while as routing tables are rebuilt
-that reflect the new network configuration, but after a while things are
-humming along nicely.
+Die Pakete werden eine Zeit lang langsamer weitergeleitet, da die Routing-Tabellen neu aufgebaut werden, die die neue Netzwerkkonfiguration widerspiegeln, aber nach einer Weile läuft alles wie geschmiert.
 
-This is why it is important for there to always be at least two independent paths
-from a source network to a destination network in the core of the network. If
-there are always at least two possible independent routes, we say that a
-network is a "two-connected network". A two-connected network can recover from
-any single link outage.  In places where there are a lot of network connections,
-like the east coast of the United States, the network could lose many links
-without ever becoming completely disconnected. But when you are at your home
-or school and have only one connection, if that connection goes down you
-are disconnected completely.
+Aus diesem Grund ist es wichtig, dass es immer mindestens zwei unabhängige Wege von einem Quellnetzwerk zu einem Zielnetzwerk im Kern des Netzwerks gibt. Wenn es immer mindestens zwei mögliche unabhängige Wege gibt, sagt man, dass ein Netzwerk ein "two-connected network" ist. Ein Netzwerk mit zwei Verbindungen kann sich von jedem Ausfall einer einzelnen Verbindung erholen.  An Orten, an denen es viele Netzwerkverbindungen gibt, wie z. B. an der Ostküste der Vereinigten Staaten, könnte das Netzwerk viele Verbindungen verlieren, ohne jemals vollständig getrennt zu werden. Aber wenn Sie zu Hause oder in der Schule sind und nur eine Verbindung haben, sind Sie komplett getrennt, wenn diese Verbindung ausfällt.
 
-At some point the broken link is repaired or a new link is brought up, and the
-router wants to make best use of the new links. The router is always interested in
-improving its routing tables, and looks for opportunities to improve its routing
-tables in its spare time. When there is a lull in communication, a router will
-ask a neighboring router for all or part of its routing table. The router
-looks through the neighbor's tables and if it looks like the other router
-has a better route to a particular network number, it updates its network table
-to forward packets for that network number through the link to the router that
-has a better route.
+Irgendwann wird die unterbrochene Verbindung repariert oder eine neue Verbindung hergestellt, und der Router möchte die neuen Verbindungen bestmöglich nutzen. Der Router ist immer daran interessiert, seine Routing-Tabellen zu verbessern, und sucht in seiner Freizeit nach Möglichkeiten, seine Routing-Tabellen zu verbessern. Wenn es eine Kommunikationspause gibt, wird ein Router einen benachbarten Router nach seiner gesamten oder einem Teil seiner Routing-Tabelle fragen. Der Router sieht die Tabellen des Nachbarn durch, und wenn es so aussieht, dass der andere Router eine bessere Route zu einer bestimmten Netzwerknummer hat, aktualisiert er seine Netzwerktabelle, um Pakete für diese Netzwerknummer über die Verbindung zu dem Router weiterzuleiten, der eine bessere Route hat.
 
-With these approaches to outages and the exchange of routing table information,
-routers can quickly react to network outages and reroute packets from links
-that are down or slow to links that are up and/or faster. All the while,
-each router is talking to its neighboring routers to find ways to improve its
-own routing table. Even though there is no central source of the "best route"
-from any source to any destination, the routers are good at knowing the fastest
-path from a source to a destination nearly all the time. Routers are also good at detecting and
-dynamically routing packets around links that are slow or temporarily overloaded.
+Mit diesen Ansätzen für Ausfälle und dem Austausch von Routing-Tabelleninformationen können Router schnell auf Netzwerkausfälle reagieren und Pakete von ausgefallenen oder langsamen Verbindungen auf Verbindungen umleiten, die aktiv und/oder schneller sind. Währenddessen spricht jeder Router mit seinen benachbarten Routern, um Wege zur Verbesserung seiner eigenen Routing-Tabelle zu finden. Auch wenn es keine zentrale Quelle für die "beste Route"
+von einer beliebigen Quelle zu einem beliebigen Ziel gibt, sind die Router gut darin, fast immer den schnellsten Pfad von einer Quelle zu einem Ziel zu kennen. Router sind auch gut darin, langsame oder vorübergehend überlastete Verbindungen zu erkennen und Pakete dynamisch umzuleiten.
 
-One of the side effects of the way routers discover the structure of the
-network is that the route your packets take from the source to the destination
-can change over time. You can even send one packet immediately followed by
-another packet and because of how the packets are routed, the second packet might
-arrive at the destination before the first packet. We don't ask the IP layer
-to worry about the order of the packets; it already has enough to worry about.
+Einer der Nebeneffekte der Art und Weise, wie Router die Struktur des Netzwerks erkennen, ist, dass sich die Route, die Ihre Pakete von der Quelle zum Ziel nehmen, mit der Zeit ändern kann. Sie können sogar ein Paket direkt gefolgt von einem anderen Paket senden und aufgrund der Art und Weise, wie die Pakete geroutet werden, könnte das zweite Paket vor dem ersten Paket am Ziel ankommen. Wir bitten die IP-Schicht nicht, sich um die Reihenfolge der Pakete zu kümmern; sie hat schon genug zu tun.
 
-We pour our packets with source and destination IP addresses into the Internet
-much like we would send out a bunch of letters in the mail at the post office.
-The packets each find their way though the system and arrive at their
-destinations.
+Wir werfen unsere Pakete mit Quell- und Ziel-IP-Adressen in das Internet, ähnlich wie wir einen Haufen Briefe bei der Post aufgeben würden. Die Pakete finden jeweils ihren Weg durch das System und kommen an ihrem Ziel an.
 
-Determining Your Route
+Die Route bestimmen
 ----------------------
 
-There is no place in the Internet that knows in advance the route your packets
-will take from your computer to a particular destination. Even the routers that
-participate in forwarding your packets across the Internet do not know the
-entire route your packet will take. They only know which link to send your
-packets to so they will get closer to their final destination.
+Es gibt keine Stelle im Internet, die im Voraus weiß, welche Route Ihre Pakete von Ihrem Computer zu einem bestimmten Ziel nehmen werden. Selbst die Router, die an der Weiterleitung Ihrer Pakete durch das Internet beteiligt sind, kennen nicht die gesamte Route, die Ihr Paket nehmen wird. Sie wissen nur, an welchen Link sie Ihre Pakete senden müssen, damit sie näher an ihr endgültiges Ziel gelangen.
 
-But it turns out that most computers have a network diagnostic tool called
-"traceroute" (or "tracert", depending on the operating system)
-that allows you to trace the route between your computer and a
-destination computer. Given that the route between any two computers can
-change from one packet to another, when we "trace" a route, it is only a
-"pretty good guess" as to the actual route packets will take.
+Aber es stellt sich heraus, dass die meisten Computer ein Netzwerkdiagnosetool namens
+"traceroute" (oder "tracert", je nach Betriebssystem)
+mit dem Sie die Route zwischen Ihrem Computer und einem Zielcomputer verfolgen können. Da sich die Route zwischen zwei Computern von einem Paket zum nächsten ändern kann, ist das "Verfolgen" einer Route nur eine
+"ziemlich gute Vermutung" über die tatsächliche Route, die die Pakete nehmen werden.
 
-The traceroute command does not actually "trace" your packet at all. It takes
-advantage of a feature in the IP network protocol that was designed to avoid
-packets becoming "trapped" in the network and never reaching their destination.
-Before we take a look at traceroute, let's take a quick look at how a packet
-might get trapped in the network forever and how the IP protocol solves that
-problem.
+Der Befehl traceroute "verfolgt" Ihr Paket eigentlich gar nicht. Er macht sich eine Funktion im IP-Netzwerkprotokoll zunutze, die verhindern soll, dass Pakete im Netzwerk "gefangen" werden und ihr Ziel nie erreichen. Bevor wir einen Blick auf Traceroute werfen, lassen Sie uns einen kurzen Blick darauf werfen, wie ein Paket für immer im Netzwerk gefangen bleiben kann und wie das IP-Protokoll dieses Problem löst.
 
-Remember that the information in any single router is imperfect and is only an
-approximation of the best outbound link for a particular network number, and
-each router has no way of knowing what any other router will do. But what if we had
-three routers with routing table entries that formed an endless loop?
+Denken Sie daran, dass die Informationen in jedem einzelnen Router unvollkommen sind und nur eine Annäherung an die beste ausgehende Verbindung für eine bestimmte Netzwerknummer darstellen, und jeder Router hat keine Möglichkeit zu wissen, was jeder andere Router tun wird. Was aber, wenn wir drei Router mit Routing-Tabelleneinträgen hätten, die eine Endlosschleife bilden?
 
-![Routing Vortex](../images/router-loop)
+![Routing-Wirbel](../images/router-loop)
 
-Each of the routers thinks it knows the best outbound link for IP addresses
-that start with "212.78". But somehow the routers are a little confused and
-their routing tables form a loop. If a packet with a prefix of "212.78" found
-its way into one of these routers, it would be routed around a circle of three
-links forever. There is no way out. As more packets arrived with the same
-prefix, they would just be added to the "infinite packet vortex". Pretty soon
-the links would be full of traffic going round and round, the routers would
-fill up with packets waiting to be sent, and all three routers would crash.
-This problem is worse than having someone trip over a fiber optic cable,
-since it can cause several routers to crash.
+Jeder der Router denkt, er kenne den besten ausgehenden Link für IP-Adressen, die mit "212.78" beginnen. Aber irgendwie sind die Router ein wenig verwirrt und ihre Routing-Tabellen bilden eine Schleife. Wenn ein Paket mit dem Präfix "212.78" seinen Weg in einen dieser Router finden würde, würde es für immer um einen Kreis von drei Links herum geroutet werden. Es gibt keinen Ausweg. Wenn weitere Pakete mit dem gleichen Präfix ankämen, würden sie einfach dem "unendlichen Paketwirbel" hinzugefügt. Ziemlich bald wären die Links voll mit Datenverkehr, der sich im Kreis dreht, die Router würden sich mit Paketen füllen, die darauf warten, gesendet zu werden, und alle drei Router würden abstürzen. Dieses Problem ist schlimmer, als wenn jemand über ein Glasfaserkabel stolpert, da es mehrere Router zum Absturz bringen kann.
 
-To solve this problem, the Internet Protocol designers added a number to each
-packet that is called the Time To Live (TTL). This number starts out with
-a value of about 30. Each time an IP packet is forwarded down a link, the
-router subtracts 1 from the TTL value. So if the packet takes 15 hops to
-cross the Internet, it will emerge on the far end with a TTL of 15.
+Um dieses Problem zu lösen, fügten die Entwickler des Internetprotokolls jedem Paket eine Zahl hinzu, die Time To Live (TTL) genannt wird. Diese Zahl beginnt mit einem
+einem Wert von etwa 30. Jedes Mal, wenn ein IP-Paket über eine Verbindung weitergeleitet wird, subtrahiert der Router 1 vom TTL-Wert. Wenn das Paket also 15 Hops benötigt, um das Internet zu durchqueren, wird es am anderen Ende mit einer TTL von 15 auftauchen.
 
-But now let's look at how the TTL functions when there is a routing loop (or
-"packet vortex") for a particular network number. Since the packet keeps
-getting forwarded around the loop, eventually the TTL reaches zero. And when
-the TTL reaches zero, the router assumes that something is wrong and throws the
-packet away. This approach ensures that routing loops do not bring whole
-areas of the network down.
+Betrachten wir nun, wie die TTL funktioniert, wenn es eine Routing-Schleife (oder
+"Paket-Wirbel") für eine bestimmte Netzwerknummer gibt. Da das Paket immer wieder um die Schleife herum weitergeleitet wird, erreicht die TTL schließlich Null. Und wenn die TTL Null erreicht, nimmt der Router an, dass etwas nicht stimmt und wirft das Paket weg. Dieser Ansatz stellt sicher, dass Routing-Schleifen nicht ganze Bereiche des Netzwerks lahmlegen.
 
-So that is a pretty cool bit of network protocol engineering. To detect and
-recover from routing loops, we just put a number in, subtract 1 from that
-number on each link, and when the number goes to zero throw the packet away.
+Das ist also ein ziemlich cooles Stück Netzwerkprotokolltechnik. Um Routing-Schleifen zu erkennen und wiederherzustellen, geben wir einfach eine Zahl ein, subtrahieren 1 von dieser Zahl auf jedem Link, und wenn die Zahl auf Null geht, werfen wir das Paket weg.
 
-It also turns out that when the router throws a packet away, it usually
-sends back a courtesy notification, something like, "Sorry I had to throw your
-packet away." The message includes the IP address of the router that threw
-the packet away.
+Es hat sich auch herausgestellt, dass der Router, wenn er ein Paket wegwirft, normalerweise eine Höflichkeitsnachricht zurückschickt, so etwas wie: "Sorry, dass ich Ihr Paket wegwerfen musste." Die Nachricht enthält die IP-Adresse des Routers, der das Paket weggeworfen hat.
 
-Network loops are actually pretty rare, but we can use this notification that a
-packet was dropped to map the approximate route a packet takes through the
-network. The traceroute program sends packets in a tricky manner to get the
-routers that your packets pass through to send it back notifications. First,
-traceroute sends a packet with a TTL of 1. That packet gets to the first
-router and is discarded and your computer gets a notification from the first
-router. Then traceroute sends a packet with a TTL of 2. That packet makes it
-through the first router and is dropped by the second router, which sends you
-back a note about the discarded packet. Then traceroute sends a packet with a
-TTL of 3, and continues to increase the TTL until the packet makes it all the
-way to its destination.
+Netzwerkschleifen sind eigentlich ziemlich selten, aber wir können diese Benachrichtigung, dass ein Paket verworfen wurde, verwenden, um die ungefähre Route eines Pakets durch das Netzwerk abzubilden. Das Programm traceroute sendet Pakete auf eine trickreiche Art und Weise, um die Router, die Ihre Pakete durchlaufen, dazu zu bringen, ihm Benachrichtigungen zurückzuschicken. Zuerst sendet traceroute ein Paket mit einer TTL von 1. Dieses Paket erreicht den ersten Router, wird verworfen und Ihr Computer erhält eine Benachrichtigung vom ersten Router. Dann sendet traceroute ein Paket mit einer TTL von 2. Dieses Paket schafft es durch den ersten Router und wird vom zweiten Router verworfen, der Ihnen eine Benachrichtigung über das verworfene Paket zurückschickt. Dann sendet traceroute ein Paket mit einer TTL von 3 und erhöht die TTL so lange, bis das Paket sein Ziel erreicht hat.
 
-With this approach, traceroute builds up an approximate path that your packets
-are taking across the network.
+Mit diesem Ansatz baut traceroute einen ungefähren Pfad auf, den Ihre Pakete durch das Netzwerk nehmen.
 
-![Traceroute from Michigan to Stanford](../images/traceroute-stanford)
+![Traceroute von Michigan nach Stanford](../images/traceroute-stanford)
 
-It took 14 hops to get from Ann Arbor, Michigan to Palo Alto, California.
-The packets passed through Kansas, Texas, Los Angeles, and Oakland. This
-might not be the best route between the two cities if you were driving a car
-or taking a train, but on that day for packets between the two cities this
-was the best route on the Internet.
+Der Weg von Ann Arbor, Michigan, nach Palo Alto, Kalifornien, dauerte 14 Hops. Die Pakete durchquerten Kansas, Texas, Los Angeles und Oakland. Dies ist vielleicht nicht die beste Route zwischen den beiden Städten, wenn Sie mit dem Auto oder dem Zug fahren würden, aber an diesem Tag war dies für Pakete zwischen den beiden Städten die beste Route im Internet.
 
-![Notifications of Dropped Packets](../sketchnote/Dropped_packet)
+![Benachrichtigungen über verworfene Pakete](../sketchnote/Dropped_packet)
 
-You can also see how long it took the packets to make it from the source to
-each router, and then from the source to the destination. A millisecond (ms)
-is a 1/1000 of a second. So 77.317 ms is just under a tenth of a second. This
-network is pretty fast.
+Sie können auch sehen, wie lange die Pakete für den Weg von der Quelle zu jedem Router und dann von der Quelle zum Ziel gebraucht haben. Eine Millisekunde (ms)
+ist eine 1/1000-Sekunde. 77,317 ms ist also etwas weniger als eine Zehntelsekunde. Dieses Netzwerk ist ziemlich schnell.
 
-Sometimes a traceroute can take a little while, up to a minute or two. Not
-all routers will give you the "I discarded your packet" message. In
-the example above, the router at hop 13 threw our packet away without saying "I
-am sorry". Traceroute waits for the message and after a few seconds just
-gives up and increases the TTL value so it gets past the rude router.
+Manchmal kann ein Traceroute eine kleine Weile dauern, bis zu einer Minute oder zwei. Nicht alle Router geben Ihnen die Meldung "Ich habe Ihr Paket verworfen". Im obigen Beispiel hat der Router an Hop 13 unser Paket weggeworfen, ohne "I am sorry" zu sagen. Traceroute wartet auf die Nachricht und gibt nach ein paar Sekunden einfach auf und erhöht den TTL-Wert, damit es an dem unhöflichen Router vorbei kommt.
 
-If you run a traceroute for a connection that includes an undersea cable, you
-can see how fast data moves under the sea. Here is a traceroute between the
-University of Michigan and Peking University in China.
+Wenn Sie einen Traceroute für eine Verbindung ausführen, die ein Unterseekabel beinhaltet, können Sie sehen, wie schnell sich Daten unter dem Meer bewegen. Hier ist ein Traceroute zwischen der University of Michigan und der Peking University in China.
 
-![Traceroute from Michigan to Peking University](../images/traceroute-peking)
+![Traceroute von Michigan zur Universität Peking](../images/traceroute-peking)
 
-You can see when the packet is encountering a long undersea cable in steps
-seven and eight. The time goes from less than 1/10 of a second to nearly 1/4 of
-a second. Even though 1/4 of a second is slower than 1/10 a second, it is
-pretty impressive when you consider that the packet is going nearly all of the
-way around the world in that 1/4 second.
+Sie können sehen, wann das Paket in den Schritten sieben und acht auf ein langes Unterseekabel trifft. Die Zeit geht von weniger als 1/10 einer Sekunde auf fast 1/4
+einer Sekunde. Obwohl 1/4 Sekunde langsamer ist als 1/10 Sekunde, ist es ziemlich beeindruckend, wenn man bedenkt, dass das Paket in dieser 1/4 Sekunde fast den ganzen Weg um die Welt zurücklegt.
 
-The core of our IP network is remarkable.  Most of the time we don't really
-care how hard the routers are working to make sure our packets move quickly
-from our computer to the various destinations around the world.  Next
-we will move from looking at how the core of the network functions to how IP
-addresses are managed at the edges.
+Der Kern unseres IP-Netzwerks ist bemerkenswert.  Die meiste Zeit kümmert es uns nicht wirklich, wie hart die Router arbeiten, um sicherzustellen, dass unsere Pakete schnell von unserem Computer zu den verschiedenen Zielen auf der ganzen Welt gelangen.  Als nächstes werden wir uns ansehen, wie der Kern des Netzwerks funktioniert und wie IP-Adressen an den Rändern verwaltet werden.
 
-Getting an IP Address
+Erhalten einer IP-Adresse
 ---------------------
 
-Increasingly, computers are portable or mobile. We just pointed out
-how important it was for the IP layer to track large groups of computers using
-network numbers instead of tracking every single computer individually. But
-since these network numbers indicate a particular physical connection to the
-network, when we move a computer from one location to another, it will need a new
-IP address. Remember that the link layer address is set when a computer is
-manufactured and never changes throughout the life of the computer. If you
-close your laptop in one coffee shop and reopen it using your home WiFi, your
-computer will need a different IP address.
+Computer sind immer häufiger tragbar oder mobil. Wir haben gerade darauf hingewiesen, wie wichtig es für die IP-Schicht ist, große Gruppen von Computern mit Hilfe von Netzwerknummern zu verfolgen, anstatt jeden einzelnen Computer individuell zu verfolgen. Da diese Netzwerknummern jedoch eine bestimmte physische Verbindung zum Netzwerk angeben, benötigt ein Computer, wenn er von einem Ort zum anderen bewegt wird, eine neue IP-Adresse. Denken Sie daran, dass die Link-Layer-Adresse bei der Herstellung eines Computers festgelegt wird und sich während der gesamten Lebensdauer des Computers nicht ändert. Wenn Sie Ihren Laptop in einem Café schließen und ihn über Ihr heimisches WLAN wieder öffnen, benötigt der Computer eine andere IP-Adresse.
 
-This ability for your computer to get a different IP address when it is moved
-from one network to another uses a protocol called "Dynamic Host Configuration
-Protocol" (or DHCP for short).  DHCP is pretty simple. Going back to the Link
-layer section, recall the first thing your computer does at the link level is
-ask "Is there a base station on this network?" by sending a message to a special
-broadcast address. Once your computer is successfully connected at the link
-layer through that base station, it sends another broadcast message, this time
-asking "Is there a gateway connected to this network that can get me to the
-Internet? If there is, tell me your IP address and tell me what IP address I
-should use on this network".
+Diese Möglichkeit für Ihren Computer, eine andere IP-Adresse zu erhalten, wenn er von einem Netzwerk in ein anderes verschoben wird, verwendet ein Protokoll namens "Dynamic Host Configuration Protocol" (oder kurz DHCP).  DHCP ist ziemlich einfach. Zurück zum Abschnitt über die Verbindungsebene: Erinnern Sie sich, dass das erste, was Ihr Computer auf der Verbindungsebene tut, die Frage "Gibt es eine Basisstation in diesem Netzwerk?" ist, indem er eine Nachricht an eine spezielle Broadcast-Adresse sendet. Sobald Ihr Computer auf der Verbindungsebene über diese Basisstation erfolgreich verbunden ist, sendet er eine weitere Broadcast-Nachricht, diesmal mit der Frage: "Gibt es ein Gateway, das mit diesem Netzwerk verbunden ist und mich mit dem Internet verbinden kann? Wenn ja, nennen Sie mir Ihre IP-Adresse und sagen Sie mir, welche IP-Adresse ich in diesem Netzwerk verwenden soll".
 
-When the gateway router replies, your computer is given a temporary IP address
-to use on that network (for instance, while you are at the coffee shop). After
-the router has not heard from your computer for a while, it decides you are gone
-and loans the IP address to another computer.
+Wenn der Gateway-Router antwortet, erhält Ihr Computer eine temporäre IP-Adresse, die er in diesem Netzwerk verwenden kann (z. B. während Sie in einem Café sind). Nachdem der Router eine Weile nichts von Ihrem Computer gehört hat, stellt er fest, dass Sie nicht mehr da sind und verleiht die IP-Adresse an einen anderen Computer.
 
-If this process of reusing a loaned IP address goes wrong, two computers end up
-on the same network with the same IP address. Perhaps you have seen a message on
-your computer to the effect of, "Another computer is using 192.168.0.5, we have
-stopped using this address". Your computer sees another computer with a link
-address other than its own using the IP address that your computer thinks is
-assigned to it.
+Wenn dieser Prozess der Wiederverwendung einer geliehenen IP-Adresse schief geht, landen zwei Computer im gleichen Netzwerk mit der gleichen IP-Adresse. Vielleicht haben Sie auf Ihrem Computer eine Meldung gesehen, die besagt: "Ein anderer Computer verwendet 192.168.0.5, wir haben die Verwendung dieser Adresse eingestellt". Ihr Computer sieht, dass ein anderer Computer mit einer anderen Link-Adresse als seiner eigenen die IP-Adresse verwendet, von der Ihr Computer denkt, dass sie ihm zugewiesen ist.
 
-![Getting an IP Address via DHCP](../sketchnote/Dhcp)
+![Eine IP-Adresse über DHCP beziehen](../sketchnote/Dhcp)
 
-But most of the time this dynamic IP address assignment (DHCP) works perfectly.
-You open your laptop and in a few seconds you are connected and can use the
-Internet. Then you close your laptop and go to a different location and are
-given a different IP address to use at that location.
+Aber die meiste Zeit funktioniert diese dynamische IP-Adressvergabe (DHCP) perfekt. Sie öffnen Ihren Laptop und in ein paar Sekunden sind Sie verbunden und können das Internet nutzen. Dann schließen Sie Ihren Laptop und gehen an einen anderen Ort und erhalten eine andere IP-Adresse, die Sie an diesem Ort verwenden können.
 
-In some operating systems, when a computer connects to a network, issues a DHCP
-request, and receives no answer, it decides to assign itself an IP address
-anyway. Often these self-assigned addresses start with "169....".  When your
-computer has one of these self-assigned IP addresses, it thinks it is connected
-to a network and has an IP address, but without a gateway, it has no
-possibility of getting packets routed across the local network and onto the
-Internet. The best that can be done is that a few computers can connect to a
-local network, find each other, and play a networked game. There is not much
-else that can be done with these self-assigned IP addresses.
+Wenn ein Computer eine Verbindung zu einem Netzwerk herstellt, eine DHCP-Anfrage stellt und keine Antwort erhält, beschließt er in einigen Betriebssystemen, sich trotzdem eine IP-Adresse zuzuweisen. Oft beginnen diese selbst zugewiesenen Adressen mit "169....".  Wenn Ihr Computer eine dieser selbst zugewiesenen IP-Adressen hat, denkt er, dass er mit einem Netzwerk verbunden ist und eine IP-Adresse hat, aber ohne ein Gateway hat er keine Möglichkeit, Pakete über das lokale Netzwerk und ins Internet zu leiten. Das Beste, was möglich ist, ist, dass sich ein paar Computer mit einem lokalen Netzwerk verbinden, sich gegenseitig finden und ein vernetztes Spiel spielen können. Viel mehr kann man mit diesen selbst zugewiesenen IP-Adressen nicht machen.
 
-A Different Kind of Address Reuse
+Eine andere Art der Adresswiederverwendung
 ---------------------------------
 
-If you know how to find the IP address on your laptop, you can do a
-little experiment and look at the different IP addresses you get at
-different locations. If you made a list of the
-different addresses you received at the different locations, you might find
-that many of the locations give out addresses with a prefix of "192.168.".
-This seems to be a violation of the rule that the network number (IP address
-prefix) is tied to the place where the computer is connected to the Internet,
-but a different rule applies to addresses that start with "192.168." (The
-prefix "10." is also special).
+Wenn Sie wissen, wie Sie die IP-Adresse Ihres Laptops herausfinden können, können Sie ein kleines Experiment durchführen und sich die verschiedenen IP-Adressen ansehen, die Sie an verschiedenen Orten erhalten. Wenn Sie eine Liste der verschiedenen Adressen anfertigen, die Sie an den verschiedenen Standorten erhalten, werden Sie feststellen, dass viele der Standorte Adressen mit dem Präfix "192.168." herausgeben. Dies scheint ein Verstoß gegen die Regel zu sein, dass die Netzwerknummer (IP-Adresspräfix) an den Ort gebunden ist, an dem der Computer mit dem Internet verbunden ist, aber für Adressen, die mit "192.168." beginnen, gilt eine andere Regel. (Das Präfix "10." ist ebenfalls eine Besonderheit).
 
-Addresses that start with "192.168." are called "non-routable" addresses. This
-means that they will never be used as real addresses that will route data
-across the core of the network. They can be used within a single local network,
-but not used on the global network.
+Adressen, die mit "192.168." beginnen, werden "nicht routingfähige" Adressen genannt. Das bedeutet, dass sie niemals als echte Adressen verwendet werden, die Daten über den Kern des Netzwerks routen. Sie können innerhalb eines einzelnen lokalen Netzwerks verwendet werden, aber nicht im globalen Netzwerk.
 
-So then how is it that your computer gets an address like "192.168.0.5" on your
-home network and it works perfectly well on the overall Internet?  This is
-because your home router/gateway/base station is doing something we call
-"Network Address Translation", or "NAT". The gateway has a single routable IP
-address that it is sharing across multiple workstations that are connected to
-the gateway. Your computer uses its non-routable address like "192.168.0.5" to
-send its packets, but as the packets move across the gateway, the gateway
-replaces the address with its actual routable address. When packets come back
-to your workstation, the router puts your workstation's non-routable address
-back into the returning packets.
+Wie kommt es dann, dass Ihr Computer in Ihrem Heimnetzwerk eine Adresse wie "192.168.0.5" erhält und im gesamten Internet einwandfrei funktioniert?  Das liegt daran, dass Ihr Heim-Router/Gateway/Basisstation etwas tut, das wir
+"Network Address Translation", oder "NAT". Das Gateway hat eine einzige routingfähige IP-Adresse, die es sich mit mehreren Arbeitsstationen teilt, die mit dem Gateway verbunden sind. Ihr Computer verwendet seine nicht routingfähige Adresse wie "192.168.0.5", um seine Pakete zu senden, aber während sich die Pakete über das Gateway bewegen, ersetzt das Gateway die Adresse mit seiner tatsächlichen routingfähigen Adresse. Wenn die Pakete zu Ihrer Arbeitsstation zurückkommen, fügt der Router die nicht routingfähige Adresse Ihrer Arbeitsstation wieder in die zurückkehrenden Pakete ein.
 
-This approach allows us to conserve the real routable addresses and use the
-same non-routable addresses over and over for workstations that move from one
-network to another.
+Dieser Ansatz ermöglicht es, die echten routingfähigen Adressen zu erhalten und die gleichen nicht routingfähigen Adressen immer wieder für Arbeitsstationen zu verwenden, die von einem Netzwerk in ein anderes wechseln.
 
-Global IP Address Allocation
+Globale IP-Adresszuweisung
 ----------------------------
 
 \index{ISP}
-\index{IP address allocation}
-\index{Internet service provider}
-\index{network number}
-If you wanted to connect the network for a new organization to the Internet you
-would need to contact an Internet Service Provider and make a connection.
-Your ISP would give you a range of IP addresses (i.e., one or more network
-numbers) that you could allocate to the computers attached to your network.
-The ISP assigns you network numbers by giving you a portion of the network
-numbers they received from a higher-level Internet Service Provider.
+\index{IP-Adresszuweisung}
+\index{Internetdienstanbieter}
+\index{Netzwerknummer}
+Wenn Sie das Netzwerk für eine neue Organisation mit dem Internet verbinden wollten, müssten Sie sich an einen Internet Service Provider wenden und eine Verbindung herstellen. Ihr ISP würde Ihnen einen Bereich von IP-Adressen (d. h. eine oder mehrere Netzwerknummern) geben, die Sie den an Ihr Netzwerk angeschlossenen Computern zuweisen könnten. Der ISP weist Ihnen Netzwerknummern zu, indem er Ihnen einen Teil der Netzwerknummern gibt, die er von einem übergeordneten Internetdienstanbieter erhalten hat.
 
 \index{RIRs}
 \index{Regional Internet Registries}
@@ -432,254 +184,214 @@ numbers they received from a higher-level Internet Service Provider.
 \index{RIPE NCC}
 \index{APNIC}
 \index{AFRNIC}
-At the top level of IP address allocations are five Regional Internet
-Registries (RIRs). Each of the five registries allocates IP addresses for a
-major geographic area. Between the five registries, every location in the world
-can be allocated a network number. The five registries are North America
-(ARIN), South and Central America (LACNIC), Europe (RIPE NCC), Asia-Pacific
-(APNIC) and Africa (AFRNIC).
+Auf der obersten Ebene der IP-Adresszuweisungen befinden sich fünf regionale Internet-Register (RIRs). Jede der fünf Registrierungen weist IP-Adressen für ein größeres geografisches Gebiet zu. Durch die fünf Registrierungen kann jedem Ort auf der Welt eine Netzwerknummer zugewiesen werden. Die fünf Registries sind Nordamerika
+(ARIN), Süd- und Mittelamerika (LACNIC), Europa (RIPE NCC), Asien-Pazifik
+(APNIC) und Afrika (AFRNIC).
 
 \index{IPv4}
 \index{IPv6}
-When the classic IPv4 addresses like "212.78.1.25" were invented, only a few
-thousand computers were connected to the Internet. We never imagined then
-that someday we would have a billion computers on the Internet. But today with the
-expansion of the Internet and the "Internet of things" where smart cars,
-refrigerators, thermostats, and even lights will need IP addresses, we need to
-connect far more than a billion computers to the Internet. To make it possible
-to connect all these new computers to the Internet, engineers have designed
-a new generation of the Internet Protocol called "IPv6". The 128-bit
-IPv6 addresses are much longer than the 32-bit IPv4 addresses.
+Als die klassischen IPv4-Adressen wie "212.78.1.25" erfunden wurden, waren nur ein paar tausend Computer mit dem Internet verbunden. Wir konnten uns damals nicht vorstellen, dass wir eines Tages eine Milliarde Computer im Internet haben würden. Aber heute, mit der Erweiterung des Internets und dem "Internet der Dinge", wo intelligente Autos, Kühlschränke, Thermostate und sogar Lampen IP-Adressen benötigen, müssen wir weit mehr als eine Milliarde Computer mit dem Internet verbinden. Um es möglich zu machen, all diese neuen Computer mit dem Internet zu verbinden, haben Ingenieure
+eine neue Generation des Internet-Protokolls namens "IPv6" entwickelt. Die 128-Bit-IPv6-Adressen sind viel länger als die 32-Bit-IPv4-Adressen.
 
-The Regional Internet Registries (RIRs) are leading the transition from IPv4 to
-IPv6. The transition from IPv4 to IPv6 will take many years. During that time,
-both IPv4 and IPv6 must work seamlessly together.
+Die Regional Internet Registries (RIRs) leiten den Übergang von IPv4 zu IPv6. Der Übergang von IPv4 zu IPv6 wird viele Jahre dauern. Während dieser Zeit müssen sowohl IPv4 als auch IPv6 nahtlos zusammenarbeiten.
 
-Summary
+Zusammenfassung
 -------
 
-The Internetworking Protocol layer extends our network from a single hop
-(Link layer) to a series of hops that result in packets quickly and
-efficiently being routed from your computer to a destination IP address and
-back to your computer. The IP layer is designed to react and route around
-network outages and maintain near-ideal routing paths for packets moving between
-billions of computers without any kind of central routing clearinghouse. Each
-router learns its position within the overall network, and by cooperating with
-its neighboring routers helps move packets effectively across the Internet.
+Die Internetworking-Protokollschicht erweitert unser Netzwerk von einem einzelnen Hop
+(Verbindungsschicht) zu einer Reihe von Sprüngen, die dazu führen, dass Pakete schnell und effizient von Ihrem Computer zu einer Ziel-IP-Adresse und zurück zu Ihrem Computer geleitet werden. Die IP-Schicht ist so konzipiert, dass sie auf Netzwerkausfälle reagiert und diese umgeht und nahezu ideale Routing-Pfade für Pakete aufrechterhält, die sich zwischen Milliarden von Computern bewegen, ohne dass es eine zentrale Routing-Verwaltungsstelle gibt. Jeder Router lernt seine Position innerhalb des gesamten Netzwerks und hilft durch die Zusammenarbeit mit seinen benachbarten Routern, Pakete effektiv durch das Internet zu bewegen.
 
-The IP layer is not 100% reliable. Packets can be lost due to momentary
-outages or because the network is momentarily "confused" about the path that a
-packet needs to take across the network. Packets that your system sends later
-can find a quicker route through the network and arrive before packets that
-your system sent earlier.
+Die IP-Schicht ist nicht 100% zuverlässig. Pakete können durch kurzzeitige Ausfälle verloren gehen oder weil das Netzwerk kurzzeitig "verwirrt" ist über den Weg, den ein Paket durch das Netzwerk nehmen muss. Pakete, die Ihr System später sendet, können einen schnelleren Weg durch das Netzwerk finden und vor Paketen ankommen, die Ihr System früher gesendet hat.
 
-It might seem tempting to design the IP layer so that it never loses packets
-and insures that packets arrive in order, but this would make it nearly
-impossible for the IP layer to handle the extreme complexities involved in
-connecting so many systems.
+Es mag verlockend erscheinen, die IP-Schicht so zu gestalten, dass sie niemals Pakete verliert und sicherstellt, dass die Pakete in der richtigen Reihenfolge ankommen, aber das würde es für die IP-Schicht fast unmöglich machen, die extreme Komplexität zu bewältigen, die mit der Verbindung so vieler Systeme verbunden ist.
 
-So instead of asking too much of the IP layer, we leave the problem of packet
-loss and packets that arrive out of order to our next layer up, the Transport
-layer.
+Anstatt also die IP-Schicht zu überfordern, überlassen wir das Problem des Paketverlusts und der Pakete, die nicht in der richtigen Reihenfolge ankommen, der nächsthöheren Schicht, der Transportschicht.
 
-Glossary
+Glossar
 --------
 
-**core router**: A router that is forwarding traffic within the core of the 
-Internet.  
+**Kern-Router**: Ein Router, der den Verkehr innerhalb des Kerns des 
+Internet weiterleitet.  
 
-**DHCP**: Dynamic Host Configuration Protocol. DHCP is how a portable computer
-gets an IP address when it is moved to a new location.
+**DHCP**: Dynamic Host Configuration Protocol. Mit DHCP erhält ein tragbarer Computer eine IP-Adresse, wenn er an einen neuen Standort gebracht wird.
 
-**edge router**: A router which provides a connection between a local network
-and the Internet.  Equivalent to "gateway".
+**Edge-Router**: Ein Router, der eine Verbindung zwischen einem lokalen Netzwerk und dem Internet herstellt.  Äquivalent zu "Gateway".
 
-**Host Identifier**: The portion of an IP address that is used to 
-identify a computer within a local area network.
+**Host-Bezeichner**: Der Teil einer IP-Adresse, der verwendet wird, um 
+einen Computer innerhalb eines lokalen Netzwerks zu identifizieren.
 
-**IP Address**: A globally assigned address that is assigned to a computer
-so that it can communicate with other computers that have IP addresses and
-are connected to the Internet.  To simplify routing in the core of the Internet
-IP addresses are broken into Network Numbers and Host Identifiers.  An example
-IP address might be "212.78.1.25".
+**IP-Adresse**: Eine global zugewiesene Adresse, die einem Computer zugewiesen wird, damit er mit anderen Computern kommunizieren kann, die IP-Adressen haben und mit dem Internet verbunden sind.  Um das Routing im Kern des Internets zu vereinfachen, werden IP-Adressen in Netzwerknummern und Host-Identifikatoren unterteilt.  Eine IP-Adresse könnte beispielsweise "212.78.1.25" lauten.
 
-**NAT**: Network Address Translation. This technique allows a single global 
-IP address to be shared by many computers on a single local area network.
+**NAT**: Network Address Translation. Diese Technik erlaubt es, eine einzige globale 
+IP-Adresse von vielen Computern in einem einzigen lokalen Netzwerk gemeinsam genutzt werden.
 
-**Network Number**: The portion of an IP address that is used to identify
-which local network the computer is connected to.
+**Netzwerknummer**: Der Teil einer IP-Adresse, der verwendet wird, um zu identifizieren, mit welchem lokalen Netzwerk der Computer verbunden ist.
 
-**packet vortex**: An error situation where a packet gets into an infinite 
-loop because of errors in routing tables.
+**Paketwirbel**: Eine Fehlersituation, bei der ein Paket in eine Endlos 
+Schleife gerät aufgrund von Fehlern in den Routing-Tabellen.
 
-**RIR**: Regional Internet Registry. The five RIRs roughly correspond 
-to the continents of the world and allocate IP address 
-for the major geographical areas of the world.
+**RIR**: Regional Internet Registry. Die fünf RIRs entsprechen in etwa 
+den Kontinenten der Welt und vergeben IP-Adressen 
+für die wichtigsten geografischen Gebiete der Welt.
 
-**routing tables**: Information maintained by each router that keeps track 
-of which outbound link should be used for each network number.
+**Routing-Tabellen**: Von jedem Router gepflegte Informationen, die festhalten 
+welche ausgehende Verbindung für jede Netzwerknummer verwendet werden soll.
 
-**Time To Live (TTL)**: A number that is stored in every packet that 
-is reduced by one as the packet passes through each router.  When the TTL
-reaches zero, the packet is discarded.
+**Time To Live (TTL)**: Eine Zahl, die in jedem Paket gespeichert ist und 
+um eins reduziert wird, wenn das Paket jeden Router durchläuft.  Wenn die TTL Null erreicht, wird das Paket verworfen.
 
-**traceroute**: A command that is available on many Linux/UNIX systems that 
-attempts to map the path taken by a packet as it moves from its source to its
-destination.  May be called "tracert" on Windows systems.
+**traceroute**: Ein Befehl, der auf vielen Linux/UNIX-Systemen verfügbar ist und 
+der versucht, den Weg eines Pakets auf dem Weg von der Quelle zum Ziel aufzuzeichnen.  Kann auf Windows-Systemen "tracert" genannt werden.
 
-**two-connected network**: A situation where there is at least two possible
-paths between any pair of nodes in a network.  A two-connected network can 
-lose any single link without losing overall connectivity.
+**Zwei-verbundenes Netzwerk**: Eine Situation, in der es mindestens zwei mögliche Pfade zwischen einem beliebigen Knotenpaar in einem Netzwerk gibt.  Ein Netzwerk mit zwei Verbindungen kann 
+eine einzelne Verbindung verlieren, ohne die Gesamtkonnektivität zu verlieren.
 
 
-Questions
+Fragen
 ---------
 
-You can take this quiz online at http://www.net-intro.com/quiz/
+Sie können dieses Quiz online unter http://www.net-intro.com/quiz/ bearbeiten.
 
-1. What is the goal of the Internetworking layer?
-a) Move packets across multiple hops from a source to destination computer
-b) Move packets across a single physical connection
-c) Deal with web server failover
-d) Deal with encryption of sensitive data
+1. Was ist das Ziel der Internetworking-Schicht?
+a) Pakete über mehrere Sprünge von einem Quell- zu einem Zielcomputer zu bewegen
+b) Pakete über eine einzige physikalische Verbindung zu transportieren
+c) Ausfallsicherung von Webservern
+d) Die Verschlüsselung von sensiblen Daten
 
-2. How many different physical links does a typical packet cross from 
-its source to its destination on the Internet?
+2. Wie viele verschiedene physikalische Verbindungen durchläuft ein typisches Paket von 
+seiner Quelle zu seinem Ziel im Internet?
 a) 1
 b) 4
 c) 15
 d) 255
 
-3. Which of these is an IP address?
+3. Welche der folgenden Adressen ist eine IP-Adresse?
 a) 0f:2a:b3:1f:b3:1a
 b) 192.168.3.14
 c) www.khanacademy.com
 d) @drchuck
 
-4. Why is it necessary to move from IPv4 to IPv6?
-a) Because IPv6 has smaller routing tables
-b) Because IPv6 reduces the number of hops a packet must go across
-c) Because we are running out of IPv4 addresses
-d) Because IPv6 addresses are chosen by network hardware manufacturers
+4. Warum ist es notwendig, von IPv4 auf IPv6 umzusteigen?
+a) Weil IPv6 kleinere Routing-Tabellen hat
+b) Weil IPv6 die Anzahl der Hops, die ein Paket durchlaufen muss, reduziert
+c) Weil uns die IPv4-Adressen ausgehen
+d) Weil die IPv6-Adressen von den Herstellern der Netzwerkhardware ausgewählt werden
 
-5. What is a network number?
-a) A group of IP addresses with the same prefix
-b) The GPS coordinates of a particular LAN
-c) The number of hops it takes for a packet to cross the network
-d) The overall delay packets experience crossing the network
+5. Was ist eine Netzwerknummer?
+a) Eine Gruppe von IP-Adressen mit demselben Präfix
+b) Die GPS-Koordinaten eines bestimmten LANs
+c) Die Anzahl der Sprünge, die ein Paket benötigt, um das Netzwerk zu durchqueren
+d) Die Gesamtverzögerung, die Pakete beim Durchqueren des Netzwerks erfahren
 
-6. How many computers can have addresses within network number "218.78"?
+6. Wie viele Computer können Adressen innerhalb der Netzwerknummer "218.78" haben?
 a) 650
 b) 6500
 c) 65000
 d) 650000
 
-7. How do routers determine the path taken by a packet across the Internet?
-a) The routes are controlled by the IRG (Internet Routing Group)
-b) Each router looks at a packet and forwards it based on its best guess 
-as to the correct outbound link
-c) Each router sends all packets on every outbound link (flooding algorithm)
-d) Each router holds on to a packet until a packet comes in from the 
-destination computer
+7. Wie bestimmen die Router den Weg, den ein Paket durch das Internet nimmt?
+a) Die Routen werden von der IRG (Internet Routing Group) kontrolliert
+b) Jeder Router sieht sich ein Paket an und leitet es weiter, basierend auf seiner besten Einschätzung 
+über die richtige ausgehende Verbindung
+c) Jeder Router sendet alle Pakete auf jeder ausgehenden Verbindung (Flooding-Algorithmus)
+d) Jeder Router behält ein Paket, bis ein Paket vom Zielrechner eintrifft 
+Zielrechner
 
-8. What is a routing table?
-a) A list of IP addresses mapped to link addresses
-b) A list of IP addresses mapped to GPS coordinates
-c) A list of network numbers mapped to GPS coordinates
-d) A list of network numbers mapped to outbound links from the router
+8. Was ist eine Routing-Tabelle?
+a) Eine Liste von IP-Adressen, die den Link-Adressen zugeordnet sind
+b) Eine Liste von IP-Adressen, die den GPS-Koordinaten zugeordnet sind
+c) Eine Liste von Netzwerknummern, die GPS-Koordinaten zugeordnet sind
+d) Eine Liste von Netzwerknummern, die ausgehenden Links vom Router zugeordnet sind
 
-9. How does a newly connected router fill its routing tables?
-a) By consulting the IANA (Internet Assigned Numbers Authority)
-b) By downloading the routing RFC (Request for Comments)
-c) By contacting the Internet Engineering Task Force (IETF)
-d) By asking neighboring routers how they route packets
+9. Wie füllt ein neu angeschlossener Router seine Routing-Tabellen?
+a) Durch Rückfrage bei der IANA (Internet Assigned Numbers Authority)
+b) Durch Herunterladen des Routing-RFC (Request for Comments)
+c) Durch Kontaktaufnahme mit der Internet Engineering Task Force (IETF)
+d) Indem Sie benachbarte Router fragen, wie sie Pakete routen
 
-10. What does a router do when a physical link goes down?
-a) Throws away all of the routing table entries for that link
-b) Consults the Internet Map (IMAP) service
-c) Does a Domain Name (DNS) looking for the IP address
-d) Sends all the packets for that link back to the source computer
+10. Was macht ein Router, wenn eine physikalische Verbindung ausfällt?
+a) Er wirft alle Routing-Tabelleneinträge für diese Verbindung weg.
+b) Konsultiert den Internet Map (IMAP)-Dienst
+c) Führt eine Domain Name (DNS) Suche nach der IP-Adresse durch
+d) Sendet alle Pakete für diese Verbindung zurück an den Quellcomputer
 
-11. Why is it good to have at least a "two-connected" network?
-a) Because routing tables are much smaller
-b) Because it removes the need for network numbers
-c) Because it supports more IPv4 addresses
-d) Because it continues to function even when a single link goes down
+11. Warum ist es gut, mindestens ein "zweigleisiges" Netzwerk zu haben?
+a) Weil die Routing-Tabellen viel kleiner sind
+b) Weil dadurch die Notwendigkeit von Netzwerknummern entfällt
+c) Weil es mehr IPv4-Adressen unterstützt
+d) Weil es weiter funktioniert, auch wenn eine einzelne Verbindung ausfällt
 
-12. Do all packets from a message take the same route across the Internet?
-a) Yes
-b) No
+12. Nehmen alle Pakete einer Nachricht die gleiche Route durch das Internet?
+a) Ja
+b) Nein
 
-13. How do routers discover new routes and improve their routing tables?
-a) Each day at midnight they download a new Internet map from IMAP
-b) They periodically ask neighboring routers for their network tables
-c) They randomly discard packets to trigger error-correction code within
-the Internet
-d) They are given transmission speed data by destination computers
+13. Wie entdecken Router neue Routen und verbessern ihre Routing-Tabellen?
+a) Jeden Tag um Mitternacht laden sie eine neue Internet-Karte von IMAP herunter
+b) Sie fragen in regelmäßigen Abständen benachbarte Router nach ihren Netztabellen
+c) Sie verwerfen zufällig Pakete, um einen Fehlerkorrekturcode im Internet auszulösen
+d) Sie erhalten von den Zielrechnern Daten zur Übertragungsgeschwindigkeit
 
-14. What is the purpose of the "Time to Live" field in a packet?
-a) To make sure that packets do not end up in an "infinite loop"
-b) To track how many minutes it takes for a packet to get through the network
-c) To maintain a mapping between network numbers and GPS coordinates
-d) To tell the router the correct output link for a particular packet
+14. Was ist der Zweck des "Time to Live"-Feldes in einem Paket?
+a) Um sicherzustellen, dass Pakete nicht in einer "Endlosschleife" landen
+b) Um zu verfolgen, wie viele Minuten es dauert, bis ein Paket das Netzwerk durchläuft
+c) Um ein Mapping zwischen Netzwerknummern und GPS-Koordinaten zu erhalten
+d) Um dem Router den richtigen Ausgangslink für ein bestimmtes Paket mitzuteilen
 
-15. How does the "traceroute" command work?
-a) It sends a series of packets with low TTL values so it can get a 
-picture of where the packets get dropped
-b) It loads a network route from the Internet Map (IMAP)
-c) It contacts a Domain Name Server to get the route for a 
-particular network number
-d) It asks routers to append route information to a packet as it is 
-routed from source to destination
+15. Wie funktioniert der "traceroute"-Befehl?
+a) Er sendet eine Reihe von Paketen mit niedrigen TTL-Werten, so dass er sich ein Bild davon machen kann 
+ein Bild davon zu bekommen, wo die Pakete verworfen werden
+b) Er lädt eine Netzwerk-Route aus der Internet-Karte (IMAP)
+c) Es kontaktiert einen Domain Name Server, um die Route für eine 
+bestimmte Netzwerknummer zu erhalten
+d) Es bittet Router, Routeninformationen an ein Paket anzuhängen, während es 
+von der Quelle zum Ziel geroutet wird
 
-16. About how long does it take for a packet to cross the Pacific Ocean
-via an undersea fiber optic cable?
-a) 0.0025 Seconds
-b) 0.025 Seconds
-c) 0.250 Seconds
-d) 2.5 Seconds
+16. Wie lange dauert es ungefähr, bis ein Paket den Pazifischen Ozean über ein Unterwasser-Glasfaserkabel überquert?
+a) 0,0025 Sekunden
+b) 0,025 Sekunden
+c) 0,250 Sekunden
+d) 2,5 Sekunden
 
-17. On a WiFi network, how does a computer get an Internetworking (IP) address?
-a) Using the DHCP protocol
-b) Using the DNS protocol
-c) Using the HTTP protocol
-d) Using the IMAP protocol
+17. Wie erhält ein Computer in einem WiFi-Netzwerk eine Internetworking (IP)-Adresse?
+a) Über das DHCP-Protokoll
+b) Mit Hilfe des DNS-Protokolls
+c) Über das HTTP-Protokoll
+d) Mit Hilfe des IMAP-Protokolls
 
-18. What is Network Address Translation (NAT)?
-a) It looks up the IP address associated with text names 
-like "www.dr-chuck.com"
-b) It allows IPv6 traffic to go across IPv4 networks
-c) It looks up the best outbound link for a particular router 
-and network number
-d) It reuses special network numbers like "192.168" across multiple
-network gateways at multiple locations
+18. Was ist Network Address Translation (NAT)?
+a) Es sucht nach der IP-Adresse, die mit Textnamen 
+wie "www.dr-chuck.com"
+b) Es erlaubt IPv6-Verkehr über IPv4-Netzwerke zu gehen
+c) Es sucht die beste ausgehende Verbindung für einen bestimmten Router 
+und Netzwerknummer
+d) Es verwendet spezielle Netzwerknummern wie "192.168" über mehrere Netzwerk-Gateways an mehreren Standorten wieder
 
-19. How are IP addresses and network numbers managed globally?
-a) There are five top-level registries that manage network numbers in 
-five geographic areas
-b) IP addresses are assigned worldwide randomly in a lottery
-c) IP addresses are assigned by network equipment manufacturers
-d) IP addresses are based on GPS coordinates
+19. Wie werden IP-Adressen und Netzwerknummern global verwaltet?
+a) Es gibt fünf Top-Level-Registries, die Netzwerknummern in 
+fünf geografischen Gebieten
+b) IP-Adressen werden weltweit nach dem Zufallsprinzip in einer Lotterie vergeben
+c) IP-Adressen werden von den Herstellern von Netzwerkgeräten zugewiesen
+d) IP-Adressen basieren auf GPS-Koordinaten
 
-20. How much larger are IPv6 addresses than IPv4 addresses?
-a) They are the same size
-b) IPv6 addresses are 50% larger than IPv4 addresses
-c) IPv6 addresses are twice as large as IPv4 addresses
-d) IPv6 addresses are 10 times larger than IPv4 addresses
+20. Wie viel größer sind IPv6-Adressen als IPv4-Adressen?
+a) Sie sind gleich groß
+b) IPv6-Adressen sind 50 % größer als IPv4-Adressen
+c) IPv6-Adressen sind doppelt so groß wie IPv4-Adressen
+d) IPv6-Adressen sind 10-mal größer als IPv4-Adressen
 
-21. What does it mean when your computer receives an IP address that starts with "169.."?
-a) Your connection to the Internet supports the Multicast protocol
-b) The gateway is mapping your local address to a global address using NAT
-c) There was no gateway available to forward your packets to the Internet
-d) The gateway for this network is a low-speed gateway with a small window size
+21. Was bedeutet es, wenn Ihr Computer eine IP-Adresse erhält, die mit "169..." beginnt?
+a) Ihre Verbindung zum Internet unterstützt das Multicast-Protokoll
+b) Das Gateway bildet Ihre lokale Adresse mittels NAT auf eine globale Adresse ab
+c) Es war kein Gateway verfügbar, um Ihre Pakete ins Internet weiterzuleiten
+d) Das Gateway für dieses Netzwerk ist ein Low-Speed-Gateway mit einer kleinen Fenstergröße
 
-22. If you were starting an Internet Service Provider in Poland, which Regional Internet Registry (RIR) would assign you a block of IP addresses.
+22. Wenn Sie einen Internet Service Provider in Polen gründen würden, welches regionale Internet-Register (RIR) würde Ihnen einen Block von IP-Adressen zuweisen?
 a) ARIN
 b) LACNIC
 c) RIPE NCC
 d) APNIC
 e) AFRNIC
-f) United Nations
+f) Vereinte Nationen
 
 
 

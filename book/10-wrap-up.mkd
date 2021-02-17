@@ -1,76 +1,28 @@
-Wrap Up
+Nachbereitung
 =======
 
-It has been said that building the Internet solved the world's most complex
-engineering problem to date. The design and engineering of the Internet
-started well over 50 years ago. It has been continuously improving
-and evolving over the past 50 years and will continue to evolve in the future.
+Es wurde gesagt, dass der Aufbau des Internets das bis dato komplexeste technische Problem der Welt gelöst hat. Das Design und die Entwicklung des Internets begannen vor über 50 Jahren. Es wurde in den letzten 50 Jahren kontinuierlich verbessert und weiterentwickelt und wird sich auch in Zukunft weiterentwickeln.
 
-The Internet now connects billions of computers using many thousands of routers
-and link-level connections. The Internet is so complex that it is never fully
-operational, The Internet is less about being "perfect" and more about
-adapting to problems, outages, errors, lost data, and many other unforeseen
-problems. The Internet is designed to be flexible and adapt to whatever
-problems are encountered.
+Das Internet verbindet heute Milliarden von Computern über viele Tausende von Routern und Link-Level-Verbindungen. Das Internet ist so komplex, dass es nie vollständig betriebsbereit ist. Beim Internet geht es weniger darum, "perfekt" zu sein, als vielmehr darum, sich an Probleme, Ausfälle, Fehler, verlorene Daten und viele andere unvorhergesehene Probleme anzupassen. Das Internet ist so konzipiert, dass es flexibel ist und sich an alle auftretenden Probleme anpassen kann.
 
-![The Four-Layer Model](../images/layers)
+![Das Vier-Schichten-Modell](../images/layers)
 
-In order to build an overall solution that works at scale, it was important to
-break the Internet engineering problems down into four distinct layers:
+Um eine Gesamtlösung zu entwickeln, die im großen Maßstab funktioniert, war es wichtig, die technischen Probleme des Internets in vier verschiedene Schichten aufzuteilen:
 
-* The Link/Physical layer includes all of the complex engineering
-required to move data across a single "hop", whether the hop is a wireless WiFi,
-wired Ethernet, fiber optic, or satellite connection.
+* Die Link/Physical-Schicht umfasst die gesamte komplexe Technik, die erforderlich ist, um Daten über einen einzelnen "Hop" zu übertragen, unabhängig davon, ob es sich bei dem Hop um eine drahtlose WiFi-, kabelgebundene Ethernet-, Glasfaser- oder Satellitenverbindung handelt.
 
-* The Internetwork Protocol (IP) layer is how data is routed
-across a series of hops to get quickly and efficiently from one of a billion
-source computers to any of a billion destination computers. The IP layer
-dynamically adjusts and reroutes data based on network load, link performance,
-or network outages. While the IP layer is highly reliable and fast, at
-times it loses or even throws away data. The IP layer is not responsible for
-insuring the overall reliability of the network. It just moves the data the
-best that it can.
+* Die IP-Schicht (Internetwork Protocol) ist die Art und Weise, wie Daten über eine Reihe von Sprüngen geroutet werden, um schnell und effizient von einem von einer Milliarde Quellcomputern zu einem von einer Milliarde Zielcomputern zu gelangen. Die IP-Schicht passt die Daten dynamisch an und leitet sie je nach Netzwerklast, Verbindungsleistung oder Netzwerkausfällen um. Obwohl die IP-Schicht sehr zuverlässig und schnell ist, kommt es vor, dass sie Daten verliert oder sogar wegwirft. Die IP-Schicht ist nicht für die Sicherstellung der allgemeinen Zuverlässigkeit des Netzwerks verantwortlich. Sie transportiert die Daten einfach so gut sie kann.
 
-* The Transport layer compensates for any imperfections in the IP
-or Link layers. The Transport layer makes sure that any lost packets are
-retransmitted and packets that arrive out of order are put back into order
-before being passed on to the receiving application. The Transport layer also
-acts as flow control between the sending and receiving applications to make
-sure that data is moved quickly when the network is fast and the links are
-not overloaded, and to slow the transfer of data when using slower or heavily
-loaded links. The data flow and rate limitation in the Transport layer allow
-the Internet to continue to function smoothly even when it is heavily loaded.
+* Die Transportschicht kompensiert alle Unzulänglichkeiten der IP- oder Verbindungsschicht. Die Transportschicht stellt sicher, dass verlorene Pakete erneut übertragen werden und dass Pakete, die nicht in der richtigen Reihenfolge ankommen, wieder in die richtige Reihenfolge gebracht werden, bevor sie an die empfangende Anwendung weitergeleitet werden. Die Transportschicht fungiert auch als Flusskontrolle zwischen der sendenden und der empfangenden Anwendung, um sicherzustellen, dass die Daten schnell übertragen werden, wenn das Netzwerk schnell ist und die Verbindungen nicht überlastet sind, und um die Übertragung der Daten zu verlangsamen, wenn langsamere oder stark belastete Verbindungen verwendet werden. Der Datenfluss und die Ratenbegrenzung in der Transportschicht sorgen dafür, dass das Internet auch bei hoher Auslastung reibungslos funktioniert.
 
-* The other three layers make the use of the network very simple
-for the Application Layer. An application can make a network connection and
-send/receive data on that connection with just a few lines of code. By making the
-use of the network simple, applications can focus on solving the end-user
-problems they need to solve. Because it is so easy for applications to use
-the network in new and different ways, we have seen the emergence of a wide
-range of highly innovative applications that work without any changes required to
-the Internet protocols.
+* Die anderen drei Schichten machen die Nutzung des Netzwerks für die Anwendungsschicht sehr einfach. Eine Anwendung kann mit nur wenigen Zeilen Code eine Netzwerkverbindung herstellen und Daten über diese Verbindung senden/empfangen. Da die Nutzung des Netzwerks so einfach ist, können sich Anwendungen auf die Lösung der Probleme konzentrieren, die sie für den Endbenutzer zu lösen haben. Da es für Anwendungen so einfach ist, das Netzwerk auf neue und andere Art und Weise zu nutzen, haben wir das Aufkommen einer Vielzahl hochinnovativer Anwendungen erlebt, die ohne jegliche Änderungen an den Internet-Protokollen funktionieren.
 
-Without breaking the problem of engineering and building the Internet into
-these four distinct layers, it would be far more difficult to build and deploy
-ever-improving versions of the network. And if every single application needed
-to be fully aware of all of the complex details required to use the Internet,
-it would greatly limit the richness and diversity of the networked applications
-that we have today.
+Ohne die Aufteilung des Problems der Entwicklung und des Aufbaus des Internets in diese vier verschiedenen Schichten wäre es viel schwieriger, immer bessere Versionen des Netzwerks zu entwickeln und einzusetzen. Und wenn jede einzelne Anwendung all die komplexen Details kennen müsste, die für die Nutzung des Internets erforderlich sind, würde dies den Reichtum und die Vielfalt der vernetzten Anwendungen, die wir heute haben, stark einschränken.
 
-It is amazing to realize what has been accomplished in building the Internet
-over the past 50 years. But in a way, we have only just begun the engineering
-journey of building networked applications. It does not take much to imagine
-an Internet where every light switch, lightbulb, refrigerator, table, automobile,
-roadway, flying drone, and chair has an Internet address and they all want to
-communicate with one another. New engineering issues will have to be solved,
-and perhaps even the four-layer network model will need to evolve to meet these
-new engineering challenges.
+Es ist erstaunlich, was in den letzten 50 Jahren beim Aufbau des Internets erreicht wurde. Aber in gewisser Weise haben wir mit der Entwicklung von vernetzten Anwendungen gerade erst begonnen. Es braucht nicht viel, um sich ein Internet vorzustellen, in dem jeder Lichtschalter, jede Glühbirne, jeder Kühlschrank, jeder Tisch, jedes Auto, jede Straße, jede fliegende Drohne und jeder Stuhl eine Internetadresse hat und sie alle miteinander kommunizieren wollen. Es werden neue technische Probleme zu lösen sein, und vielleicht wird sich sogar das Vier-Schichten-Netzwerkmodell weiterentwickeln müssen, um diese neuen technischen Herausforderungen zu meistern.
 
-But just like brilliant engineers designed and evolved network protocols to
-move from hundreds of network-connected computers to billions of 
-network-connected computers, our present and future engineers will certainly
-solve the problems and challenges we will face as the network evolves to connect
-trillions of computers.
+Aber so wie brillante Ingenieure Netzwerkprotokolle entworfen und weiterentwickelt haben, um von Hunderten von vernetzten Computern zu Milliarden von 
+vernetzten Computern zu entwickeln, werden unsere heutigen und zukünftigen Ingenieure sicherlich die Probleme und Herausforderungen lösen, die sich uns stellen werden, wenn sich das Netzwerk weiterentwickelt, um Billionen von Computern zu verbinden.
 
 
 

@@ -1,90 +1,56 @@
 \thispagestyle{empty}
 
-Credits
+Impressum
 -------
 
-    Illustrations: Mauro Toselli
-    Editorial Support: Sue Blumenberg
-    Cover Design: Aimee Andrion
+    Illustrationen: Mauro Toselli
+    Redaktionelle Unterstützung: Sue Blumenberg
+    Umschlaggestaltung: Aimee Andrion
 
-The SketchNote illustrations were drawn on an iPad using
-*Paper* by www.fiftythree.com using a dedicated stylus pencil.
-The illustrations were converted from PNG to
-SVG and EPS vector formats using www.vectormagic.com.
-The technical figures for the book were drawn with OmniGraffle.
+Die SketchNote-Illustrationen wurden auf einem iPad mit *Papier* von www.fiftythree.com unter Verwendung eines speziellen Stylus-Stifts gezeichnet. Die Illustrationen wurden mit www.vectormagic.com von PNG in die Vektorformate SVG und EPS konvertiert. Die technischen Figuren für das Buch wurden mit OmniGraffle gezeichnet.
 
-Printing History
+Druckverlauf
 ----------------
 
-2015-May-25 Original Printing - CreateSpace
+2015-Mai-25 Originaldruck - CreateSpace
 
-Copyright Details
+Angaben zum Copyright
 -----------------
 
-This book is Copyright Charles R. Severance.
+Dieses Buch unterliegt dem Copyright von Charles R. Severance.
 
-The paper/print version of this book is licensed under a
-Creative Commons Attribution-NonCommercial 4.0 International License.
-Permission is specifically granted to make copies as
-necessary of all or part of the materials in this book
-as part of a course or course packet.
+Die Papier-/Druckversion dieses Buches ist lizenziert unter einer Creative Commons Attribution-NonCommercial 4.0 International License. Es wird ausdrücklich die Erlaubnis erteilt, Kopien des gesamten oder eines Teils des Materials in diesem Buch als Teil eines Kurses oder eines Kurspakets zu erstellen.
 
 http://creativecommons.org/licenses/by-nc/4.0
 
-Electronic copies of this book in EPUB, PDF, and HTML
-are licensed under a
-Creative Commons Attribution 4.0 International License.
+Elektronische Kopien dieses Buches im EPUB-, PDF- und HTML-Format sind unter einer Creative Commons Attribution 4.0 International License lizenziert.
 
 http://creativecommons.org/licenses/by/4.0/
 
-If you are interested in translating this book into a language
-other than English, please contact me. I am willing to
-give commercial print distribution rights for a complete and
-responsible translation.
+Wenn Sie an einer Übersetzung dieses Buches in eine andere Sprache als Englisch interessiert sind, kontaktieren Sie mich bitte. Ich bin bereit, für eine vollständige und verantwortungsvolle Übersetzung kommerzielle Vertriebsrechte für den Druck zu vergeben.
 
 \cleardoublepage
 
-Preface
+Vorwort
 =======
 \thispagestyle{empty}
 
-The goal of this book is to provide a basic understanding of
-the technical design and architecture of the Internet.
-The book is aimed at all audiences -- even those with absolutely no prior
-technical experience or math skills.  The Internet is an amazingly beautiful
-design and should be understood by all who use it.
+Das Ziel dieses Buches ist es, ein grundlegendes Verständnis für den technischen Aufbau und die Architektur des Internets zu vermitteln. Das Buch richtet sich an alle Zielgruppen - auch an diejenigen, die keinerlei technische Vorkenntnisse oder mathematische Fähigkeiten besitzen.  Das Internet ist ein erstaunlich schönes Design und sollte von allen, die es benutzen, verstanden werden.
 
-While this book is not about the Network+ or CCNA
-certifications, I hope it serves as a way to give students
-interested in these certifications a good starting point.
+Obwohl es in diesem Buch nicht um die Network+- oder CCNA-Zertifizierungen geht, hoffe ich, dass es Studenten, die sich für diese Zertifizierungen interessieren, einen guten Startpunkt bietet.
 
-I want to thank Pamela Fox of Khan Academy for coming up with
-the idea of an introductory network technology course using open
-materials.
+Ich möchte Pamela Fox von der Khan Academy dafür danken, dass sie die Idee eines Einführungskurses in die Netzwerktechnologie mit offenen Materialien hatte.
 
-I initially developed this material as a single week's lecture in
-the *SI502 - Networked Computing* course that I taught at the
-University of Michigan School of Information starting in 2008.
-I refined and expanded the material to be three weeks of the
-Internet History, Technology, and Security (IHTS) course
-that I have taught to over 100,000 students on Coursera
-starting in 2012. This book adds further detail to create a standalone
-text that can be read for enjoyment or used to support an introductory course
-that focuses on the Internet's architecture.
+Ich habe dieses Material ursprünglich als eine einwöchige Vorlesung im Kurs *SI502 - Networked Computing* entwickelt, den ich ab 2008 an der University of Michigan School of Information unterrichtet habe.
+Ich verfeinerte und erweiterte das Material zu drei Wochen des Kurses Internet History, Technology, and Security (IHTS), den ich ab 2012 für über 100.000 Studenten auf Coursera unterrichtet habe. Dieses Buch fügt weitere Details hinzu, um einen eigenständigen Text zu schaffen, der zum Vergnügen gelesen oder zur Unterstützung eines Einführungskurses verwendet werden kann, der sich auf die Architektur des Internets konzentriert.
 
-This book has been particularly fun in that it is a collaboration
-with my friends Mauro Toselli (@xlontrax) and Sue Blumenberg.  I met Mauro and
-Sue in 2012 when they became volunteer Community Teaching Assistants (CTAs)
-for my IHTS course on Coursera.  Over the past three years we have become
-friends and colleagues.   It is a great example of how open education
-can bring people together.
+Dieses Buch hat besonders viel Spaß gemacht, da es eine Zusammenarbeit mit meinen Freunden Mauro Toselli (@xlontrax) und Sue Blumenberg ist.  Ich habe Mauro und Sue im Jahr 2012 kennengelernt, als sie freiwillige Community Teaching Assistants (CTAs) für meinen IHTS-Kurs auf Coursera wurden.  In den letzten drei Jahren sind wir zu Freunden und Kollegen geworden. Sie sind ein großartiges Beispiel dafür, wie offene Bildung Menschen zusammenbringen kann.
 
-There is supporting material for this book at
+Unterstützendes Material zu diesem Buch finden Sie unter
 
-http://www.net-intro.com/
+http://www.net-intro.com/.
 
-If you like the book, let us know.  Send us a tweet with your thoughts.
-You can also send a tweet if you find an error in the book.
+Wenn Sie das Buch mögen, lassen Sie es uns wissen. Senden Sie uns einen Tweet mit Ihren Gedanken. Sie können auch einen Tweet senden, wenn Sie einen Fehler im Buch finden.
 
     Charles R. Severance (@drchuck)
     www.dr-chuck.com

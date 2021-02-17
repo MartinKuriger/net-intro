@@ -1,247 +1,149 @@
-The OSI Model
+Das OSI-Modell
 =============
 
-So far we have spent all of our time describing the four-layer model
-used to design and implement the TCP/IP protocols and applications that
-make up the Internet. However, the TCP/IP  model is not the only model
-we can use to help us understand how networks work. The other
-model commonly used to make sense of network design is called
-the Open System Interconnection (OSI) model. While the TCP/IP model
-was designed and evolved as the TCP/IP protocols were developed,
-deployed, and changed, the OSI model was the result of a careful design
-process by many networking experts who worked to develop a general
-approach to network models.
+Bis jetzt haben wir die ganze Zeit damit verbracht, das Vier-Schichten-Modell zu beschreiben, mit dem die TCP/IP-Protokolle und -Anwendungen, aus denen das Internet besteht, entworfen und implementiert werden. Das TCP/IP-Modell ist jedoch nicht das einzige Modell, das wir verwenden können, um zu verstehen, wie Netzwerke funktionieren. Das andere Modell, das häufig verwendet wird, um das Netzwerkdesign zu verstehen, ist das OSI-Modell (Open System Interconnection). Während das TCP/IP-Modell entworfen und weiterentwickelt wurde, als die TCP/IP-Protokolle entwickelt, eingesetzt und geändert wurden, war das OSI-Modell das Ergebnis eines sorgfältigen Entwurfsprozesses von vielen Netzwerkexperten, die daran arbeiteten, einen allgemeinen Ansatz für Netzwerkmodelle zu entwickeln.
 
-In today's networked world, the OSI model and the TCP/IP model serve two
-different purposes.^[This, of course, is an oversimplification. Prior to 1990,
-there *were* operational network implementations based on ISO specifications
-that followed the OSI network model very closely. But today, those ISO/OSI 
-network implementations no longer are in broad use.]
-The TCP/IP model is an *implementation* model, in that it provides the
-guidance for those who would build TCP/IP-compatible network hardware
-or software. The OSI model is more of an *abstract* model that 
-can be used to understand a wide range of network architectures.
+In der heutigen vernetzten Welt dienen das OSI-Modell und das TCP/IP-Modell zwei unterschiedlichen Zwecken.^[Dies ist natürlich eine starke Vereinfachung. Vor 1990 *gab* es betriebliche Netzwerkimplementierungen, die auf ISO-Spezifikationen basierten und sich sehr eng an das OSI-Netzwerkmodell hielten. Aber heute sind diese ISO/OSI 
+Netzwerkimplementierungen nicht mehr weit verbreitet].
+Das TCP/IP-Modell ist ein *Implementierungsmodell*, d. h. es bietet eine Anleitung für diejenigen, die TCP/IP-kompatible Netzwerkhardware oder -software entwickeln. Das OSI-Modell ist eher ein *abstraktes* Modell, das 
+verwendet werden kann, um eine Vielzahl von Netzwerkarchitekturen zu verstehen.
 
-While TCP/IP is the most widely used network technology today, many
-different types of networks have been implemented and deployed 
-over the past 50 years. And as we continue to improve and evolve networking, 
-new implementation models may emerge.
+Obwohl TCP/IP heute die am weitesten verbreitete Netzwerktechnologie ist, wurden in den letzten 50 Jahren viele verschiedene Arten von Netzwerken implementiert und eingesetzt. 
+den letzten 50 Jahren implementiert und eingesetzt. Und während wir Netzwerke weiter verbessern und weiterentwickeln, 
+können neue Implementierungsmodelle entstehen.
 
-The OSI model has seven layers instead of the four layers of the
-TCP/IP model. Starting at the bottom (nearest the physical
-connections) of the OSI model, the layers are: (1) Physical, (2) Data
-Link, (3) Network, (4) Transport, (5) Session, (6) Presentation,
-and (7) Application. We will look at each layer in the OSI model
-in turn, starting with the Physical layer.
+Das OSI-Modell hat sieben Schichten anstelle der vier Schichten des TCP/IP-Modells. Die Schichten des OSI-Modells sind, beginnend am unteren Ende (am nächsten zu den physikalischen Verbindungen), folgende (1) Physikalisch, (2) Datenverbindung, (3) Netzwerk, (4) Transport, (5) Sitzung, (6) Präsentation und (7) Anwendung. Wir werden jede Schicht des OSI-Modells der Reihe nach betrachten, beginnend mit der physikalischen Schicht.
 
-Physical (Layer 1)
+Physikalische Schicht (Schicht 1)
 --------------------
 
-The OSI Physical layer deals with the physical attributes of the
-actual wired, wireless, fiber optic, or other connection that is
-used to transport data across a single link. The Physical layer also
-defines the shapes of the connectors and type of media which can be used.
-Another problem solved at this layer is how to encode the bits
-(0's and 1's) that make up the data being sent across the
-medium.^["Manchester Encoding" is a common technique for encoding 
-bits for transmission across a wire.]
-The "bit encoding" (or modulation) determines how fast data
-can be sent across the link.
+Die physikalische Schicht des OSI-Modells befasst sich mit den physikalischen Eigenschaften der tatsächlichen drahtgebundenen, drahtlosen, faseroptischen oder anderen Verbindung, die zum Transport von Daten über eine einzelne Verbindung verwendet wird. Die physikalische Schicht definiert auch die Formen der Anschlüsse und die Art der Medien, die verwendet werden können. Ein weiteres Problem, das auf dieser Schicht gelöst wird, ist die Kodierung der Bits
+Ein weiteres Problem, das auf dieser Schicht gelöst wird, ist die Kodierung der Bits (0 und 1), aus denen die über das Medium gesendeten Daten bestehen.^["Manchester Encoding" ist eine gängige Technik zur Kodierung von Bits für die Übertragung über eine Leitung. 
+Bits für die Übertragung über eine Leitung].
+Die "Bitkodierung" (oder Modulation) bestimmt, wie schnell die Daten über die Verbindung gesendet werden können.
 
-Data Link (Layer 2)
+Datenverbindung (Schicht 2)
 ---------------------
 
-The OSI Data Link layer is concerned with how the systems using
-a physical link cooperate with one another. When data is broken
-into packets, the Data Link layer defines special sequences to
-indicate the beginning and end of each packet. The stations
-communicating using the physical connection are assigned addresses
-to allow for effective use of the media. Sometimes multiple stations
-are sharing the same media (as on a wireless network) and the
-Data Link layer defines how those stations will share the connections
-with the other systems connected to the network. Most Data Link
-layers also have some form of checksum to detect and/or correct for
-errors in the transmitted data.
+Die OSI-Datenverbindungsschicht befasst sich damit, wie die Systeme, die eine
+einer physikalischen Verbindung miteinander kooperieren. Wenn Daten in Pakete aufgeteilt werden, definiert die Datenverbindungsschicht spezielle Sequenzen, um den Anfang und das Ende jedes Pakets anzuzeigen. Den Stationen, die über die physikalische Verbindung kommunizieren, werden Adressen zugewiesen, um eine effektive Nutzung des Mediums zu ermöglichen. Manchmal teilen sich mehrere Stationen dasselbe Medium (wie in einem drahtlosen Netzwerk) und die Sicherungsschicht definiert, wie diese Stationen die Verbindungen mit den anderen am Netzwerk angeschlossenen Systemen teilen. Die meisten Datenübertragungsschichten verfügen auch über eine Form der Prüfsumme, um Fehler in den übertragenen Daten zu erkennen und/oder zu korrigieren.
 
-The design problems solved in the Physical and Data Link layers of
-the OSI model are addressed by the Link layer of the TCP/IP model.
+Die Design-Probleme, die in der physikalischen und der Datenübertragungsschicht des OSI-Modells gelöst wurden, werden von der Verbindungsschicht des TCP/IP-Modells übernommen.
 
-Network (Layer 3)
+Netzwerk (Schicht 3)
 -------------------
 
-Like the Internetwork Layer (IP) in the TCP/IP model, the OSI
-Network layer deals with the global assignment of "routable"
-addresses to the various systems connected to the network. The
-Network layer governs how routers forward packets across multiple
-hops to get from their source to their destination. Like the IP
-layer, The OSI Network layer does not attempt to be error free,
-as it assumes that lost data will be detected and retransmitted at
-the next layer up.
+Wie die Internetwork-Schicht (IP) im TCP/IP-Modell befasst sich die OSI-Netzwerkschicht mit der globalen Zuweisung von "routbaren" Adressen an die verschiedenen Systeme, die an das Netzwerk angeschlossen sind.
+Adressen an die verschiedenen an das Netzwerk angeschlossenen Systeme. Die Netzwerkschicht regelt, wie Router Pakete über mehrere Hops weiterleiten, um von ihrer Quelle zu ihrem Ziel zu gelangen. Wie die IP-Schicht versucht auch die OSI-Netzwerkschicht nicht, fehlerfrei zu sein, da sie davon ausgeht, dass verlorene Daten auf der nächsthöheren Schicht erkannt und erneut übertragen werden.
 
-Transport (Layer 4)
+Transport (Schicht 4)
 ---------------------
 
-The Transport layer in the OSI model manages packet loss and
-retransmission as well as flow control and window size. The
-rest of the functionality of the TCP/IP Transport layer is handled
-in the Session layer in the OSI model.
+Die Transportschicht im OSI-Modell verwaltet den Verlust und die erneute Übertragung von Paketen sowie die Flusssteuerung und die Fenstergröße. Der Rest der Funktionalität der TCP/IP-Transportschicht wird im OSI-Modell in der Sitzungsschicht behandelt.
 
-Session (Layer 5)
+Sitzung (Schicht 5)
 -------------------
 
-The OSI Session layer handles establishing connections between
-applications. The Session layer deals with "ports" so that a
-connecting client application can "find" the correct server
-application on a particular system. Some aspects of secure
-transmission are also handled in the OSI Session layer.
+Die OSI-Sitzungsschicht kümmert sich um den Aufbau von Verbindungen zwischen Anwendungen. Die Sitzungsschicht befasst sich mit "Ports", damit eine verbindende Client-Anwendung die richtige Server-Anwendung auf einem bestimmten System "finden" kann. Einige Aspekte der sicheren Übertragung werden ebenfalls in der OSI-Sitzungsschicht behandelt.
 
-Presentation (Layer 6)
+Präsentation (Schicht 6)
 ------------------------
 
-The Presentation layer focuses on how data is represented and
-encoded for transmission across the network. As an example,
-the Presentation layer would describe how to encode the pixels
-of an image so that the receiving application can properly
-decode the data. The Presentation layer also handles data
-encryption and decryption.
+Die Darstellungsschicht konzentriert sich darauf, wie Daten für die Übertragung über das Netzwerk dargestellt und kodiert werden. Die Darstellungsschicht beschreibt zum Beispiel, wie die Pixel eines Bildes kodiert werden, damit die empfangende Anwendung die Daten richtig dekodieren kann. Die Darstellungsschicht kümmert sich auch um die Ver- und Entschlüsselung von Daten.
 
-Application (Layer 7)
+Anwendung (Schicht 7)
 -----------------------
 
-The OSI Application Layer is very similar to the Application layer
-in the TCP/IP model, in that it contains the applications themselves.
-Some applications are client applications that initiate connections,
-and other applications are the server applications that respond to
-those connection requests. The various pairs of applications
-have protocol standards that define interoperability between multiple
-clients and multiple servers from different vendors.
+Die OSI-Anwendungsschicht ist der Anwendungsschicht im TCP/IP-Modell insofern sehr ähnlich, als sie die Anwendungen selbst enthält. Einige Anwendungen sind Client-Anwendungen, die Verbindungen initiieren, und andere Anwendungen sind die Server-Anwendungen, die auf diese Verbindungsanfragen antworten. Für die verschiedenen Paare von Anwendungen gibt es Protokollstandards, die die Interoperabilität zwischen mehreren Clients und mehreren Servern verschiedener Hersteller definieren.
 
-![Comparing the TCP and OSI Models](../images/iso-tcp)
+Vergleich zwischen dem TCP- und dem OSI-Modell (../images/iso-tcp)
 
-Comparing the OSI and TCP/IP Models
+Vergleich der OSI- und TCP/IP-Modelle
 -----------------------------------
 
-We can use the OSI model to provide an alternative "view" of the
-TCP/IP model by comparing how the OSI model breaks network
-functionality into its layers and how the TCP/IP model breaks
-its functionality into layers.
+Wir können das OSI-Modell verwenden, um eine alternative "Sicht" auf das TCP/IP-Modell zu erhalten, indem wir vergleichen, wie das OSI-Modell die Netzwerkfunktionalität in seine Schichten aufteilt und wie das TCP/IP-Modell seine Funktionalität in Schichten aufteilt.
 
-Link Layer (TCP/IP)
+Verbindungsschicht (TCP/IP)
 -------------------
 
-The TCP/IP Link layer combines the Physical and Data Link layers
-from the OSI model. The Physical and Data Link layers are usually
-implemented in hardware.  Products like Ethernet, WiFi, satellite,
-or fiber optic often are implemented in a network driver card that
-plugs into the back of a computer or router. The network driver
-card generally implements both the physical and the data link aspects
-of the connection in the hardware on the card.  In most cases, the data
-link layers are tuned to the limitations and requirements of their
-corresponding physical layers. So in real systems, it is somewhat
-rare for a particular data link layer to be arbitrarily paired with
-any number of physical layers. Since it can be hard to separate the
-physical and data link aspects for a particular link technology, the 
-TCP model combines them into a single layer for simplicity.
+Die TCP/IP-Verbindungsschicht kombiniert die physikalische und die Datenverbindungsschicht aus dem OSI-Modell. Die physikalische und die Datenverbindungsschicht werden normalerweise in Hardware implementiert.  Produkte wie Ethernet, WiFi, Satellit oder Glasfaser sind oft in einer Netzwerktreiberkarte implementiert, die an der Rückseite eines Computers oder Routers eingesteckt wird. Die Netzwerktreiberkarte implementiert in der Regel sowohl die physikalischen als auch die Data-Link-Aspekte der Verbindung in der Hardware auf der Karte.  In den meisten Fällen sind die Datenübertragungsschichten auf die Einschränkungen und Anforderungen der entsprechenden physikalischen Schichten abgestimmt. Daher ist es in realen Systemen eher selten, dass eine bestimmte Datenübertragungsschicht beliebig mit einer beliebigen Anzahl von physikalischen Schichten gepaart ist. Da es schwierig sein kann, die physikalischen und Datenverbindungsaspekte für eine bestimmte Verbindungstechnologie zu trennen, kombiniert das 
+TCP-Modell sie der Einfachheit halber in einer einzigen Schicht zusammen.
 
-Internetwork Layer (TCP/IP)
+Internetwork-Schicht (TCP/IP)
 ---------------------------
 
-One place that maps pretty cleanly between the two models is
-the OSI Network and TCP/IP Internetwork layers. They perform the
-same functions of creating a globally routable address space and
-building routers to insure that packets properly find their way
-from the source to the destination across multiple hops.
+Eine Stelle, die sich ziemlich sauber zwischen den beiden Modellen abbilden lässt, ist die OSI-Netzwerk- und die TCP/IP-Internetwork-Schicht. Sie erfüllen dieselben Funktionen wie die Schaffung eines global routingfähigen Adressraums und der Aufbau von Routern, um sicherzustellen, dass Pakete ihren Weg von der Quelle zum Ziel über mehrere Sprünge hinweg korrekt finden.
 
-Transport Layer (TCP/IP)
+Transportschicht (TCP/IP)
 ------------------------
 
-The features of the Transport layer in TCP/IP are spread across the
-Transport and Session layers of the OSI model.  The OSI Transport
-layer deals with flow control and packet retransmission,
-while the OSI Presentation layer deals with multiple applications
-running on multiple ports as well as session establishment and teardown.
+Die Funktionen der Transportschicht in TCP/IP sind auf die Transport- und Sitzungsschicht des OSI-Modells verteilt.  Die OSI-Transportschicht befasst sich mit der Flusssteuerung und der erneuten Übertragung von Paketen, während sich die OSI-Präsentationsschicht mit mehreren Anwendungen, die auf mehreren Ports laufen, sowie dem Sitzungsauf- und -abbau befasst.
 
-The Secure Sockets Layer (SSL) in the TCP/IP model corresponds to
-parts of the Session and Presentation layers in the OSI model.
+Der Secure Sockets Layer (SSL) im TCP/IP-Modell entspricht Teilen der Sitzungs- und Präsentationsschicht im OSI-Modell.
 
-Application Layer (TCP/IP)
+Anwendungsschicht (TCP/IP)
 --------------------------
 
-The TCP/IP Application Layer combines the non-security aspects of the
-OSI Presentation layer and the OSI Application layer. While
-many TCP/IP applications deal with issues like encoding and decoding
-various types of data, the TCP/IP model does not see data formatting
-as a separate "layer". Various data encoding and decoding technologies
-are used in TCP/IP applications, but TCP/IP tends to treat these
-capabilities as library code that applications make use of as needed
-for the application.
+Die TCP/IP-Anwendungsschicht kombiniert die nicht sicherheitsrelevanten Aspekte der OSI-Darstellungsschicht und der OSI-Anwendungsschicht. Während sich viele TCP/IP-Anwendungen mit Fragen der Kodierung und Dekodierung verschiedener Datentypen befassen, sieht das TCP/IP-Modell die Datenformatierung nicht als separate "Schicht" an. In TCP/IP-Anwendungen werden verschiedene Technologien zur Kodierung und Dekodierung von Daten verwendet, aber TCP/IP neigt dazu, diese Fähigkeiten als Bibliothekscode zu behandeln, der von den Anwendungen je nach Bedarf für die Anwendung genutzt wird.
 
-Conclusion
+Fazit
 ----------
 
-While the TCP/IP model described in this book is widely used to guide
-the implementation of TCP/IP networks, hardware, and software, the
-OSI model can help us look at and compare a wide range of network
-architectures ranging from openly developed networks to proprietary
-vendor-specific networks.
+Während das in diesem Buch beschriebene TCP/IP-Modell weithin als Leitfaden für die Implementierung von TCP/IP-Netzwerken, -Hardware und -Software verwendet wird, kann uns das OSI-Modell dabei helfen, eine Vielzahl von Netzwerkarchitekturen zu betrachten und zu vergleichen, die von offen entwickelten Netzwerken bis hin zu proprietären herstellerspezifischen Netzwerken reichen.
 
-Glossary
+Glossar
 --------
 
-**abstract model**: A model and set of terminology that is used to generally
-understand a problem area and guide the development of standards and
-implementations to solve problems.
+**Abstraktes Modell**: Ein Modell und eine Reihe von Begriffen, die zum allgemeinen Verständnis eines Problembereichs dienen und die Entwicklung von Standards und Implementierungen zur Problemlösung anleiten.
 
-**implementation model**: A model and set of terminology that is used to 
-guide the development of standards and an implementation to solve a particular
-problem.
+**Implementierungsmodell**: Ein Modell und ein Satz von Begriffen, die verwendet werden, um 
+ein Modell und eine Terminologie, die als Leitfaden für die Entwicklung von Standards und einer Implementierung zur Lösung eines bestimmten Problems dienen.
 
-**ISO**: International Organization for Standardization.  A worldwide body
-that develops standards in computing, networking, and many other areas.
+**ISO**: Internationale Organisation für Normung.  Ein weltweites Gremium, das Standards in den Bereichen Computer, Netzwerke und vielen anderen Bereichen entwickelt.
 
-**OSI**: Open System Interconnection.  A seven-layer model used to help organize 
-the design of various approaches to network architecture.
+**OSI**: Open System Interconnection.  Ein Sieben-Schichten-Modell, das bei der Organisation 
+das Design von verschiedenen Ansätzen der Netzwerkarchitektur zu organisieren.
 
 
-Questions
+Fragen
 ---------
 
-You can take this quiz online at http://www.net-intro.com/quiz/
+Sie können dieses Quiz online unter http://www.net-intro.com/quiz/ bearbeiten.
 
-1. What is the primary value of the OSI network model?
-a) OSI networks are used in the southern hemisphere
-b) The OSI approach can be use to analyze many different network models
-c) OSI networks make better use of limited bandwidth
-d) OSI networks are more secure
+1. Was ist der primäre Wert des OSI-Netzwerkmodells?
+a) OSI-Netzwerke werden in der südlichen Hemisphäre verwendet
+b) Der OSI-Ansatz kann zur Analyse vieler verschiedener Netzwerkmodelle verwendet werden
+c) OSI-Netzwerke nutzen begrenzte Bandbreiten besser aus
+d) OSI-Netzwerke sind sicherer
 
-2. How many layers does the OSI model have?
-a) Four
-b) Six
-c) Seven
-c) Nine
+2. Wie viele Schichten hat das OSI-Modell?
+a) Vier
+b) Sechs
+c) Sieben
+c) Neun
 
-3. Which of the OSI layers deals with the shape of connectors for network connections?
-a) Physical
-b) Data Link
-c) Network
+3. Welche der OSI-Schichten beschäftigt sich mit der Form der Anschlüsse für Netzwerkverbindungen?
+a) Physikalisch
+b) Datenverbindung
+c) Netzwerk
 d) Transport
 
-4. Which of the layers is most similar between the OSI and TCP network models?
-a) TCP Link Layer and OSI Data Link Layer
-b) TCP Internetwork Layer and OSI Network Layer
-c) TCP Transport Layer and OSI Transport Layer
-d) TCP Application Layer and OSI Session Layer
+4. Welche der Schichten ist zwischen dem OSI- und dem TCP-Netzwerkmodell am ähnlichsten?
+a) TCP-Verbindungsschicht und OSI-Datenverbindungsschicht
+b) TCP Internetwork Layer und OSI Network Layer
+c) TCP-Transportschicht und OSI-Transportschicht
+d) TCP-Anwendungsschicht und OSI-Sitzungsschicht
 
-5. What layer does the TCP/IP Secure Sockets Layer map to in the OSI network model?
-a) Secure Data Link Layer (SDLL)
-b) Secure Network Layer (SNL)
-c) Secure Transport Layer (STL)
-d) Session and Presentation Layers
+5. Welcher Schicht ist der TCP/IP Secure Sockets Layer im OSI-Netzwerkmodell zuzuordnen?
+a) Sichere Datenverbindungsschicht (SDLL)
+b) Sichere Netzwerkschicht (SNL)
+c) Sichere Transportschicht (STL)
+d) Sitzungsschicht und Präsentationsschicht
 
-6. Why does the TCP model combine the OSI Data Link and Physical layers into a single Link layer?
-a) Because the TCP model does not worry about the Physical layer
-b) Because the TCP model designers were ignored at the 1981 OSI meeting in Utrect, Netherlands
-c) Because quite often the design of Data Link and Physical layers are tightly connected for a particular technology
-d) To make the TCP model easier to understand by end users
+6. Warum fasst das TCP-Modell die OSI-Datenverbindungs- und die physikalische Schicht in einer einzigen Verbindungsschicht zusammen?
+a) Weil sich das TCP-Modell nicht um die physikalische Schicht kümmert
+b) Weil die Entwickler des TCP-Modells beim OSI-Treffen 1981 in Utrect, Niederlande, ignoriert wurden
+c) Weil das Design der Datenübertragungsschicht und der physikalischen Schicht für eine bestimmte Technologie oft eng miteinander verbunden sind
+d) Um das TCP-Modell für den Endanwender verständlicher zu machen
 
 

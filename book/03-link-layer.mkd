@@ -1,305 +1,180 @@
-Link Layer
+Link Ebene
 ==========
 
 \index{Link Layer}
 \index{Layer!Link}
-The lowest layer of our Internet Architecture is the Link layer. We call it
-the "lowest layer" because it is closest to the physical network media.
-Often the Link layer transmits data using a wire, a fiber optic cable, or a radio
-signal. A key element of the Link layer is that usually data can only
-be transmitted part of the way from the source computer to the destination
-computer. Wired Ethernet, WiFi, and the cellular phone network are examples of
-link layers that can transmit data about a kilometer. Fiber optic cables,
-particularly those under the oceans, can transmit data up to thousands of
-kilometers. Satellite links can also send data over long distances.
+Die unterste Schicht unserer Internet-Architektur ist die Link-Schicht. Wir nennen sie die "unterste Schicht", weil sie den physikalischen Netzwerkmedien am nächsten ist. Oftmals überträgt die Verbindungsschicht Daten über ein Kabel, ein Glasfaserkabel oder ein Funksignal. Ein Schlüsselelement der Verbindungsschicht ist, dass Daten normalerweise nur einen Teil des Weges vom Quellcomputer zum Zielcomputer übertragen werden können. Kabelgebundenes Ethernet, WiFi und das Mobiltelefonnetz sind Beispiele für Verbindungsschichten, die Daten über einen Kilometer übertragen können. Glasfaserkabel, insbesondere solche unter den Ozeanen, können Daten bis zu Tausenden von Kilometern übertragen. Satellitenverbindungen können ebenfalls Daten über große Entfernungen senden.
 
 
-![The Link Layer](../images/layers-link)
+Die Verbindungsschicht (Link Layer)(../images/layers-link)
 
-Regardless of the distance we can send the data, it is still traveling over
-a single link, and to reach the ultimate destination computer requires forwarding
-packets across multiple links. In this section we will look at how one of
-the most common link layers functions in some detail. WiFi is a great way to
-look at many issues that must be solved at the link layer.^[We simplify some
-of the technical detail in these descriptions to make them easier to understand.]
+Unabhängig von der Entfernung, über die wir die Daten senden können, reisen sie immer noch über
+eine einzige Verbindung, und um den endgültigen Zielcomputer zu erreichen, müssen die Pakete über mehrere Verbindungen weitergeleitet werden. In diesem Abschnitt werden wir uns die Funktionsweise einer der gängigsten Verbindungsschichten im Detail ansehen. WiFi ist eine gute Möglichkeit, viele Probleme zu betrachten, die auf der Verbindungsschicht gelöst werden müssen.^[Wir vereinfachen einige der technischen Details in diesen Beschreibungen, um sie leichter verständlich zu machen.]
 
 Sharing the Air
 ---------------
 \index{WiFi}
-\index{base station}
+\index{Basisstation}
 \index{gateway}
-When your laptop or phone is using WiFi to connect to the Internet, it is 
-sending and receiving data with a small, low-powered radio. The radio in your
-computer can only send data about 300 meters, so your
-computer sends your packets to the router in your home, which forwards the
-packets using a link to the rest of the Internet.  Sometimes we call the first
-router that handles your computer's packets the "base station" or "gateway".
+Wenn Ihr Laptop oder Telefon über WiFi eine Verbindung zum Internet herstellt, sendet und empfängt es 
+sendet und empfängt es Daten mit einem kleinen, leistungsschwachen Funkgerät. Das Funkgerät in Ihrem Computer kann Daten nur etwa 300 Meter weit senden, daher sendet Ihr Computer Ihre Pakete an den Router in Ihrem Haus, der die Pakete über eine Verbindung zum Rest des Internets weiterleitet.  Manchmal nennen wir den ersten Router, der die Pakete Ihres Computers verarbeitet, "Basisstation" oder "Gateway".
 
-All computers that are close enough to the base station
-with their radios turned on receive all of the packets the base station transmits,
-regardless of which computer the packet is supposed to be sent to. They also 
-"hear" all the packets sent by every other nearby computer. So your computer
-needs a way to know which packets to treat as its own and which packets are
-being sent to other computers and can be safely ignored.
+Alle Computer, die nahe genug an der Basisstation stehen und deren Funkgeräte eingeschaltet sind, empfangen alle Pakete, die die Basisstation sendet, unabhängig davon, an welchen Computer das Paket gesendet werden soll. Sie "hören" auch 
+"hören" alle Pakete, die von jedem anderen Computer in der Nähe gesendet werden. Ihr Computer muss also wissen, welche Pakete er als seine eigenen behandeln soll und welche Pakete an andere Computer gesendet werden und sicher ignoriert werden können.
 
-An interesting side effect of the fact that all the computers within range can
-hear all packets is that a rogue computer could also be listening to and
-capturing your packets, perhaps getting ahold of important data like bank
-account numbers or passwords to online services. We will come back to the
-issue of protecting your data from prying eyes and ears in a later section.
+Ein interessanter Nebeneffekt der Tatsache, dass alle Computer in Reichweite alle Pakete hören können, ist, dass ein bösartiger Computer auch Ihre Pakete abhören und abfangen könnte, um so vielleicht an wichtige Daten wie Kontonummern oder Passwörter für Online-Dienste zu gelangen. Wir werden auf das Thema des Schutzes Ihrer Daten vor neugierigen Augen und Ohren in einem späteren Abschnitt zurückkommen.
 
-\index{MAC address}
-\index{Link address}
-Every WiFi radio in every device that is ever built is given a unique
-serial number at the time it is manufactured. This means that each of the
-computers using WiFi has its own serial number, and the radio in the
-gateway also has a serial number. You can usually go into a settings screen on
-your device and look up the serial number for the WiFi radio in your device.
-It is generally shown in the following form:
+\index{MAC-Adresse}
+\index{Link-Adresse}
+Jedes WiFi-Radio in jedem Gerät, das jemals gebaut wird, erhält zum Zeitpunkt der Herstellung eine eindeutige Seriennummer. Das bedeutet, dass jeder Computer, der WiFi verwendet, seine eigene Seriennummer hat, und das Funkgerät im Gateway hat ebenfalls eine Seriennummer. In der Regel können Sie in einem Einstellungsbildschirm Ihres Geräts die Seriennummer für das WiFi-Radio in Ihrem Gerät nachschlagen. Sie wird im Allgemeinen in der folgenden Form angezeigt:
 
     0f:2a:b3:1f:b3:1a
 
-This is just a representation of a 48-bit serial number for your WiFi radio.
-It is also called the "Media Access Control" or "MAC" address. A MAC
-address is like a "from" or "to" address on a postcard. Every packet (radio
-postcard) sent across the WiFi has a source and destination address, so all
-of the computers know which messages are theirs.
+Dies ist nur eine Darstellung einer 48-Bit-Seriennummer für Ihr WiFi-Radio. Sie wird auch "Media Access Control" oder "MAC"-Adresse genannt. Eine MAC-Adresse ist wie eine "Von"- oder "Nach"-Adresse auf einer Postkarte. Jedes Paket (Funkpostkarte), das über das WiFi gesendet wird, hat eine Quell- und Zieladresse, so dass alle Computer wissen, welche Nachrichten ihnen gehören.
 
-When you turn on your computer and connect to a WiFi network, your computer
-needs to figure out which of the MAC addresses on the WiFi can be used
-to send packets to the router.
-When you move from one physical location to another, your computer will
-be talking to different gateways and each of those gateways will have a
-different serial number. So when you first connect to a new WiFi, your
-computer must discover the MAC address for the gateway of that particular WiFi.
+Wenn Sie Ihren Computer einschalten und eine Verbindung zu einem WiFi-Netzwerk herstellen, muss Ihr Computer herausfinden, welche der MAC-Adressen im WiFi verwendet werden können, um Pakete an den Router zu senden. Wenn Sie sich von einem Ort zum anderen bewegen, spricht Ihr Computer mit verschiedenen Gateways und jedes dieser Gateways hat eine andere Seriennummer. Wenn Sie also zum ersten Mal eine Verbindung zu einem neuen WLAN herstellen, muss Ihr Computer die MAC-Adresse des Gateways dieses bestimmten WLANs ermitteln.
 
 \index{broadcast address}
 \index{gateway}
-To do this, your computer sends a special message to a broadcast address,
-effectively asking the question, "Who is in charge of this WiFi?"
-Since your computer knows it is not the gateway itself, it sends a broadcast
-message with its own serial number as the "from" address and the broadcast 
-address as the "to" address to ask if there are any gateways present on the
-WiFi network.
+Zu diesem Zweck sendet Ihr Computer eine spezielle Nachricht an eine Broadcast-Adresse und stellt damit die Frage: "Wer ist für dieses WLAN zuständig?"
+Da Ihr Computer weiß, dass er nicht das Gateway selbst ist, sendet er eine Broadcast-Nachricht mit seiner eigenen Seriennummer als "Von"-Adresse und der Broadcast 
+Adresse als "an"-Adresse, um zu fragen, ob es im WiFi-Netzwerk irgendwelche Gateways gibt.
 
-    From: 0f:2a:b3:1f:b3:1a
-    To: ff:ff:ff:ff:ff:ff
-    Data: Who is the MAC-Gateway
-        for this network?
+    Von: 0f:2a:b3:1f:b3:1a
+    An: ff:ff:ff:ff:ff:ff:ff
+    Daten: Wer ist das MAC-Gateway
+        für dieses Netzwerk?
 
-If there is a gateway on the network, the gateway sends a message containing
-its serial number back to your computer.
+Wenn ein Gateway im Netzwerk vorhanden ist, sendet das Gateway eine Nachricht mit seiner Seriennummer zurück an Ihren Computer.
 
-    From: 98:2f:4e:78:c1:b4
-    To: 0f:2a:b3:1f:b3:1a
-    Data: I am the gateway
-       Welcome to my network
+    Von: 98:2f:4e:78:c1:b4
+    An: 0f:2a:b3:1f:b3:1a
+    Daten: Ich bin das Gateway
+       Willkommen in meinem Netzwerk
 
-If there are no replies, your computer waits a few seconds and
-then assumes there is no gateway for this network. When there is no
-gateway, your computer might show a different WiFi icon or not show the WiFi icon
-at all. Sometimes there can be more than one gateway, but we will ignore that
-for a while because it is a little complex and not very common.
+Wenn es keine Antworten gibt, wartet der Computer ein paar Sekunden und geht dann davon aus, dass es kein Gateway für dieses Netzwerk gibt. Wenn es kein Gateway gibt, zeigt Ihr Computer möglicherweise ein anderes WiFi-Symbol oder das WiFi-Symbol wird überhaupt nicht angezeigt. Manchmal kann es mehr als ein Gateway geben, aber wir ignorieren das für eine Weile, weil es ein wenig komplex und nicht sehr häufig ist.
 
-Once your computer receives a message with the MAC address of the gateway, it can
-use that address to send packets that it wants the gateway to forward to the Internet.
-From that point on, all of your computer's packets have the actual serial number of the
-destination. You want to use the broadcast address as little as possible because
-every computer connected to the WiFi receives and processes any messages sent to the
-broadcast address to make sure the messages were not intended for them.
+Sobald Ihr Computer eine Nachricht mit der MAC-Adresse des Gateways empfängt, kann er diese Adresse verwenden, um Pakete zu senden, die das Gateway an das Internet weiterleiten soll. Von diesem Zeitpunkt an haben alle Pakete Ihres Computers die tatsächliche Seriennummer des Ziels. Sie sollten die Broadcast-Adresse so wenig wie möglich verwenden, da jeder mit dem WLAN verbundene Computer alle an die Broadcast-Adresse gesendeten Nachrichten empfängt und verarbeitet, um sicherzustellen, dass die Nachrichten nicht für ihn bestimmt waren.
 
-Courtesy and Coordination
+Höflichkeit und Koordination
 -------------------------
 
 \index{collision detection}
-Because many computers are sharing the same radio frequencies, it's important to
-coordinate how they send data. When there's a crowd of people in a room,
-they can't all talk at the same time or everything will be garbled. The same 
-thing happens when multiple WiFi radios transmit at the same time on the same
-frequency. So we need some way to coordinate all the radios to make best use
-of the shared frequencies. We will look at the basics of technical approaches
-to avoiding lost data due to transmission "collisions".
+Da sich viele Computer dieselben Funkfrequenzen teilen, ist es wichtig, zu koordinieren, wie sie Daten senden. Wenn sich viele Leute in einem Raum befinden, können sie nicht alle gleichzeitig sprechen, da sonst alles verstümmelt wird. Dasselbe 
+dasselbe passiert, wenn mehrere WiFi-Funkgeräte gleichzeitig auf derselben Frequenz senden. Wir brauchen also eine Möglichkeit, alle Funkgeräte zu koordinieren, um die gemeinsamen Frequenzen optimal zu nutzen. Wir werden uns die Grundlagen der technischen Ansätze zur Vermeidung von Datenverlusten aufgrund von "Übertragungskollisionen" ansehen.
 
 \index{carrier sense}
-The first technique is called "Carrier Sense". The technique is to first
-listen for a transmission, and if there is already a transmission in progress,
-wait until the transmission finishes. It might seem like you could
-wait for a long time, but since all messages are broken into packets, usually
-your computer only has to wait for the computer currently sending data to
-finish a packet, after which your computer gets its chance to send data.
+Die erste Technik nennt sich "Carrier Sense" (Trägererkennung). Die Technik besteht darin, zunächst nach einer Übertragung zu lauschen und, falls bereits eine Übertragung läuft, zu warten, bis diese beendet ist. Es könnte so aussehen, als ob Sie lange warten könnten, aber da alle Nachrichten in Pakete unterteilt sind, muss Ihr Computer normalerweise nur darauf warten, dass der Computer, der gerade Daten sendet, ein Paket beendet, woraufhin Ihr Computer seine Chance bekommt, Daten zu senden.
 
-If your computer's WiFi radio listens for data and hears silence, it can begin
-transmitting. But what if another computer's WiFi radio that wants to
-send a packet listened to and heard the same silence and decided to
-start transmitting at exactly the same time? If two or more WiFi radios start
-transmitting at the same time, all of the data is corrupted and both packets are
-lost. So once your WiFi radio starts sending a packet it is important for it
-to listen to make sure it can receive its own data. If it is not receiving the
-same thing that it is sending, your WiFi radio assumes that a collision has happened
-(this is called Collision Detection) and stops transmitting, since it knows that no
-data will be received by the destination WiFi radio.
+Wenn das WiFi-Radio Ihres Computers nach Daten lauscht und Stille hört, kann es mit dem Senden beginnen. Was aber, wenn das WiFi-Radio eines anderen Computers, der ein Paket senden möchte, die gleiche Stille hört und beschließt, genau zur gleichen Zeit mit dem Senden zu beginnen? Wenn zwei oder mehr WiFi-Radios zur gleichen Zeit mit dem Senden beginnen, werden alle Daten beschädigt und beide Pakete sind verloren. Sobald Ihr WiFi-Radio also beginnt, ein Paket zu senden, ist es wichtig, dass es zuhört, um sicherzustellen, dass es seine eigenen Daten empfangen kann. Wenn es nicht dasselbe empfängt, was es sendet, geht Ihr WiFi-Radio davon aus, dass eine Kollision stattgefunden hat
+(dies wird Kollisionserkennung genannt) und hört auf zu senden, da es weiß, dass keine Daten vom Ziel-WiFi-Radio empfangen werden.
 
-We humans do a similar thing in a room full of people. When two people start talking
-at the same time, they are good at noticing that another person is talking and quickly
-stop talking. But the problem is how to restart the conversation. After a long pause
-it is common that both people start talking at the exact same time *again*. This can
-happen over and over and each person says "No, you" repeatedly to attempt to
-figure out how to get the conversation restarted. It can be quite comical at times.
+Wir Menschen machen etwas Ähnliches in einem Raum voller Menschen. Wenn zwei Personen gleichzeitig zu sprechen beginnen, sind sie gut darin, zu bemerken, dass eine andere Person spricht und hören schnell auf zu sprechen. Das Problem ist jedoch, wie man das Gespräch wieder aufnehmen kann. Nach einer langen Pause kommt es häufig vor, dass beide Personen genau zur gleichen Zeit *wieder* zu sprechen beginnen. Das kann immer wieder passieren, und jede Person sagt wiederholt "Nein, Sie", um herauszufinden, wie das Gespräch wieder aufgenommen werden kann. Das kann manchmal ziemlich komisch sein.
 
 \index{retransmit}
-The WiFi radios in two computers that send colliding packets are able to
-solve this problem much better than people can solve the problem. When the
-WiFi radios detect a collision or garbled transmission, they compute a random
-amount of time to wait before retrying the transmission. The rules for
-computing the random wait are set up to make sure the two colliding stations
-pick different amounts of time to wait before attempting to re-transmit the
-packet.
+Die WiFi-Funkgeräte in zwei Computern, die kollidierende Pakete senden, sind in der Lage, dieses Problem viel besser zu lösen, als Menschen das Problem lösen können. Wenn die WiFi-Funkgeräte eine Kollision oder eine verstümmelte Übertragung erkennen, berechnen sie eine zufällige Wartezeit, bevor sie die Übertragung erneut versuchen. Die Regeln für die Berechnung der zufälligen Wartezeit sind so eingestellt, dass die beiden kollidierenden Stationen unterschiedliche Zeitspannen wählen, bevor sie versuchen, das Paket erneut zu übertragen.
 
 \index{CSMA/CD}
-The formal name for the listen, transmit, listen, and wait and retry if necessary 
-is called "Carrier Sense Multiple Access with Collision Detection" or CSMA/CD.
+Der formale Name für das Hören, Senden, Abhören und Warten und ggf. Wiederholen 
+wird "Carrier Sense Multiple Access with Collision Detection" oder CSMA/CD genannt.
 
 \index{Ethernet}
-It might sound a little chaotic to just "give it a try" and then "give it
-another try" if your transmission collides with another station's transmission.
-But in practice it works well. There is a whole category of link layers
-that use this basic pattern of listen, transmit, listen, and optionally retry.
-Wired Ethernet, cellular telephone data, and even Short Message Service
-(SMS/Texting) all use this "try then retry" approach.
+Es mag ein wenig chaotisch klingen, einfach "es zu versuchen" und dann "es erneut zu versuchen", wenn Ihre Übertragung mit der Übertragung einer anderen Station kollidiert. Aber in der Praxis funktioniert es gut. Es gibt eine ganze Kategorie von Verbindungsschichten, die dieses Grundmuster von Hören, Senden, Abhören und optionalem Neuversuch verwenden. Kabelgebundenes Ethernet, Mobilfunkdaten und sogar Short Message Service
+(SMS/Texting) verwenden alle diesen "Try then retry"-Ansatz.
 
-Coordination in Other Link Layers
+Koordination in anderen Verbindungsschichten
 ---------------------------------
 
-Sometimes when a link layer has many transmitting stations and needs to operate
-at near 100% efficiency for long periods of time, the design takes a different
-approach. In this approach, there is a "token" that indicates when
-each station is given the opportunity to transmit data. Stations cannot start
-a transmission unless they have the token. Instead of listening for "silence"
-and jumping in, they must wait for their turn to come around.
+Wenn eine Verbindungsschicht viele Sendestationen hat und über lange Zeiträume mit nahezu 100 % Effizienz arbeiten muss, wird manchmal ein anderer Ansatz gewählt. Bei diesem Ansatz gibt es einen "Token", der anzeigt, wann jede Station die Möglichkeit erhält, Daten zu übertragen. Die Stationen können
+eine Übertragung beginnen, wenn sie das Token nicht haben. Anstatt auf "Stille" zu warten
+und einzusteigen, müssen sie warten, bis sie an die Reihe kommen.
 
-\index{token}
-When a station receives the token and has a packet to send, it sends the
-packet. Once the packet has been sent, the station gives up the token and
-waits until the token comes back to it. If none of the stations have any data
-to send, the token is moved from one computer to the next computer as quickly
-as possible.
+\index Token
+Wenn eine Station das Token erhält und ein Paket zu senden hat, sendet sie das Paket. Sobald das Paket gesendet wurde, gibt die Station den Token ab und wartet, bis der Token zu ihr zurückkommt. Wenn keine der Stationen Daten zu senden hat, wird der Token so schnell wie möglich von einem Computer zum nächsten Computer weitergereicht.
 
-![Communicating with a Token](../sketchnote/Token)
+![Kommunikation mit einem Token](../sketchnote/Token)
 
-A group of people sitting around a meeting could communicate without ever
-interrupting each other by having a small ball that they pass around in
-a circle and only allowing the person who has the ball to speak. When you
-get the ball and have something to say you talk for a short period (transmit
-a packet of words) and then pass the ball on.
+Eine Gruppe von Leuten, die in einer Besprechung sitzen, könnte kommunizieren, ohne sich gegenseitig zu unterbrechen, indem sie einen kleinen Ball haben, den sie im Kreis herumreichen und nur der Person erlauben, die den Ball weitergibt.
+im Kreis herumreichen und nur der Person, die den Ball hat, erlauben, zu sprechen. Wenn Sie den Ball bekommen und etwas zu sagen haben, sprechen Sie kurz (übermitteln
+ein Wortpaket) und gibt dann den Ball weiter.
 
-The "try then retry" CSMA/CD approach works very well when
-there is no data or when low or moderate levels of data are being sent.
-But on a token-style network, if there is no data being sent and you want to
-send a packet, you still have to wait for a while before you receive the token
-and can start transmitting. When you finish your packet you have to wait
-until the token comes back before you can send the next packet. If you are the
-only station that wants to send data, you spend a good bit of time waiting for
-the token to come back to you after passing through all of the other stations.
+Der "try then retry"-Ansatz von CSMA/CD funktioniert sehr gut, wenn keine Daten vorhanden sind oder wenn nur geringe oder moderate Datenmengen gesendet werden. Aber in einem Token-artigen Netzwerk, wenn keine Daten gesendet werden und Sie ein Paket senden wollen, müssen Sie immer noch eine Weile warten, bevor Sie das Token erhalten und mit dem Senden beginnen können. Wenn Sie Ihr Paket beendet haben, müssen Sie warten, bis der Token zurückkommt, bevor Sie das nächste Paket senden können. Wenn Sie die einzige Station sind, die Daten senden möchte, verbringen Sie eine ganze Weile damit, darauf zu warten, dass das Token zu Ihnen zurückkommt, nachdem Sie alle anderen Stationen durchlaufen haben.
 
-The token approach is best suited when using a link medium such as 
-as a satellite link or a undersea fiber optic link where it might
-take too long or be too costly to detect a collision. The CSMA/CD
-(listen-try) is best suited when the medium is inexpensive, shorter distance,
-and there are a lot of stations sharing the medium that only send data in short
-bursts. So that is why WiFi (and CSMA/CD) is so effective for providing
-network access in a coffee shop, home, or room in a school.
+Der Token-Ansatz ist am besten geeignet, wenn Sie ein Verbindungsmedium wie 
+wie z. B. eine Satellitenverbindung oder eine Unterwasser-Glasfaserverbindung, wo es zu lange dauern oder zu kostspielig sein könnte, eine Kollision zu erkennen. Das CSMA/CD
+(listen-try) ist am besten geeignet, wenn das Medium preiswert ist, eine kürzere Distanz hat und sich viele Stationen das Medium teilen, die nur in kurzen Bursts Daten senden. Das ist der Grund, warum WiFi (und CSMA/CD) so effektiv für die Bereitstellung eines Netzwerkzugangs in einem Café, zu Hause oder in einem Raum in einer Schule ist.
 
-Summary
+Zusammenfassung
 -------
 
-So now we have looked at the "lowest" layer in our four-layer architecture.
-And we have only taken a simple look at how the Link layer works. There
-are many other details that must be designed into a link layer like connection
-distance, voltage, frequency, speed, and many others.
+Wir haben uns nun also die "unterste" Schicht in unserer Vier-Schichten-Architektur angesehen. Und wir haben nur einen einfachen Blick darauf geworfen, wie die Verbindungsschicht funktioniert. Es gibt noch viele andere Details, die in einer Verbindungsschicht berücksichtigt werden müssen, wie z. B. die Entfernung der Verbindung, Spannung, Frequenz, Geschwindigkeit und viele andere.
 
-A key benefit of the layered architecture is that engineers who design and
-build Link layer technologies can ignore all of the issues that are handled by
-the layers above the Link layer. This allows them to focus on building the
-best possible solution to moving data across a single "hop". Modern-day link
-layers like WiFi, satellite, cable modems, Ethernet, and cellular technology
-are very well developed. Data moves so quickly and seamlessly that once we
-get our connection we rarely have to worry about the Link layer.  It just
-works.
+Ein wesentlicher Vorteil der Schichtenarchitektur besteht darin, dass Ingenieure, die Technologien für die Verbindungsschicht entwickeln und bauen, alle Probleme ignorieren können, die von den Schichten über der Verbindungsschicht behandelt werden. So können sie sich darauf konzentrieren, die bestmögliche Lösung für die Übertragung von Daten über einen einzelnen "Hop" zu entwickeln. Moderne Link-Layer wie WiFi, Satellit, Kabelmodems, Ethernet und Mobilfunktechnologie sind sehr gut entwickelt. Die Daten bewegen sich so schnell und nahtlos, dass wir uns, sobald wir eine Verbindung haben, kaum noch Gedanken über die Verbindungsschicht machen müssen.  Es funktioniert einfach.
 
-Glossary
+Glossar
 --------
 
-**base station**: Another word for the first router that handles your
-packets as they are forwarded to the Internet.
+**Basisstation**: Ein anderes Wort für den ersten Router, der Ihre Pakete bei der Weiterleitung ins Internet verarbeitet.
 
-**broadcast**: Sending a packet in a way that all the stations connected
-to a local area network will receive the packet.
+**Broadcast**: Das Senden eines Pakets auf eine Weise, dass alle an ein lokales Netzwerk angeschlossenen Stationen das Paket empfangen.
 
-**gateway**: A router that connects a local area network
-to a wider area network such as the Internet. Computers that want to send
-data outside the local network must send their packets to the gateway 
-for forwarding.
+**Gateway**: Ein Router, der ein lokales Netzwerk mit einem größeren Netzwerk, z. B. dem Internet, verbindet. Computer, die Daten außerhalb des lokalen Netzwerks senden wollen, müssen ihre Pakete an das Gateway 
+zur Weiterleitung senden.
 
-**MAC Address**: An address that is assigned to a piece of network hardware 
-when the device is manufactured.
+**MAC-Adresse**: Eine Adresse, die einem Stück Netzwerkhardware zugewiesen wird 
+wenn das Gerät hergestellt wird.
 
-**token**: A technique to allow many computers to share the same physical 
-media without collisions.  Each computer must wait until it has received
-the token before it can send data.
+**Token**: Eine Technik, die es vielen Computern ermöglicht, dasselbe physikalische 
+Medien ohne Kollisionen zu nutzen.  Jeder Computer muss warten, bis er den Token erhalten hat, bevor er Daten senden kann.
 
 
 
-Questions
+Fragen
 ---------
 
-You can take this quiz online at http://www.net-intro.com/quiz/
+Sie können dieses Quiz online unter http://www.net-intro.com/quiz/ absolvieren.
 
-1. When using a WiFi network to talk to the Internet, where does your computer
-send its packets?
-a) A gateway
-b) A satellite
-c) A cell phone tower
-d) The Internet Central Office
+1. Wenn Sie ein WiFi-Netzwerk verwenden, um mit dem Internet zu kommunizieren, wohin sendet Ihr Computer seine Pakete?
+a) Ein Gateway
+b) Ein Satellit
+c) Ein Mobilfunkturm
+d) Die Internet-Zentrale
 
-2. How is the link/physical address for a network device assigned?
-a) By the cell tower
-b) By the Internet Assignment Numbers Authority (IANA)
-c) By the manufacturer of the link equipment
-d) By the government
+2. Wie wird die Link/Physikalische Adresse für ein Netzwerkgerät zugewiesen?
+a) Durch den Mobilfunkturm
+b) Durch die Internet Assignment Numbers Authority (IANA)
+c) Durch den Hersteller des Link-Geräts
+d) Durch die Regierung
 
-3. Which of these is a link address?
+3. Welche der folgenden Adressen ist eine Link-Adresse?
 a) 0f:2a:b3:1f:b3:1a
 b) 192.168.3.14
 c) www.khanacademy.com
 d) @drchuck
 
-4. How does your computer find the gateway on a WiFi network?
-a) It has a gateway address installed by the manufacturer
-b) It broadcasts a request for the address of the gateway
-c) It repeatedly sends a message to all possible gateway addresses
-until it finds one that works
-d) The user must enter the gateway address by hand
+4. Wie findet Ihr Computer das Gateway in einem WiFi-Netzwerk?
+a) Er hat eine vom Hersteller installierte Gateway-Adresse
+b) Er sendet eine Anfrage nach der Adresse des Gateways
+c) Er sendet wiederholt eine Nachricht an alle möglichen Gateway-Adressen, bis er eine findet, die funktioniert
+d) Der Benutzer muss die Gateway-Adresse von Hand eingeben
 
-5. When your computer wants to send data across WiFi, what is the first
-thing it must do?
-a) Listen to see if other computers are sending data
-b) Just start sending the data
-c) Send a message to the gateway asking for permission to transmit
-d) Wait until informed that it is your turn to transmit
+5. Wenn Ihr Computer Daten über WiFi senden möchte, was muss er als erstes tun?
+a) Zuhören, um zu sehen, ob andere Computer Daten senden
+b) Einfach anfangen, die Daten zu senden
+c) Eine Nachricht an das Gateway senden und um Erlaubnis zum Senden bitten
+d) Warten, bis er informiert wird, dass er mit dem Senden an der Reihe ist
 
-6. What does a WiFi-connected workstation do when it tries to send
-data and senses a collision has happened?
-a) Keep sending the message so part of the message makes it through
-b) Wait until told by the gateway that the collision is over
-c) Immediately restart transmitting the message at the beginning
-d) Stop transmitting and wait a random amount of time before restarting
+6. Was tut eine Arbeitsstation mit WiFi-Verbindung, wenn sie versucht, Daten zu senden und eine Kollision feststellt?
+a) Die Nachricht weiter senden, damit ein Teil der Nachricht durchkommt
+b) Warten, bis das Gateway mitteilt, dass die Kollision beendet ist
+c) Sofort die Übertragung der Nachricht am Anfang wieder aufnehmen
+d) Die Übertragung stoppen und eine zufällige Zeitspanne abwarten, bevor die Übertragung wieder aufgenommen wird
 
-7. When a station wants to send data across a "token"-style network,
-what is the first thing it must do?
-a) Listen to see if other computers are sending data
-b) Just start sending the data
-c) Send a message to the gateway asking for permission to transmit
-d) Wait until informed that it is your turn to transmit
+7. Wenn eine Station Daten über ein "Token"-Netzwerk senden möchte, was muss sie als erstes tun?
+a) Zuhören, um zu sehen, ob andere Computer Daten senden
+b) Einfach anfangen, die Daten zu senden
+c) Eine Nachricht an das Gateway senden und um Erlaubnis zum Senden bitten
+d) Warten, bis er informiert wird, dass er mit dem Senden an der Reihe ist
 
 
 

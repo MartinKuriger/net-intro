@@ -1,411 +1,206 @@
-Network Architecture
+Netzwerk-Architektur
 ====================
 
 \index{NSFNet}
-To engineer and build a system as complex as the Internet,
-engineers try to break a single
-challenging problem into a set of smaller problems that can be solved
-independently and then put back together to solve the original large problem.
-The engineers who built the first internets broke the overall problem into
-four basic subproblems that could be worked on independently by different
-groups.
+Um ein so komplexes System wie das Internet zu entwickeln und zu bauen, versuchen Ingenieure, ein einzelnes anspruchsvolles Problem in eine Reihe kleinerer Probleme zu zerlegen, die unabhängig voneinander gelöst und dann wieder zusammengefügt werden können, um das ursprüngliche große Problem zu lösen. Die Ingenieure, die das erste Internet gebaut haben, haben das Gesamtproblem in vier grundlegende Unterprobleme aufgeteilt, die unabhängig voneinander von verschiedenen Gruppen bearbeitet werden konnten.
 
-![The Four-Layer TCP/IP Model](../images/layers)
+![Das Vier-Schichten-TCP/IP-Modell](../images/layers)
 
 
-\index{Link Layer}
+\index{Link-Schicht}
 \index{Internetwork Layer}
-\index{Transport Layer}
-\index{Application Layer}
-They gave these four areas of engineering the following
-names: (1) Link, (2) Internetwork, (3) Transport, and (4) Application.  We
-visualize these different areas as layers stacked on top of each other,
-with the Link layer on the bottom and the Application layer on the top.  The
-Link layer deals with the wired or wireless connection from your
-computer to the local area network and the Application layer is what we as end
-users interact with.   A web browser is one example of an application in this
-Internet architecture.
+\index{Transportschicht}
+\index{Anwendungsschicht}
+Sie gaben diesen vier Bereichen der Technik die folgenden Namen: (1) Link, (2) Internetwork, (3) Transport und (4) Application.  Wir stellen uns diese verschiedenen Bereiche als übereinander gestapelte Schichten vor, wobei sich die Verbindungsschicht unten und die Anwendungsschicht oben befindet.  Die Verbindungsschicht befasst sich mit der drahtgebundenen oder drahtlosen Verbindung von Ihrem Computer zum lokalen Netzwerk und die Anwendungsschicht ist das, womit wir als Endbenutzer interagieren.   Ein Webbrowser ist ein Beispiel für eine Anwendung in dieser Internet-Architektur.
 
-\index{TCP Model}
-We informally refer to this model as the "TCP/IP model" in reference to
-the Transport Control Protocol (TCP) used to implement the Transport layer
-and Internet Protocol (IP) used to implement the Internetwork layer.
+\index{TCP-Modell}
+Wir bezeichnen dieses Modell informell als "TCP/IP-Modell" in Anlehnung an das Transport Control Protocol (TCP), das zur Implementierung der Transportschicht verwendet wird, und das Internet Protocol (IP), das zur Implementierung der Internet-Netzwerkschicht verwendet wird.
 
-We will take a quick look at each of the layers, starting from the "bottom" of
-the stack.
+Wir werden einen kurzen Blick auf jede der Schichten werfen, beginnend mit dem "Boden" des Stacks.
 
-The Link Layer
+Die Verbindungsschicht
 --------------
 
-The Link layer is responsible for connecting your computer to its local
-network and moving the data across a single hop. The most common Link layer
-technology today is wireless networking. When you are using a wireless device,
-the device is only sending data a limited distance. A smartphone
-communicates with a tower that is a few kilometers away. If you are using your
-smartphone on a train, it needs to switch to a new tower every few minutes
-when the train is moving. A laptop that is connected to a WiFi network is
-usually communicating with a base station within 200 meters. A desktop
-computer that is connected using a wired connection is usually using a cable
-that is 100 meters long or shorter. Link layer technologies are often
-shared amongst multiple computers at the same location.
+Die Verbindungsschicht ist dafür verantwortlich, Ihren Computer mit dem lokalen Netzwerk zu verbinden und die Daten über einen einzelnen Hop zu übertragen. Die heute am häufigsten verwendete Technologie der Sicherungsschicht ist die drahtlose Vernetzung. Wenn Sie ein drahtloses Gerät verwenden, sendet das Gerät Daten nur über eine begrenzte Entfernung. Ein Smartphone kommuniziert mit einem Sendemast, der ein paar Kilometer entfernt ist. Wenn Sie Ihr Smartphone in einem Zug benutzen, muss es alle paar Minuten zu einem neuen Tower wechseln, wenn der Zug fährt. Ein Laptop, der mit einem WiFi-Netzwerk verbunden ist, kommuniziert normalerweise mit einer Basisstation innerhalb von 200 Metern. Ein Desktop-Computer, der über eine kabelgebundene Verbindung angeschlossen ist, verwendet in der Regel ein Kabel, das 100 Meter lang oder kürzer ist. Link-Layer-Technologien werden oft von mehreren Computern am selben Ort gemeinsam genutzt.
 
-The Link layer needs to solve two basic problems when dealing with these
-shared local area networks. The first problem is how to encode and send data
-across the link. If the link is wireless, engineers must agree on which
-radio frequencies are to be used to transmit data and how the digital data is
-to be encoded in the radio signal. For wired connections, they must agree on
-what voltage to use on the wire and how fast to send the bits across the
-wire. For Link layer technologies that use fiber optics, they must agree on the
-frequencies of light to be used and how fast to send the data.
+Die Verbindungsschicht muss zwei grundlegende Probleme lösen, wenn es um diese gemeinsam genutzten lokalen Netzwerke geht. Das erste Problem besteht darin, wie die Daten kodiert und über die Verbindung gesendet werden können. Wenn die Verbindung drahtlos ist, müssen sich die Ingenieure darauf einigen, welche Funkfrequenzen für die Datenübertragung verwendet werden sollen und wie die digitalen Daten im Funksignal kodiert werden sollen. Bei verdrahteten Verbindungen müssen sie sich darauf einigen, welche Spannung auf der Leitung verwendet werden soll und wie schnell die Bits über die Leitung gesendet werden sollen. Bei Link-Layer-Technologien, die Glasfaser verwenden, müssen sie sich darauf einigen, welche Lichtfrequenzen verwendet werden und wie schnell die Daten gesendet werden sollen.
 
-In addition to agreeing on how to send data using a shared medium such as a
-wireless network, they also need to agree on how to cooperate with other
-computers that might want to send data at the same time. If all the computers
-on the network tried to transmit whenever they had data to send, their messages
-would collide. The result would be chaos, and receiving stations would only receive
-noise. So we need to find a fair way to allow each station to wait its turn
-to use the shared network.
+Sie müssen sich nicht nur darauf einigen, wie sie Daten über ein gemeinsam genutztes Medium, wie z. B. ein drahtloses Netzwerk, senden, sondern auch darauf, wie sie mit anderen Computern zusammenarbeiten, die möglicherweise zur gleichen Zeit Daten senden möchten. Wenn alle Computer im Netzwerk versuchen würden, immer dann zu senden, wenn sie Daten zu senden haben, würden ihre Nachrichten kollidieren. Das Ergebnis wäre ein Chaos, und die Empfangsstationen würden nur Rauschen empfangen. Wir müssen also einen fairen Weg finden, damit jede Station warten kann, bis sie an der Reihe ist, das gemeinsame Netzwerk zu nutzen.
 
-The idea of breaking a large message into packets and then sending each packet
-separately makes this sharing easier. If only one computer wants to send data, 
-it will send its packets one right after another and move its data across the
-network as quickly as it can. But if three computers want to send data
-at the same time, each computer will send one packet and then wait while the other
-two computers send packets. After each of the other computers sends a packet, the
-first computer will send its next packet. This way the computers are sharing
-access to the network in a fair way.
+Die Idee, eine große Nachricht in Pakete aufzuteilen und dann jedes Paket einzeln zu senden, macht diese gemeinsame Nutzung einfacher. Wenn nur ein Computer Daten senden möchte, 
+wird er seine Pakete direkt nacheinander senden und seine Daten so schnell wie möglich über das Netzwerk transportieren. Wenn jedoch drei Computer gleichzeitig Daten senden wollen, sendet jeder Computer ein Paket und wartet dann, während die anderen beiden Computer Pakete senden. Nachdem jeder der anderen Computer ein Paket gesendet hat, sendet der erste Computer sein nächstes Paket. Auf diese Weise teilen sich die Computer den Zugriff auf das Netzwerk auf faire Weise.
 
-But how does a computer know if other computers want to send data at the same
-time?  Engineers designed an ingenious method to solve this problem called 
-"Carrier Sense Multiple Access with Collision Detection", or CSMA/CD. It is a
-long name for a simple and elegant concept.  When your computer wants to
-send data, it first listens to see if another computer is already sending data
-on the network (Carrier Sense). If no other computer is sending data, your
-computer starts sending its data. As your computer is sending data it also
-listens to see if it can receive its own data. If your computer receives its own
-data, it knows that the channel is still clear and continues transmitting. But
-if two computers started sending at about the same time, the data collides, and
-your computer does not receive its own data. When a collision is detected, both
-computers stop transmitting, wait a bit, and retry the transmission. The two
-computers that collided wait different lengths of time to retry their
-transmissions to reduce the chances of a second collision.
+Aber woher weiß ein Computer, ob andere Computer zur gleichen Zeit Daten senden wollen?  Ingenieure haben eine ausgeklügelte Methode entwickelt, um dieses Problem zu lösen. 
+"Carrier Sense Multiple Access with Collision Detection", oder CSMA/CD. Es ist ein langer Name für ein einfaches und elegantes Konzept.  Wenn Ihr Computer Daten senden möchte, hört er zunächst ab, ob ein anderer Computer bereits Daten im Netzwerk sendet (Carrier Sense). Wenn kein anderer Computer Daten sendet, beginnt Ihr Computer, seine Daten zu senden. Während der Computer Daten sendet, hört er auch ab, ob er seine eigenen Daten empfangen kann. Wenn Ihr Computer seine eigenen Daten empfängt, weiß er, dass der Kanal noch frei ist und sendet weiter. Wenn jedoch zwei Computer etwa zur gleichen Zeit mit dem Senden begonnen haben, kollidieren die Daten, und Ihr Computer empfängt seine eigenen Daten nicht. Wenn eine Kollision erkannt wird, hören beide Computer auf zu senden, warten ein bisschen und versuchen die Übertragung erneut. Die beiden Computer, die kollidiert sind, warten unterschiedlich lange, um ihre Übertragungen zu wiederholen, um die Wahrscheinlichkeit einer zweiten Kollision zu verringern.
 
-![Carrier Sense/Collision Detection](../sketchnote/Link_CSMA)
+![Carrier Sense/Kollisionserkennung](../sketchnote/Link_CSMA)
 
-When your computer finishes sending a packet of data, it pauses to
-give other computers that have been waiting a chance to send data.
-If another computer senses that your computer has stopped
-sending data (Carrier Sense) and starts sending its own packet, your computer
-will detect the other computer's use of the network and wait until that
-computer's packet is complete before attempting to send its next packet.
+Wenn Ihr Computer das Senden eines Datenpakets beendet hat, macht er eine Pause, um anderen Computern, die gewartet haben, die Möglichkeit zu geben, Daten zu senden. Wenn ein anderer Computer feststellt, dass Ihr Computer das Senden von Daten beendet hat (Carrier Sense) und mit dem Senden seines eigenen Pakets beginnt, erkennt Ihr Computer die Nutzung des Netzwerks durch den anderen Computer und wartet, bis das Paket dieses Computers abgeschlossen ist, bevor er versucht, sein nächstes Paket zu senden.
 
-This simple mechanism works well when only one computer wants to send data.
-It also works well when many computers want to send data at the same time. When
-only one computer is sending data, that computer can make good use of the shared
-network by sending packets one after another, and when many computers want to use
-the shared network at the same time, each computer gets a fair share of the link.
+Dieser einfache Mechanismus funktioniert gut, wenn nur ein Computer Daten senden möchte. Er funktioniert auch gut, wenn viele Computer gleichzeitig Daten senden wollen. Wenn nur ein Computer Daten sendet, kann dieser Computer das gemeinsam genutzte Netzwerk gut ausnutzen, indem er Pakete nacheinander sendet, und wenn viele Computer das gemeinsam genutzte Netzwerk gleichzeitig nutzen wollen, erhält jeder Computer einen fairen Anteil an der Verbindung.
 
-Some link layers, like a cellular connection for a smartphone, a WiFi
-connection, or a satellite or cable modem, are shared connections and need
-techniques like CSMA/CD to insure fair access to the many different computers
-connected to the network. Other link layers like fiber optic cables and leased
-lines are generally not shared and are used for connections between routers.
-These non-shared connections are still part of the Link layer.
+Einige Verbindungsschichten, wie z. B. eine Mobilfunkverbindung für ein Smartphone, eine WiFi-Verbindung oder ein Satelliten- oder Kabelmodem, sind gemeinsam genutzte Verbindungen und benötigen Techniken wie CSMA/CD, um einen fairen Zugang für die vielen verschiedenen Computer zu gewährleisten, die mit dem Netzwerk verbunden sind. Andere Verbindungsschichten wie Glasfaserkabel und Standleitungen werden in der Regel nicht gemeinsam genutzt und werden für Verbindungen zwischen Routern verwendet. Diese nicht gemeinsam genutzten Verbindungen sind immer noch Teil der Verbindungsschicht.
 
-The engineers working on Link layer technologies focus solving the issues
-so computers can transmit data
-across a single link that ranges in distance from a few meters to as long as
-hundreds of kilometers. But to move data greater distances, we need to send our
-packets through multiple routers connected by multiple link layers. Each time
-our packet passes through another link layer from one router to another we call
-it a "hop". To send data halfway around the world, it will pass through about
-20 routers, or make 20 "hops".
+Die Ingenieure, die an Technologien für die Verbindungsschicht arbeiten, konzentrieren sich auf die Lösung der Probleme, damit Computer Daten über eine einzige Verbindung übertragen können, deren Entfernung von wenigen Metern bis zu Hunderten von Kilometern reicht. Um jedoch Daten über größere Entfernungen zu übertragen, müssen wir unsere Pakete durch mehrere Router schicken, die durch mehrere Verbindungsschichten verbunden sind. Jedes Mal, wenn unser Paket eine andere Verbindungsschicht von einem Router zu einem anderen durchläuft, nennen wir das einen "Hop". Um Daten um die halbe Welt zu schicken, müssen sie etwa
+20 Router passieren, also 20 "Hops" machen.
 
-The Internetwork Layer (IP)
+Die Internet-Netzwerkschicht (IP)
 ---------------------------
 
-Once your packet destined for the Internet makes it across the first link,
-it will be in a router. Your packet has a source address and destination
-address and the router needs to look at the destination address to figure
-out how to best move your packet towards its destination. With each router
-handling packets destined for any of many billions of destination
-computers, it's not possible for every router to know the exact location and
-best route to every possible destination computer. So the router makes its
-best guess as to how to get your packet closer to its destination.
+Sobald Ihr Paket, das für das Internet bestimmt ist, die erste Verbindung überquert hat, befindet es sich in einem Router. Ihr Paket hat eine Quell- und eine Zieladresse, und der Router muss sich die Zieladresse ansehen, um herauszufinden, wie er Ihr Paket am besten an sein Ziel weiterleiten kann. Da jeder Router Pakete verarbeitet, die für einen von vielen Milliarden Zielcomputern bestimmt sind, ist es nicht möglich, dass jeder Router den genauen Standort und die beste Route zu jedem möglichen Zielcomputer kennt. Also macht der Router seine beste Vermutung, wie er Ihr Paket näher an sein Ziel bringen kann.
 
-Each of the other routers along the way also does its best to get your packet
-closer to the destination computer. As your packet gets closer to its final
-destination, the routers have a better idea of exactly where your packet
-needs to go. When the packet reaches the last link in its journey, the
-link layer knows exactly where to send your packet.
+Jeder der anderen Router entlang des Weges tut ebenfalls sein Bestes, um Ihr Paket näher an den Zielcomputer zu bringen. Je näher das Paket seinem endgültigen Ziel kommt, desto besser wissen die Router, wohin das Paket gehen muss. Wenn das Paket den letzten Link auf seiner Reise erreicht, weiß die Verbindungsschicht genau, wohin Ihr Paket gesendet werden soll.
 
-We use a similar approach to route ourselves when going on holiday. A
-holiday trip also has many hops. Perhaps the first hop is driving your car or
-taking a cab or bus to a train station. Then you take a local train from your small
-town to a larger city. In the larger city you take a long-distance train to a
-large city in another country. Then you take another local train to the small
-village where you will stay for your holiday. When you get off the train, you
-take a bus, and when you get off the bus, you walk to your hotel.
+Wir verwenden einen ähnlichen Ansatz, um uns selbst zu routen, wenn wir in den Urlaub fahren. Eine Urlaubsreise hat auch viele Sprünge. Der erste Schritt ist vielleicht die Fahrt mit dem Auto oder mit dem Taxi oder Bus zum Bahnhof. Dann nehmen Sie einen Nahverkehrszug von Ihrer Kleinstadt in eine größere Stadt. In der größeren Stadt nehmen Sie einen Fernzug in eine große Stadt in einem anderen Land. Dann nehmen Sie einen weiteren Nahverkehrszug zu dem kleinen Dorf, in dem Sie Ihren Urlaub verbringen werden. Wenn Sie aus dem Zug aussteigen, nehmen Sie einen Bus, und wenn Sie aus dem Bus aussteigen, gehen Sie zu Fuß zu Ihrem Hotel.
 
-If you were on the train between the two large cities and you asked the
-conductor the exact location of your hotel in the small village, the conductor
-would not know. The conductor only knows how to get you closer to your
-destination, and while you are on the long-distance train that is all that
-matters. When you get on the bus at your destination village, you can ask the
-bus driver which stop is closest to your hotel. And when you get off the
-bus at the right bus stop, you can probably ask a person on the street where
-to find the hotel and get an exact answer.
+Wenn Sie im Zug zwischen zwei großen Städten sitzen und den Schaffner nach dem genauen Standort Ihres Hotels in dem kleinen Dorf fragen würden, würde der Schaffner das nicht wissen. Der Schaffner weiß nur, wie er Sie näher an Ihr Ziel bringen kann, und solange Sie sich im Fernzug befinden, ist das alles, was zählt. Wenn Sie an Ihrem Zielort in den Bus einsteigen, können Sie den Busfahrer fragen, welche Haltestelle Ihrem Hotel am nächsten ist. Und wenn Sie an der richtigen Haltestelle aussteigen, können Sie wahrscheinlich eine Person auf der Straße fragen, wo das Hotel zu finden ist, und erhalten eine genaue Antwort.
 
-The further you are from your destination, the less you need to know the
-exact details of how to get there. When you are far away, all you need to
-know is how to get "closer" to your destination. Routers on the Internet
-work the same way. Only the routers that are closest to the destination
-computer know the exact path to that computer. All of the routers in the
-middle of the journey work to get your message closer to its destination.
+Je weiter Sie von Ihrem Ziel entfernt sind, desto weniger müssen Sie die genauen Details des Weges dorthin kennen. Wenn Sie weit weg sind, müssen Sie nur noch wissen, wie Sie "näher" an Ihr Ziel kommen. Router im Internet funktionieren auf die gleiche Weise. Nur die Router, die dem Zielcomputer am nächsten sind, kennen den genauen Pfad zu diesem Computer. Alle Router in der Mitte der Reise arbeiten daran, Ihre Nachricht näher an das Ziel zu bringen.
 
-But just like when you are traveling, unexpected problems or delays can come up
-that require a change in plans as your packets are sent across the network.
+Aber genau wie bei einer Reise können unerwartete Probleme oder Verzögerungen auftreten, die eine Änderung der Pläne erfordern, während Ihre Pakete durch das Netzwerk gesendet werden.
 
 ![A Multi-Step Trip](../sketchnote/Multiple_step_trip)
 
-Routers exchange special messages to inform each other about any kind of
-traffic delay or network outage so that packets can be switched from a route
-that is no longer working to a different route. The routers that make up the
-core of the Internet are smart and adapt quickly to both small and large outages
-or failures of network connections. Sometimes a connection
-slows down because it is overloaded. Other times a connection is
-physically broken when a construction crew mistakenly digs up a buried wire and
-cuts it. Sometimes there is a natural disaster like a hurricane or typhoon
-that shuts down the routers and links in a large geographical area. The
-routers quickly detect these outages and reroute around them if possible.
+Router tauschen spezielle Nachrichten aus, um sich gegenseitig über jede Art von Verkehrsverzögerung oder Netzwerkausfall zu informieren, so dass Pakete von einer Route, die nicht mehr funktioniert, auf eine andere Route umgeschaltet werden können. Die Router, die den Kern des Internets bilden, sind intelligent und passen sich schnell sowohl an kleine als auch an große Ausfälle oder Störungen von Netzwerkverbindungen an. Manchmal verlangsamt sich eine Verbindung, weil sie überlastet ist. Ein anderes Mal wird eine Verbindung physisch unterbrochen, wenn ein Bautrupp versehentlich ein vergrabenes Kabel ausgräbt und es durchtrennt. Manchmal kommt es zu einer Naturkatastrophe wie einem Hurrikan oder Taifun, der die Router und Verbindungen in einem großen geografischen Gebiet lahmlegt. Die Router erkennen diese Ausfälle schnell und leiten sie, wenn möglich, um.
 
-But sometimes things go wrong and packets are lost. Dealing with
-lost packets is the reason for the next layer in our architecture.
+Aber manchmal geht etwas schief und Pakete gehen verloren. Der Umgang mit verlorenen Paketen ist der Grund für die nächste Schicht in unserer Architektur.
 
-The Transport Layer (TCP)
+Die Transportschicht (TCP)
 -------------------------
 
-The Internetwork layer is both simple and complex. It looks at a
-packet's destination address and finds a path across multiple network hops to
-deliver the packet to the destination computer. But sometimes these packets
-get lost or badly delayed. Other times the packets arrive at their destination
-out of order because a later packet found a quicker path through the network
-than an earlier packet. Each packet contains the source computer's address,
-the destination computer's address, and an offset of where this packet "fits"
-relative to the beginning of the message. Knowing the offset of each packet
-from the beginning of the message and the length of the packet, the destination
-computer can reconstruct the original message even if the packets were received
-out of order.
+Die Internetwork-Schicht ist sowohl einfach als auch komplex. Sie sieht sich die Zieladresse eines Pakets an und findet einen Weg über mehrere Netzwerksprünge, um das Paket an den Zielcomputer zu liefern. Aber manchmal gehen diese Pakete verloren oder sind stark verzögert. Ein anderes Mal kommen die Pakete nicht in der richtigen Reihenfolge am Ziel an, weil ein späteres Paket einen schnelleren Weg durch das Netzwerk gefunden hat als ein früheres Paket. Jedes Paket enthält die Adresse des Quellcomputers, die Adresse des Zielcomputers und einen Offset, der angibt, wo dieses Paket relativ zum Anfang der Nachricht "passt".
+relativ zum Anfang der Nachricht. Wenn der Zielcomputer den Offset jedes Pakets vom Anfang der Nachricht und die Länge des Pakets kennt, kann er die ursprüngliche Nachricht rekonstruieren, selbst wenn die Pakete in falscher Reihenfolge empfangen wurden.
 
 \index{acknowledgements}
 \index{ACK}
-As the destination computer reconstructs the message and delivers it to
-the receiving application, it periodically sends an
-acknowledgement back to the source computer indicating how much of the message it
-has received and reconstructed. But if the destination computer finds that parts
-of the reconstructed message are missing, this probably means that these packets were
-lost or badly delayed. After waiting a bit, the destination computer sends
-a request to the source computer to resend the data that seems to be missing.
+Während der Zielcomputer die Nachricht rekonstruiert und an die empfangende Anwendung liefert, sendet er in regelmäßigen Abständen eine Bestätigung an den Quellcomputer zurück, die angibt, wie viel von der Nachricht er empfangen und rekonstruiert hat. Wenn der Zielcomputer jedoch feststellt, dass Teile der rekonstruierten Nachricht fehlen, bedeutet dies wahrscheinlich, dass diese Pakete verloren gegangen oder stark verzögert worden sind. Nachdem er ein wenig gewartet hat, sendet der Zielcomputer
+eine Aufforderung an den Quellcomputer, die Daten, die zu fehlen scheinen, erneut zu senden.
 
-The sending computer must store a copy of the parts of the original message
-that have been sent until the destination computer acknowledges successful receipt
-of the packets. Once the source computer receives the acknowledgment of
-successful receipt of a portion of the message, it can discard the data that
-has been acknowledged and send some more data.
+Der sendende Computer muss eine Kopie der gesendeten Teile der ursprünglichen Nachricht speichern, bis der Zielcomputer den erfolgreichen Empfang der Pakete bestätigt. Sobald der Quellcomputer die Bestätigung des erfolgreichen Empfangs eines Teils der Nachricht erhält, kann er die bestätigten Daten verwerfen und weitere Daten senden.
 
 \index{window size}
 \index{courtesy}
-The amount of data that the source computer sends before waiting for an
-acknowledgement is called the "window size". If the window size is too small,
-the data transmission is slowed because the source computer is always waiting
-for acknowledgments. If the source computer sends too much data before waiting
-for an acknowledgment, it can unintentionally cause traffic problems by
-overloading routers or long-distance communication lines. This problem is
-solved by keeping the window size small at the beginning and timing how
-long it takes to receive the first acknowledgements. If the acknowledgments
-come back quickly, the source computer slowly increases the window size and if
-the acknowledgements come back slowly, the source computer keeps the window
-size small so as not to overload the network. Just like at the Link layer, a
-little courtesy on the Internet goes a long way toward ensuring good use of the
-shared network infrastructure.
+Die Menge der Daten, die der Quellcomputer sendet, bevor er auf eine Bestätigung wartet, wird als "Fenstergröße" bezeichnet. Wenn die Fenstergröße zu klein ist, wird die Datenübertragung verlangsamt, da der Quellcomputer immer auf Bestätigungen wartet. Wenn der Quellcomputer zu viele Daten sendet, bevor er auf eine Bestätigung wartet, kann er ungewollt Verkehrsprobleme verursachen, indem er Router oder Fernkommunikationsleitungen überlastet. Dieses Problem wird dadurch gelöst, dass die Fenstergröße zu Beginn klein gehalten wird und die Zeit gemessen wird, wie lange es dauert, bis die ersten Bestätigungen eingehen. Wenn die Bestätigungen schnell zurückkommen, erhöht der Quellcomputer langsam die Fenstergröße, und wenn die Bestätigungen langsam zurückkommen, hält der Quellcomputer die Fenstergröße klein, um das Netzwerk nicht zu überlasten. Genau wie auf der Verbindungsschicht trägt auch im Internet ein wenig Höflichkeit dazu bei, eine gute Nutzung der gemeinsamen Netzwerkinfrastruktur zu gewährleisten.
 
 \index{flow control}
-This strategy means that when the network has high-speed connections and is
-lightly loaded the data will be sent quickly, and if the network is
-heavily loaded or has slow connections the data will be slowed down to match
-the limitations of the network connections between the source and destination
-computers.
+Diese Strategie bedeutet, dass, wenn das Netzwerk über Hochgeschwindigkeitsverbindungen verfügt und leicht belastet ist, die Daten schnell gesendet werden, und wenn das Netzwerk stark belastet ist oder über langsame Verbindungen verfügt, werden die Daten verlangsamt, um den Beschränkungen der Netzwerkverbindungen zwischen Quell- und Zielcomputer zu entsprechen.
 
-The Application Layer
+Die Anwendungsschicht
 ---------------------
 
-\index{Application Layer}
-\index{Layer!Application}
-The Link, Internetwork, and Transport layers work together to quickly and
-reliably move data between two computers across a shared network of networks.
-With this capability to move data reliably, the next question is what
-networked applications will be built to make use of these network connections.
+\index{Anwendungsschicht}
+\index{Schicht!Anwendung}
+Die Verbindungs-, die Internetwork- und die Transportschicht arbeiten zusammen, um Daten schnell und zuverlässig zwischen zwei Computern über ein gemeinsames Netzwerk von Netzwerken zu bewegen. Mit dieser Fähigkeit, Daten zuverlässig zu bewegen, stellt sich als nächstes die Frage, welche vernetzten Anwendungen gebaut werden, um diese Netzwerkverbindungen zu nutzen.
 
 \index{remote log in}
-When the first widely used Internet came into being in the mid-1980s, the first
-networked applications allowed users to log in to remote computers, transfer files
-between computers, send mail between computers, and even do real-time text chats
-between computers.
+Als das erste weit verbreitete Internet Mitte der 1980er Jahre entstand, ermöglichten die ersten Netzwerkanwendungen den Benutzern, sich bei entfernten Computern anzumelden, Dateien zwischen Computern zu übertragen, E-Mails zwischen Computern zu senden und sogar Textchats in Echtzeit zwischen Computern durchzuführen.
 
 \index{Web}
 \index{CERN}
-In the early 1990s, as the Internet came to more people and computers' abilities
-to handle images improved, the World Wide Web application was developed by
-scientists at the CERN high-energy physics facility. The web was focused on
-reading and editing networked hypertext documents with images. Today the web is
-the most common network application in use around the world.  But all the other
-older Internet applications are still in wide use.
+In den frühen 1990er Jahren, als das Internet für immer mehr Menschen zugänglich wurde und sich die Fähigkeiten von Computern, Bilder zu verarbeiten, verbesserten, wurde die World Wide Web-Anwendung von Wissenschaftlern der Hochenergiephysikeinrichtung CERN entwickelt. Das Web konzentrierte sich auf das Lesen und Bearbeiten von vernetzten Hypertext-Dokumenten mit Bildern. Heute ist das Web die am häufigsten genutzte Netzwerkanwendung auf der ganzen Welt.  Aber auch alle anderen älteren Internet-Anwendungen sind noch weit verbreitet.
 
 \index{client}
 \index{server}
 \index{client-server}
 \index{URL}
 \index{Uniform Resource Locator}
-Each application is generally broken into two halves. One half of the
-application is called the "server". It runs on the destination computer and
-waits for incoming networking connections. The other half of the application
-is called the "client" and runs on the source computer. When you are browsing
-the web using software like Firefox, Chrome, or Internet Explorer, you are
-running a "web client" application which is making connections to web servers
-and displaying the pages and documents stored on those web servers. The
-Uniform Resource Locators (URLs) that your web browser shows in its address bar
-are the web servers that your client is contacting to retrieve documents for
-you to view.
+Jede Anwendung wird im Allgemeinen in zwei Hälften unterteilt. Die eine Hälfte der Anwendung wird als "Server" bezeichnet. Sie läuft auf dem Zielcomputer und wartet auf eingehende Netzwerkverbindungen. Die andere Hälfte der Anwendung wird als "Client" bezeichnet und läuft auf dem Quellcomputer. Wenn Sie mit Software wie Firefox, Chrome oder Internet Explorer im Internet surfen, führen Sie eine "Web-Client"-Anwendung aus, die Verbindungen zu Webservern herstellt und die auf diesen Webservern gespeicherten Seiten und Dokumente anzeigt. Die Uniform Resource Locators (URLs), die Ihr Webbrowser in seiner Adressleiste anzeigt, sind die Webserver, die Ihr Client kontaktiert, um Dokumente für Sie zur Ansicht abzurufen.
 
-When we develop the server half and the client half of a networked application,
-we must also define an "application protocol" that describes how the two
-halves of the application will exchange messages over the network. The protocols
-used for each application are quite different and specialized to meet the needs
-of the particular application.  Later we will explore some of these Application
-layer protocols.
+Wenn wir die Serverhälfte und die Clienthälfte einer vernetzten Anwendung entwickeln, müssen wir auch ein "Anwendungsprotokoll" definieren, das beschreibt, wie die beiden Hälften der Anwendung Nachrichten über das Netzwerk austauschen werden. Die für jede Anwendung verwendeten Protokolle sind recht unterschiedlich und auf die Bedürfnisse der jeweiligen Anwendung spezialisiert.  Später werden wir einige dieser Protokolle der Anwendungsschicht untersuchen.
 
-Stacking the Layers
+Stapeln der Schichten
 -------------------
 
-\index{Layered Model}
-We usually show the four different layers (Link, Internetwork, Transport, and
-Application) stacked on top of each other with the Application layer at the top
-and the Link layer at the bottom. The reason we show them this way is because
-each layer makes use of the layers above  and below it to achieve networked
-communications.
+\index{Schichtenmodell}
+Normalerweise werden die vier verschiedenen Schichten (Verbindungsschicht, Internetnetzwerk, Transportschicht und Anwendungsschicht) übereinander gestapelt dargestellt, wobei sich die Anwendungsschicht oben und die Verbindungsschicht unten befindet. Der Grund für diese Darstellung ist, dass jede Schicht die darüber und darunter liegenden Schichten nutzt, um eine vernetzte Kommunikation zu erreichen.
 
-All four layers run in your computer where you run the client application
-(like a browser), and
-all four layers also run in the destination computer where the application server
-is running. You as the end user interact with the applications that make up the
-top layer of the stack, and the bottom layer represents the WiFi, cellular, or
-wired connection between your computer and the rest of the Internet.
+Alle vier Schichten laufen auf Ihrem Computer, auf dem Sie die Client-Anwendung
+(z. B. ein Browser), und alle vier Schichten laufen auch auf dem Zielcomputer, auf dem der Anwendungsserver ausgeführt wird. Sie als Endbenutzer interagieren mit den Anwendungen, die die oberste Schicht des Stacks bilden, und die unterste Schicht stellt die WiFi-, Mobilfunk- oder Kabelverbindung zwischen Ihrem Computer und dem Rest des Internets dar.
 
-The routers that forward your packets from one to another to move your packets
-towards their destination have no understanding of either the Transport or
-Application layers. Routers operate at the Internetwork and Link layers. The
-source and destination addresses at the Internetwork layer are all that is
-needed for routers to move your packets across the series of links (hops) to get
-them to the destination. The Transport and Application layers only come into play
-after the Internetwork layer delivers your packets to the destination computer.
+Die Router, die Ihre Pakete weiterleiten, um sie an ihr Ziel zu bringen, haben keine Ahnung von der Transport- oder Anwendungsschicht. Router arbeiten auf der Internetwork- und Link-Schicht. Die Quell- und Zieladressen auf der Internetwork-Schicht sind alles, was die Router brauchen, um Ihre Pakete über eine Reihe von Links (Hops) zum Ziel zu bringen. Die Transport- und Anwendungsschicht kommen erst ins Spiel, nachdem die Internetwork-Schicht Ihre Pakete an den Zielcomputer geliefert hat.
 
-If you wanted to write your own networked application, you would likely
-only talk to the Transport layer and be completely unconcerned about the
-Internetwork and Link layers. They are essential to the function of the Transport
-layer, but as you write your program, you do not need to be aware of any of the
-lower-layer details. The layered network model makes it simpler to write
-networked applications because so many of the complex details of moving data
-from one computer to another can be ignored.
+Wenn Sie Ihre eigene vernetzte Anwendung schreiben wollten, würden Sie wahrscheinlich nur mit der Transportschicht sprechen und sich nicht um die Internetwork- und Link-Schicht kümmern. Sie sind zwar für die Funktion der Transportschicht unerlässlich, aber wenn Sie Ihr Programm schreiben, müssen Sie sich nicht mit den Details der unteren Schichten befassen. Das Netzwerkschichtenmodell macht es einfacher, vernetzte Anwendungen zu schreiben, weil so viele der komplexen Details der Datenübertragung von einem Computer zum anderen ignoriert werden können.
 
-Up next, we will talk about these four layers in more detail.
+In den nächsten Kapiteln werden wir diese vier Schichten näher erläutern.
 
-Glossary
+Glossar
 --------
 
-**client**:
-In a networked application, the client application is the one that requests
-services or initiates connections.
+**Client**:
+In einer vernetzten Anwendung ist die Client-Anwendung diejenige, die Dienste anfordert oder Verbindungen initiiert.
 
-**fiber optic**:
-A data transmission technology that encodes data using light and sends the
-light down a very long strand of thin glass or plastic. Fiber optic
-connections are fast and can cover very long distances.
+**Glasfaseroptik**:
+Eine Datenübertragungstechnologie, die Daten mit Licht kodiert und das Licht über einen sehr langen Strang aus dünnem Glas oder Kunststoff sendet. Glasfaserverbindungen sind schnell und können sehr große Entfernungen überbrücken.
 
-**offset**: The relative position of a packet within an overall message
-or stream of data.
+**Offset**: Die relative Position eines Pakets innerhalb einer Gesamtnachricht oder eines Datenstroms.
 
-**server**:
-In a networked application, the server application is the one that responds
-to requests for services or waits for incoming connections.
+**Server**:
+In einer vernetzten Anwendung ist die Server-Anwendung diejenige, die auf Anfragen nach Diensten antwortet oder auf eingehende Verbindungen wartet.
 
-**window size**: The amount of data that the sending computer is allowed to 
-send before waiting for an acknowledgement.
+**Fenstergröße**: Die Datenmenge, die der sendende Computer senden darf 
+senden darf, bevor er auf eine Quittung wartet.
 
 
-Questions
+Fragen
 ---------
 
-You can take this quiz online at http://www.net-intro.com/quiz/
+Sie können dieses Quiz online unter http://www.net-intro.com/quiz/ bearbeiten.
 
-1. Why do engineers use a "model" to organize their approach to 
-solving a large and complex problem?
-a) Because it allows them to build something small and test it in a wind tunnel
-b) Because talking about a model delays the actual start of the hard work
-c) Because they can break a problem down into a set of smaller problems that can 
-be solved independently
-d) Because it helps in developing marketing materials
+1. Warum verwenden Ingenieure ein "Modell", um ihren Ansatz zu organisieren 
+ein großes und komplexes Problem zu lösen?
+a) Weil es ihnen erlaubt, etwas Kleines zu bauen und es in einem Windkanal zu testen
+b) Weil das Reden über ein Modell den eigentlichen Beginn der harten Arbeit verzögert
+c) Weil sie ein Problem in eine Reihe von kleineren Problemen aufteilen können, die 
+die unabhängig voneinander gelöst werden können
+d) Weil es bei der Entwicklung von Marketingmaterialien hilft
 
-2. Which is the top layer of the network model used by TCP/IP networks?
-a) Application
+2. Welche ist die oberste Schicht des Netzwerkmodells, das von TCP/IP-Netzwerken verwendet wird?
+a) Anwendung
 b) Transport
-c) Internetwork
-d) Link
+c) Internet-Netzwerk
+d) Verbindung
 
-3. Which of the layers concerns itself with getting a packet of data
-across a single physical connection?
-a) Application
+3. Welche der Schichten beschäftigt sich damit, ein Datenpaket über eine einzelne physikalische Verbindung zu bekommen?
+a) Anwendung
 b) Transport
-c) Internetwork
-d) Link
+c) Internet-Netzwerk
+d) Verbindung
 
-4. What does CSMA/CD stand for?
-a) Carrier Sense Multiple Access with Collision Detection
-b) Collision Sense Media Access with Continuous Direction
+4. Wofür steht die Abkürzung CSMA/CD?
+a) Carrier Sense Multiple Access mit Kollisionserkennung
+b) Collision Sense Media Access mit kontinuierlicher Richtungserkennung
 c) Correlated Space Media Allocation with Constant Division
 d) Constant State Multiple Address Channel Divison
 
-5. What is the goal of the Internetwork layer?
-a) Insure that no data is lost while enroute
-b) Get a packet of data moved across multiple networks from its source to its destination
-c) Make sure that only logged-in users can use the Internet
-d) Insure than WiFi is fairly shared across multiple computers
+5. Was ist das Ziel der Internetwork-Schicht?
+a) Sicherstellen, dass keine Daten auf dem Weg dorthin verloren gehen
+b) Ein Datenpaket über mehrere Netzwerke hinweg von der Quelle zum Ziel zu bringen
+c) Sicherstellen, dass nur eingeloggte Benutzer das Internet nutzen können
+d) Sicherstellen, dass WiFi fair über mehrere Computer verteilt wird
 
-6. In addition to the data, source, and destination addresses, what else
-is needed to make sure that a message can be reassembled when it reaches
-its destination?
-a) An offset of where the packet belongs relative to the beginning of the message
-b) A location to send the data to if the destination computer is down
-c) A compressed and uncompressed version of the data in the packet
-d) The GPS coordinates of the destination computer
+6. Was wird neben den Daten, der Quell- und der Zieladresse noch benötigt, um sicherzustellen, dass eine Nachricht wieder zusammengesetzt werden kann, wenn sie ihr Ziel erreicht?
+a) Ein Offset, der angibt, wohin das Paket relativ zum Anfang der Nachricht gehört
+b) Einen Ort, an den die Daten zu senden sind, wenn der Zielcomputer ausgefallen ist
+c) Eine komprimierte und unkomprimierte Version der Daten im Paket
+d) Die GPS-Koordinaten des Zielcomputers
 
-7. What is "window size"?
-a) The sum of the length and width of a packet
-b) The maximum size of a single packet
-c) The maximum number of packets that can make up a message
-d) The maximum amount of data a computer can send before receiving an acknowledgement
+7. Was ist die "Fenstergröße"?
+a) Die Summe aus Länge und Breite eines Pakets
+b) Die maximale Größe eines einzelnen Pakets
+c) Die maximale Anzahl von Paketen, aus denen eine Nachricht bestehen kann
+d) Die maximale Datenmenge, die ein Computer senden kann, bevor er eine Quittung erhält
 
-8. In a typical networked client/server application, where does the client
-application run?
-a) On your laptop, desktop, or mobile computer
-b) On a wireless access point
-c) On the closest router
-d) In an undersea fiber optic cable
+8. In einer typischen vernetzten Client/Server-Anwendung, wo läuft die Client-Anwendung?
+a) Auf Ihrem Laptop, Desktop oder mobilen Computer
+b) Auf einem drahtlosen Zugangspunkt
+c) Auf dem nächstgelegenen Router
+d) In einem Unterwasser-Glasfaserkabel
 
-9. What does URL stand for?
-a) Universal Routing Linkage
-b) Uniform Retransmission Logic
-c) Uniform Resource Locator
-d) Unified Recovery List
+9. Wofür steht URL?
+a) Universelle Routing-Verknüpfung
+b) Einheitliche Rückübertragungslogik
+c) Einheitlicher Ressourcen-Locator
+d) Einheitliche Wiederherstellungsliste
 
 
 
